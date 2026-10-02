@@ -34,6 +34,9 @@ export const projects: Project[] = [
   { status: "slot", id: "slot-01", service: "restoration", media: "projectFrame" },
   { status: "slot", id: "slot-02", service: "office-partitioning", media: "projectFacade" },
   { status: "slot", id: "slot-03", service: "atm-installation", media: "projectRebar" },
+  { status: "slot", id: "slot-04", service: "ev-charging", media: "evChargerPost" },
+  { status: "slot", id: "slot-05", service: "painting", media: "buildFinished" },
+  { status: "slot", id: "slot-06", service: "electrical", media: "electricalPanel" },
 ];
 
 /** The fields each published case study needs — shown on placeholder slots. */

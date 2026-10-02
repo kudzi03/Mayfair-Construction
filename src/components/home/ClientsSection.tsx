@@ -16,7 +16,7 @@ export function ClientsSection() {
         <div className="grid gap-8 lg:grid-cols-12">
           <SheetLabel number="04" name="Clients" detail="Who Mayfair works with" className="lg:col-span-3" />
           <div className="lg:col-span-9">
-            <h2 id="clients-title" className="display h-section" data-reveal="mask">
+            <h2 id="clients-title" className="display h-section" data-reveal="blur">
               From one room to a bank branch.
             </h2>
             <p className="lead mt-6 max-w-2xl text-muted">
@@ -31,7 +31,8 @@ export function ClientsSection() {
             <li
               key={client.id}
               className="client-row grid gap-x-10 gap-y-4 border-t border-ink/15 py-8 md:py-10 lg:grid-cols-12"
-              data-reveal="up"
+              data-reveal="blur"
+              style={{ "--d": (i % 2) * 90 } as React.CSSProperties}
             >
               <p className="mono pt-2 text-(--accent-text) lg:col-span-1">04.{i + 1}</p>
               <h3 className="client-name display lg:col-span-6">{client.name}</h3>

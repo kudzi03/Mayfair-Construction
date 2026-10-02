@@ -21,6 +21,8 @@ import projectFoundation from "@/assets/images/project-foundation.jpg";
 import projectFrame from "@/assets/images/project-frame.jpg";
 import projectRebar from "@/assets/images/project-rebar.jpg";
 import restoration from "@/assets/images/restoration.jpg";
+import buildFinished from "@/assets/images/sequence/stage-06-finished.jpg";
+import buildHandover from "@/assets/images/sequence/stage-07-handover.jpg";
 
 export type Media = {
   src: StaticImageData;
@@ -30,7 +32,8 @@ export type Media = {
    * When Mayfair supplies photographs, replace the import and set this to false.
    */
   representative: boolean;
-  credit: { source: string; url: string };
+  /** `url` is null for illustrations generated for this demo (no external source). */
+  credit: { source: string; url: string | null };
   /** CSS object-position for art direction. */
   focus?: string;
 };
@@ -40,7 +43,21 @@ const pexels = (id: string, slug: string) => ({
   url: `https://www.pexels.com/photo/${slug}-${id}/`,
 });
 
+const generated = { source: "AI-generated illustration made for this demo", url: null };
+
 const registry = {
+  buildFinished: {
+    src: buildFinished,
+    alt: "Illustration of a finished two-storey building with a red face-brick wing on an open plot near Gaborone",
+    representative: true,
+    credit: generated,
+  },
+  buildHandover: {
+    src: buildHandover,
+    alt: "Illustration of the same building at dusk with its windows and wall lights lit",
+    representative: true,
+    credit: generated,
+  },
   heroStructure: {
     src: heroStructure,
     alt: "Reinforced concrete building frame under construction, lit by late-afternoon sun",

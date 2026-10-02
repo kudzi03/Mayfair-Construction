@@ -4,10 +4,11 @@ import { BuildShowcase } from "@/components/home/BuildShowcase";
 import { ClientsSection } from "@/components/home/ClientsSection";
 import { CoverageSection } from "@/components/home/CoverageSection";
 import { EquipSection } from "@/components/home/EquipSection";
-import { Hero } from "@/components/home/Hero";
+import { GatherSection } from "@/components/home/GatherSection";
+import { BuildSequence } from "@/components/home/BuildSequence";
 import { InstallSection } from "@/components/home/InstallSection";
 import { PillarHeader } from "@/components/home/PillarHeader";
-import { ServiceIndex } from "@/components/home/ServiceIndex";
+import { TradesSection } from "@/components/home/TradesSection";
 import { WorkSection } from "@/components/home/WorkSection";
 import { pillarById, servicesInPillar } from "@/content/services";
 
@@ -16,11 +17,14 @@ export default function HomePage() {
 
   return (
     <>
-      <Hero />
+      <BuildSequence />
+      <Suspense>
+        <GatherSection />
+      </Suspense>
       {/* Suspense boundaries let React hydrate each section in its own task,
           keeping the main thread responsive on slower phones. */}
       <Suspense>
-        <ServiceIndex />
+        <TradesSection />
       </Suspense>
 
       <section

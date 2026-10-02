@@ -101,7 +101,7 @@ export function Footer() {
           © {year} {site.name}. {site.base.city}, {site.base.country}.
         </p>
         <p>
-          {site.isDemo && <>Photography on this site is representative, not Mayfair projects. </>}
+          {site.isDemo && <>Images on this site are representative or illustrative, not Mayfair projects. </>}
           <Link href="/credits" className="underline underline-offset-4 hover:text-bone">
             Image credits
           </Link>

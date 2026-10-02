@@ -14,7 +14,15 @@ export function MobileActionBar() {
   const [pastHero, setPastHero] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
 
-  useEffect(() => subscribeScroll(() => setPastHero(window.scrollY > window.innerHeight * 0.6)), []);
+  // A tall pinned hero (`data-hero`) has its own buttons, so the bar waits until it has scrolled away.
+  useEffect(() => {
+    const hero = document.querySelector<HTMLElement>("[data-hero]");
+    return subscribeScroll(() =>
+      setPastHero(
+        hero ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.5 : window.scrollY > window.innerHeight * 0.6,
+      ),
+    );
+  }, [pathname]);
 
   useEffect(() => {
     const form = document.getElementById("quote");
