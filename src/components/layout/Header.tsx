@@ -25,13 +25,16 @@ export function Header() {
 
   useEffect(() => {
     let lastY = window.scrollY;
+    // Pages without a dark hero (e.g. /credits) start on a light background,
+    // where a transparent header's light text would be unreadable.
+    const lightTop = !document.querySelector("[data-hero]");
     return subscribeScroll(() => {
       const y = window.scrollY;
-      setSolid(y > 24);
+      setSolid(lightTop || y > 24);
       setHidden(y > 480 && y > lastY + 2 ? true : y < lastY - 2 ? false : (h) => h);
       lastY = y;
     });
-  }, []);
+  }, [pathname]);
 
   const close = useCallback(() => {
     setOpenOn(null);
@@ -88,7 +91,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ContactLink channel="call" className="btn btn-sm btn-light hidden xl:inline-flex">
+            <ContactLink channel="call" source="header" className="btn btn-sm btn-light hidden xl:inline-flex">
               <PhoneIcon size={16} />
               Call
             </ContactLink>
@@ -170,10 +173,10 @@ export function Header() {
           </nav>
 
           <div className="container-x sticky bottom-0 grid grid-cols-2 gap-2 border-t border-white/10 bg-ink py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-            <ContactLink channel="call" className="btn btn-light">
+            <ContactLink channel="call" source="mobile_menu" className="btn btn-light">
               <PhoneIcon size={16} /> Call
             </ContactLink>
-            <ContactLink channel="whatsapp" className="btn btn-light">
+            <ContactLink channel="whatsapp" source="mobile_menu" className="btn btn-light">
               <WhatsAppIcon size={16} /> WhatsApp
             </ContactLink>
             <Link href={quoteHref} onClick={() => setOpen(false)} className="btn btn-primary col-span-2">

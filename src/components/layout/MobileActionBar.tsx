@@ -14,13 +14,15 @@ export function MobileActionBar() {
   const [pastHero, setPastHero] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
 
-  // Appear once the page's hero (marked data-hero) has scrolled mostly away.
+  // Appear once the hero's own buttons have scrolled away. Most heroes are about
+  // one screen tall; the home page's scroll-built sequence is several, and nobody
+  // should have to scroll through all of it before they can call or WhatsApp.
   useEffect(() => {
-    const hero = document.querySelector("[data-hero]");
+    const hero = document.querySelector<HTMLElement>("[data-hero]");
     return subscribeScroll(() => {
-      setPastHero(
-        hero ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.5 : window.scrollY > window.innerHeight * 0.6,
-      );
+      const vh = window.innerHeight;
+      const tall = hero && hero.offsetHeight > vh * 1.5;
+      setPastHero(hero && !tall ? hero.getBoundingClientRect().bottom < vh * 0.5 : window.scrollY > vh * 0.6);
     });
   }, [pathname]);
 
@@ -36,10 +38,10 @@ export function MobileActionBar() {
 
   return (
     <nav aria-label="Quick contact" className="action-bar lg:hidden" data-show={show} aria-hidden={!show} inert={!show}>
-      <ContactLink channel="call" className="flex items-center justify-center gap-2 border-r border-white/10 font-semibold text-bone">
+      <ContactLink channel="call" source="action_bar" className="flex items-center justify-center gap-2 border-r border-white/10 font-semibold text-bone">
         <PhoneIcon size={18} /> Call
       </ContactLink>
-      <ContactLink channel="whatsapp" className="flex items-center justify-center gap-2 border-r border-white/10 font-semibold text-bone">
+      <ContactLink channel="whatsapp" source="action_bar" className="flex items-center justify-center gap-2 border-r border-white/10 font-semibold text-bone">
         <WhatsAppIcon size={18} /> WhatsApp
       </ContactLink>
       <a href={quoteHref} className="flex items-center justify-center bg-ochre font-semibold text-ink">

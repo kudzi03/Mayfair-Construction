@@ -10,6 +10,8 @@ import { pillars, servicesInPillar, serviceBySlug, type ServiceSlug } from "@/co
 import { whatsappHref } from "@/lib/contact";
 import { queueWebsiteEnquiry } from "@/crm/inbox";
 import { onPrefill } from "@/lib/events";
+import { track } from "@/lib/analytics";
+import { attributionFields, readAttribution } from "@/lib/attribution";
 
 type Values = {
   name: string;
@@ -39,20 +41,27 @@ const validate = (v: Values): Errors => {
 
 const order: (keyof Values)[] = ["name", "phone", "service", "location", "message", "email"];
 
-export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }) {
+export function EnquiryForm({
+  defaultService,
+  defaultEquipment,
+}: {
+  defaultService?: ServiceSlug;
+  defaultEquipment?: string;
+}) {
   const uid = useId();
   const id = (f: string) => `${uid}-${f}`;
   const summaryRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const doneRef = useRef<HTMLHeadingElement>(null);
   const refocusName = useRef(false);
+  const started = useRef(false);
 
   const [values, setValues] = useState<Values>({
     name: "",
     phone: "",
     email: "",
     service: defaultService ?? "",
-    equipment: "",
+    equipment: defaultEquipment ?? "",
     location: "",
     message: "",
     reply: "whatsapp",
@@ -89,6 +98,13 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
     }
   }, [status]);
 
+  // Counted once per form, on the first real interaction rather than on page load.
+  const markStarted = () => {
+    if (started.current) return;
+    started.current = true;
+    track("quote_form_start", { service: values.service || undefined });
+  };
+
   const set = <K extends keyof Values>(key: K, value: Values[K]) => {
     const next = { ...values, [key]: value };
     if (key === "service" && value !== "equipment-hire") next.equipment = "";
@@ -106,14 +122,16 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
       return;
     }
 
+    const attribution = readAttribution();
     if (site.enquiry.mode === "endpoint" && site.enquiry.endpoint) {
       setStatus("sending");
       try {
         const res = await fetch(site.enquiry.endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ ...values, source: window.location.href }),
+          body: JSON.stringify({ ...values, page: window.location.href, ...attributionFields(attribution) }),
         });
+        if (res.ok) track("quote_form_submit", { service: values.service, equipment: values.equipment || undefined });
         setStatus(res.ok ? "sent" : "failed");
       } catch {
         setStatus("failed");
@@ -132,6 +150,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
         message: values.message.trim() || undefined,
         reply: values.reply,
         page: window.location.pathname,
+        attribution,
       }),
     );
     setStatus("sent");
@@ -192,7 +211,13 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
         </dl>
         <div className="mt-8 flex flex-wrap gap-3">
           {whatsappHref() && (
-            <a href={whatsappHref(waMessage)!} target="_blank" rel="noopener noreferrer" className="btn btn-dark">
+            <a
+              href={whatsappHref(waMessage)!}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-dark"
+              onClick={() => track("whatsapp_click", { source: "form_success", service: values.service })}
+            >
               <WhatsAppIcon /> Also send on WhatsApp
             </a>
           )}
@@ -224,7 +249,13 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
     ) : null;
 
   return (
-    <form noValidate onSubmit={onSubmit} className="p-5 sm:p-6 md:p-10" aria-describedby={id("intro")}>
+    <form
+      noValidate
+      onSubmit={onSubmit}
+      onFocus={markStarted}
+      className="p-5 sm:p-6 md:p-10"
+      aria-describedby={id("intro")}
+    >
       <p id={id("intro")} className="sr-only">
         Fields marked required must be filled in.
       </p>

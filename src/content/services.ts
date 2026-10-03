@@ -69,6 +69,12 @@ export type Service = {
   /** Two of Mayfair's own photos for the service page hero (shown instead of a full-bleed image). */
   heroPair?: [MediaKey, MediaKey];
   related: ServiceSlug[];
+  /**
+   * Second line of the page's H1, under the service name. Says where (and,
+   * where the trade name alone is ambiguous, what). Defaults to the coverage line.
+   */
+  heroTail?: string;
+  /** `title` is the page part; " | Mayfair Construction" is appended by the layout template. */
   meta: { title: string; description: string };
 };
 
@@ -79,7 +85,7 @@ export const services: Service[] = [
     name: "Restoration",
     summary: "Tired, damaged and neglected buildings brought back into use.",
     intro:
-      "Restoration is the work between “this building has problems” and “this building is ready to use again”. Mayfair takes on restoration for homes, rental units, offices and commercial property in Gaborone and across Botswana — and because painting, electrical work and carpeting sit with the same contractor, one enquiry can cover the whole job.",
+      "Restoration and renovation is the work between “this building has problems” and “this building is ready to use again”. Mayfair takes on restoration for homes, rental units, offices and commercial property in Gaborone and across Botswana — and because painting, electrical work and carpeting sit with the same contractor, one enquiry can cover the whole job.",
     scope: [
       {
         title: "Cracks, damp and wear",
@@ -108,10 +114,11 @@ export const services: Service[] = [
     ],
     media: "restoration",
     related: ["waterproofing", "painting", "electrical"],
+    heroTail: "and renovation, in Gaborone and across Botswana",
     meta: {
-      title: "Building Restoration in Gaborone, Botswana",
+      title: "Renovation & Restoration in Gaborone",
       description:
-        "Restoration of homes, rental units, offices and commercial property — repairs, refinishing, painting, electrical and flooring from one Gaborone-based contractor working across Botswana.",
+        "Restoration and renovation for homes, rental units, offices and commercial property in Gaborone: repairs, refinishing, painting, electrical and flooring as one job.",
     },
   },
   {
@@ -151,9 +158,9 @@ export const services: Service[] = [
     heroPair: ["roofPonding", "roofMembrane"],
     related: ["restoration", "painting", "paving"],
     meta: {
-      title: "Flat Roof Waterproofing in Gaborone, Botswana",
+      title: "Flat Roof Waterproofing in Gaborone",
       description:
-        "Torch-on bitumen waterproofing for flat concrete roofs — ponding, cracks and parapets dealt with, the slab primed and the membrane torched down. Gaborone-based, working across Botswana.",
+        "Torch-on bitumen waterproofing for flat concrete roofs in Gaborone and across Botswana: ponding and cracks fixed, slab primed, membrane torched down to the parapets.",
     },
   },
   {
@@ -192,9 +199,9 @@ export const services: Service[] = [
     media: "painting",
     related: ["restoration", "office-partitioning", "carpeting"],
     meta: {
-      title: "Interior & Exterior Painting in Gaborone",
+      title: "Painting Contractor in Gaborone",
       description:
-        "Interior and exterior painting for homes, offices and commercial buildings in Gaborone and across Botswana. Interiors, exteriors and repaints across several properties.",
+        "Interior and exterior painting for homes, offices, rental units and commercial buildings in Gaborone and across Botswana, surface preparation included.",
     },
   },
   {
@@ -233,9 +240,9 @@ export const services: Service[] = [
     media: "electrical",
     related: ["ev-charging", "atm-installation", "office-partitioning"],
     meta: {
-      title: "Electrical Installation & Repairs, Gaborone",
+      title: "Electrical Services in Gaborone",
       description:
-        "Electrical installation and repair for homes and commercial property in Gaborone and across Botswana — new points, lighting, fault finding, and power for fit-outs, ATMs and EV chargers.",
+        "Electrical installation and repairs for homes and commercial property in Gaborone — new points and lighting, fault finding, and power for fit-outs, ATMs and EV chargers.",
     },
   },
   {
@@ -274,9 +281,9 @@ export const services: Service[] = [
     media: "carpeting",
     related: ["office-partitioning", "painting", "restoration"],
     meta: {
-      title: "Carpet Fitting for Offices & Homes, Gaborone",
+      title: "Carpet Fitting in Gaborone",
       description:
-        "Carpet fitting for offices, homes and commercial interiors in Gaborone and across Botswana, sequenced with painting and partitioning when it’s part of a larger fit-out.",
+        "Carpet fitting for offices, homes and commercial interiors in Gaborone and across Botswana — measured, laid and trimmed, and sequenced with painting and partitioning.",
     },
   },
   {
@@ -315,9 +322,9 @@ export const services: Service[] = [
     media: "officePartitioning",
     related: ["carpeting", "electrical", "painting"],
     meta: {
-      title: "Office Partitioning in Gaborone, Botswana",
+      title: "Office Partitioning in Gaborone",
       description:
-        "Office partitioning for companies, property managers and banks in Gaborone and across Botswana — partition walls, finishes and power points on one job.",
+        "Office partitioning in Gaborone for companies, property managers and banks — partition walls, doors, power points, paint and carpet handled as one job. Send a floor plan.",
     },
   },
   {
@@ -357,9 +364,9 @@ export const services: Service[] = [
     heroPair: ["pavingRelay", "pavingCompactor"],
     related: ["equipment-hire", "restoration", "waterproofing"],
     meta: {
-      title: "Paving Repairs in Gaborone, Botswana",
+      title: "Paving Repairs in Gaborone",
       description:
-        "Brick paving repairs for shopping centres, offices and homes — lifting, levelling, compacting and re-laying walkways, steps and kerbs. Gaborone-based, working across Botswana.",
+        "Brick paving repairs for shopping centres, offices and homes in Gaborone — sunken and broken areas lifted, levelled, compacted and re-laid, including steps and kerbs.",
     },
   },
   {
@@ -400,7 +407,7 @@ export const services: Service[] = [
     meta: {
       title: "ATM Installation for Banks in Botswana",
       description:
-        "ATM installation for banks and financial institutions in Gaborone and across Botswana — site preparation, placement, power and finishing.",
+        "ATM installation for banks and financial institutions in Gaborone and across Botswana — site preparation, placement and fixing, power to the unit, and making good.",
     },
   },
   {
@@ -439,9 +446,9 @@ export const services: Service[] = [
     media: "evCharging",
     related: ["electrical", "atm-installation", "equipment-hire"],
     meta: {
-      title: "EV Charger Installation in Gaborone",
+      title: "EV Charger Installation in Botswana",
       description:
-        "EV charging system installation for homes, businesses and property developments in Gaborone and across Botswana — charger mounting and electrical connection.",
+        "EV charger installation for homes, workplaces and property developments in Gaborone and across Botswana — position, mounting and the electrical connection on one job.",
     },
   },
   {
@@ -481,9 +488,9 @@ export const services: Service[] = [
     heroPair: ["doorNew", "doorFloorSpring"],
     related: ["office-partitioning", "joinery", "atm-installation"],
     meta: {
-      title: "Glass Door Replacement & Floor Springs, Gaborone",
+      title: "Glass Doors & Floor Springs in Gaborone",
       description:
-        "Glass entrance door replacement and door floor spring installation for banks, shops and offices in Gaborone and across Botswana.",
+        "Glass entrance door replacement and door floor spring installation for banks, shops and offices in Gaborone and across Botswana. Send photos of the door for a quote.",
     },
   },
   {
@@ -525,7 +532,7 @@ export const services: Service[] = [
     meta: {
       title: "Lockers, Cabinets & Joinery in Gaborone",
       description:
-        "Lockers, pigeon-hole cabinets and storage units fabricated and installed for offices, banks and commercial property in Gaborone and across Botswana.",
+        "Lockers, pigeon-hole cabinets and storage units fabricated and installed for offices, banks and commercial property in Gaborone and across Botswana. Old units removed.",
     },
   },
   {
@@ -562,10 +569,11 @@ export const services: Service[] = [
     ],
     media: "equipmentSite",
     related: ["paving", "restoration", "electrical"],
+    heroTail: "in Gaborone: forklifts, pallet jacks, mixers and compactors",
     meta: {
-      title: "Forklift & Site Equipment Hire, Gaborone",
+      title: "Forklift & Equipment Hire in Gaborone",
       description:
-        "Hire forklifts, pallet jacks, concrete mixers and plate compactors from Mayfair Construction in Gaborone. Ask about availability and send a hire request online.",
+        "Hire forklifts, pallet jacks, concrete mixers and plate compactors from Mayfair Construction in Gaborone. Tell us the dates and the site and check availability online.",
     },
   },
 ];

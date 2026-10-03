@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import { site } from "@/config/site";
+import { homeDescription, homeTitle } from "@/lib/metadata";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -17,25 +18,26 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const title = `${site.name} | Construction & Equipment Hire in Gaborone`;
+const { google, bing } = site.verification;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: title, template: `%s | ${site.name}` },
-  description: site.description,
+  title: { default: homeTitle, template: `%s | ${site.name}` },
+  description: homeDescription,
   applicationName: site.name,
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_BW",
     siteName: site.name,
-    title,
-    description: site.description,
-    url: "/",
+    title: homeTitle,
+    description: homeDescription,
   },
-  twitter: { card: "summary_large_image", title, description: site.description },
+  twitter: { card: "summary_large_image", title: homeTitle, description: homeDescription },
   robots: site.allowIndexing ? { index: true, follow: true } : { index: false, follow: false },
   formatDetection: { telephone: false },
+  ...(google || bing
+    ? { verification: { ...(google ? { google } : {}), ...(bing ? { other: { "msvalidate.01": bing } } : {}) } }
+    : {}),
 };
 
 export const viewport: Viewport = {

@@ -13,10 +13,13 @@ const icons = { call: PhoneIcon, whatsapp: WhatsAppIcon, email: MailIcon };
 
 export function ContactSection({
   defaultService,
+  defaultEquipment,
   sheet = "07",
-  lines = ["Your next project", "starts here."],
+  lines = ["Tell Mayfair", "about the job."],
 }: {
   defaultService?: ServiceSlug;
+  /** Equipment `singular` name to pre-select (equipment pages). */
+  defaultEquipment?: string;
   sheet?: string;
   lines?: [string, string];
 }) {
@@ -73,6 +76,7 @@ export function ContactSection({
                 return (
                   <li key={r.id} className="border-t border-white/12">
                     <ContactLink
+                      source="contact_section"
                       channel={r.id}
                       className="group flex min-h-20 w-full items-center gap-4 py-4 text-left"
                     >
@@ -99,7 +103,7 @@ export function ContactSection({
               <div className="border-b border-ink/12 px-5 py-3.5 sm:px-6 md:px-10">
                 <p className="mono">Request a quote</p>
               </div>
-              <EnquiryForm defaultService={defaultService} />
+              <EnquiryForm defaultService={defaultService} defaultEquipment={defaultEquipment} />
             </div>
           </div>
         </div>

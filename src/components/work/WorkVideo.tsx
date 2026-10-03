@@ -11,6 +11,23 @@ export function WorkVideo({ mp4, webm, poster, label }: { mp4: string; webm: str
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
+  // The poster attribute downloads eagerly, so attach it only as the clip nears the screen.
+  const [near, setNear] = useState(false);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        setNear(true);
+        io.disconnect();
+      },
+      { rootMargin: "800px 0px" },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const v = ref.current;
@@ -45,7 +62,7 @@ export function WorkVideo({ mp4, webm, poster, label }: { mp4: string; webm: str
       <video
         ref={ref}
         className="absolute inset-0 h-full w-full object-cover"
-        poster={poster}
+        poster={near ? poster : undefined}
         muted
         loop
         playsInline

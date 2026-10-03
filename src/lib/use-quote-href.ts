@@ -7,5 +7,6 @@ const pagesWithForm = new Set<string>(["/", ...services.map((s) => servicePath(s
 
 /** "#quote" when the current page has an enquiry form, otherwise the home page form. */
 export function useQuoteHref() {
-  return pagesWithForm.has(usePathname()) ? "#quote" : "/#quote";
+  const path = usePathname();
+  return pagesWithForm.has(path) || path.startsWith("/equipment-hire/") ? "#quote" : "/#quote";
 }

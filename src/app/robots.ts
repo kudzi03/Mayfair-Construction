@@ -7,8 +7,9 @@ export default function robots(): MetadataRoute.Robots {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
   return {
-    // The CRM is never public content.
-    rules: { userAgent: "*", allow: "/", disallow: "/crm" },
+    // The CRM and any API routes are never public content. /crm also sends
+    // X-Robots-Tag: noindex (next.config.ts) in case a URL leaks.
+    rules: { userAgent: "*", allow: "/", disallow: ["/crm", "/api/"] },
     sitemap: `${site.url}/sitemap.xml`,
   };
 }

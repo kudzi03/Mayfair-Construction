@@ -2,7 +2,7 @@ import { site } from "@/config/site";
 import { pillarById, serviceBySlug, services } from "@/content/services";
 import { ogSize, renderOg } from "@/lib/og";
 
-export const alt = `${site.name} — service in ${site.base.city} and across ${site.base.country}`;
+export const alt = `${site.name}: construction, installation and equipment hire services in ${site.base.city} and across ${site.base.country}`;
 export const size = ogSize;
 export const contentType = "image/png";
 

@@ -20,12 +20,20 @@ export type ContactConfig = {
 
 export type SocialLink = { label: string; href: string };
 
+const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
+
 const resolveSiteUrl = () => {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  // An indexable build must never guess its canonical domain (preview, vercel.app or localhost).
+  if (allowIndexing) {
+    throw new Error("NEXT_PUBLIC_ALLOW_INDEXING=true needs NEXT_PUBLIC_SITE_URL set to the production domain.");
+  }
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
   // Local development; production builds default to the demo deployment.
   return process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://mayfair-construction.vercel.app";
 };
+
+const env = (value: string | undefined) => (value && value.trim() ? value.trim() : null);
 
 export const site = {
   name: "Mayfair Construction",
@@ -35,7 +43,7 @@ export const site = {
    * The demo must not be indexed: it carries representative imagery and
    * placeholder contact details. Set NEXT_PUBLIC_ALLOW_INDEXING=true at launch.
    */
-  allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
+  allowIndexing,
   /** Shows the small demo notices (representative imagery, unsent enquiries). */
   isDemo: process.env.NEXT_PUBLIC_DEMO_MODE !== "false",
 
@@ -49,7 +57,27 @@ export const site = {
   },
 
   description:
-    "Mayfair Construction is a Gaborone-based contractor for restoration, waterproofing, painting, electrical, fit-out and joinery, paving, ATM and EV charger installation, and equipment hire — working across Botswana.",
+    "Mayfair Construction is a Gaborone-based contractor for building restoration and renovation, roof waterproofing, painting, electrical work, carpeting, office partitioning, paving, joinery, glass doors, ATM and EV charger installation, and equipment hire — working across Botswana.",
+
+  /**
+   * Google Business Profile alignment. The profile and the website must say
+   * the same thing: same name, phone, website and service area. Fill these in
+   * from the verified profile; nothing here is shown until it is set.
+   */
+  business: {
+    /** Registered company name (CIPA), if it differs from the trading name. Unconfirmed. */
+    legalName: null as string | null,
+    /** Public Google Business Profile / Maps URL once verified. Also added to `sameAs`. */
+    googleBusinessProfileUrl: null as string | null,
+    /** Mayfair is a service-area business: towns and regions served, as listed on the profile. */
+    serviceArea: ["Gaborone", "Botswana"],
+    /**
+     * Profile description (Google allows 750 characters). Kept factual: what,
+     * where, who for, how to ask. Paste into the profile as-is or edit both together.
+     */
+    profileDescription:
+      "Mayfair Construction is a contractor based in Gaborone, working across Botswana. We take on building restoration and renovation, flat-roof waterproofing, interior and exterior painting, electrical work, carpet fitting, office partitioning, paving repairs, lockers and joinery, and glass entrance doors with floor springs. We install ATMs for banks and financial institutions, and EV chargers for homes, businesses and developments. We also hire out forklifts, pallet jacks, concrete mixers and plate compactors. We work for homeowners, property managers, developers, businesses and banks. Send photos and a few details for a quote.",
+  },
 
   contact: {
     phone: null,
@@ -70,6 +98,21 @@ export const site = {
   enquiry: {
     mode: (process.env.NEXT_PUBLIC_ENQUIRY_ENDPOINT ? "endpoint" : "demo") as "demo" | "endpoint",
     endpoint: process.env.NEXT_PUBLIC_ENQUIRY_ENDPOINT ?? null,
+  },
+
+  /**
+   * Measurement. Set ONE of these in the environment (GTM if a container manages
+   * several tags, GA4 otherwise). Unset = no third-party script loads at all.
+   */
+  analytics: {
+    gtmId: env(process.env.NEXT_PUBLIC_GTM_ID),
+    ga4Id: env(process.env.NEXT_PUBLIC_GA4_ID),
+  },
+
+  /** Search Console / Bing Webmaster Tools HTML-tag verification tokens (content value only). */
+  verification: {
+    google: env(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION),
+    bing: env(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION),
   },
 
   /** Swap in a real logo file (SVG preferred) when supplied. Null = typographic wordmark. */

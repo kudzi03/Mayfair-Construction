@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Fragment } from "react";
 import { RepNote } from "@/components/ui/RepNote";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,6 +10,7 @@ import { EquipmentCard } from "@/components/equipment/EquipmentCard";
 import { ScrollVar } from "@/components/motion/ScrollVar";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ArrowRight, WhatsAppIcon } from "@/components/ui/Icon";
+import { TrustSection } from "@/components/trust/TrustSection";
 import { SheetLabel } from "@/components/ui/SheetLabel";
 import { GalleryTrigger, WorkGallery } from "@/components/work/WorkLightbox";
 import { galleryItems, PRIVACY_NOTE, WorkFeature } from "@/components/work/WorkParts";
@@ -18,6 +20,7 @@ import { equipment } from "@/content/equipment";
 import { media } from "@/content/media";
 import { projectsFor } from "@/content/projects";
 import { pillarById, serviceBySlug, servicePath, services } from "@/content/services";
+import { pageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
 export const dynamicParams = false;
@@ -35,14 +38,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/[service]">): Promise<Metadata> {
   const service = serviceBySlug((await params).service);
   if (!service) return {};
-  const path = servicePath(service.slug);
-  return {
+  return pageMetadata({
     title: service.meta.title,
     description: service.meta.description,
-    alternates: { canonical: path },
-    openGraph: { title: `${service.meta.title} | ${site.name}`, description: service.meta.description, url: path },
-    twitter: { title: `${service.meta.title} | ${site.name}`, description: service.meta.description },
-  };
+    path: servicePath(service.slug),
+    ownImage: true,
+  });
 }
 
 export default async function ServicePage({ params }: PageProps<"/[service]">) {
@@ -52,6 +53,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
   const pillar = pillarById(service.pillar);
   const hero = media[service.media];
   const isHire = service.slug === "equipment-hire";
+  const heroTail = service.heroTail ?? `in ${site.base.city} and across ${site.base.country}`;
   const related = service.related.map((slug) => serviceBySlug(slug)!);
   const clients = service.clients.map(clientById);
   const n = (i: number) => String(i + 1).padStart(2, "0");
@@ -134,16 +136,19 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                 <h1 id="service-title">
                   <span className="hero-words display block text-[clamp(3rem,1rem+6.2vw,7.25rem)]!">
                     {heroLines(service.name).map((line, i) => (
-                      <span key={line} className="line">
-                        <span style={{ "--i": i } as React.CSSProperties}>{line}</span>
-                      </span>
+                      <Fragment key={line}>
+                        {i > 0 && " "}
+                        <span className="line">
+                          <span style={{ "--i": i } as React.CSSProperties}>{line}</span>
+                        </span>
+                      </Fragment>
                     ))}
-                  </span>
+                  </span>{" "}
                   <span
                     className="hero-fade mt-5 block text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium"
                     style={{ "--delay": "500ms" } as React.CSSProperties}
                   >
-                    in {site.base.city} and across {site.base.country}
+                    {heroTail}
                   </span>
                 </h1>
                 <div className="hero-fade mt-8 max-w-xl" style={{ "--delay": "650ms" } as React.CSSProperties}>
@@ -153,6 +158,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                       Request a quote <ArrowRight />
                     </a>
                     <ContactLink
+                      source="service_hero"
                       channel="whatsapp"
                       message={`Hello Mayfair, I’d like to ask about ${service.name.toLowerCase()}.`}
                       className="btn btn-light"
@@ -211,16 +217,19 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
               <h1 id="service-title" className="lg:col-span-8">
                 <span className="hero-words display block text-[clamp(3.5rem,1.5rem+9vw,10.5rem)]!">
                   {service.name.split(" ").map((word, i) => (
-                    <span key={`${i}-${word}`} className="line">
-                      <span style={{ "--i": i } as React.CSSProperties}>{word}</span>
-                    </span>
+                    <Fragment key={`${i}-${word}`}>
+                      {i > 0 && " "}
+                      <span className="line">
+                        <span style={{ "--i": i } as React.CSSProperties}>{word}</span>
+                      </span>
+                    </Fragment>
                   ))}
-                </span>
+                </span>{" "}
                 <span
                   className="hero-fade mt-5 block text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium"
                   style={{ "--delay": "500ms" } as React.CSSProperties}
                 >
-                  {isHire ? `from ${site.name}, ${site.base.city}` : `in ${site.base.city} and across ${site.base.country}`}
+                  {heroTail}
                 </span>
               </h1>
               <div className="hero-fade lg:col-span-4" style={{ "--delay": "650ms" } as React.CSSProperties}>
@@ -230,6 +239,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                     {isHire ? "Check availability" : "Request a quote"} <ArrowRight />
                   </a>
                   <ContactLink
+                    source="service_hero"
                     channel="whatsapp"
                     message={`Hello Mayfair, I’d like to ask about ${service.name.toLowerCase()}.`}
                     className="btn btn-light"
@@ -260,7 +270,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
         <div className="container-x mt-16 grid gap-10 md:mt-24 lg:grid-cols-12">
           <div className="lg:col-span-3">
             <h2 id="scope-title" className="display text-[clamp(2.5rem,1.8rem+2.5vw,4rem)]">
-              {isHire ? "On the list" : "What the work covers"}
+              {isHire ? "Equipment for hire" : "What the work covers"}
             </h2>
           </div>
 
@@ -268,7 +278,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
             <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-9 lg:gap-5">
               {equipment.map((eq) => (
                 <li key={eq.id} data-reveal="up">
-                  <EquipmentCard item={eq} />
+                  <EquipmentCard item={eq} hireHeading />
                 </li>
               ))}
             </ul>
@@ -332,6 +342,8 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
         </div>
       </section>
 
+      <TrustSection service={service.slug} />
+
       {/* Quote checklist */}
       <section
         aria-labelledby="checklist-title"
@@ -353,6 +365,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                 Use the form <ArrowRight />
               </a>
               <ContactLink
+                source="quote_checklist"
                 channel="whatsapp"
                 message={`Hello Mayfair, I’d like a quote for ${service.name.toLowerCase()}. I’ll send photos and details here.`}
                 className="btn btn-outline"

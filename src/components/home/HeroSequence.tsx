@@ -267,11 +267,14 @@ export function HeroSequence() {
         <div className="seq-content container-x">
           <div className="seq-intro">
             <div className="seq-intro-copy">
-              <p className="mono text-bone/80">
-                {site.name} <span className="mx-1.5 text-ochre">/</span> {site.base.city}, {site.base.country}
-              </p>
-              <h1 id="hero-title" className="seq-title display mt-4">
-                From bare shell to open for business.
+              {/* The eyebrow is part of the H1 so the heading says who and where, not just the tagline. */}
+              <h1 id="hero-title">
+                <span className="mono block text-bone/80">
+                  {site.name}
+                  <span className="text-ochre"> / </span>
+                  Construction company in {site.base.city}, {site.base.country}
+                </span>{" "}
+                <span className="seq-title display mt-4 block">From bare shell to open for business.</span>
               </h1>
               <p className="lead mt-5 max-w-xl text-bone/90">
                 Restoration, waterproofing, fit-out, electrical, paving, ATM and EV charger installation, and equipment
@@ -283,6 +286,7 @@ export function HeroSequence() {
                 Request a quote <ArrowRight />
               </a>
               <ContactLink
+                source="home_hero"
                 channel="whatsapp"
                 className="btn btn-light"
                 message="Hello Mayfair, I found you online and I’d like to talk about a job."

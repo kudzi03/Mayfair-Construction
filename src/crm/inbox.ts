@@ -11,6 +11,8 @@
  * This file and its call in EnquiryForm are then removed.
  */
 
+import type { Attribution } from "@/lib/attribution";
+
 export const INBOX_KEY = "mayfair-crm-demo:inbox";
 
 export type WebsiteEnquiry = {
@@ -26,6 +28,8 @@ export type WebsiteEnquiry = {
   message?: string;
   reply: "call" | "whatsapp" | "email";
   page?: string;
+  /** Landing page, referrer and UTM tags of the visit (see lib/attribution). */
+  attribution?: Attribution;
 };
 
 export function readInbox(): WebsiteEnquiry[] {

@@ -50,17 +50,17 @@ export function Footer() {
           <p className="mono mb-4 text-muted-dark">Contact</p>
           <ul className="space-y-0.5">
             <li>
-              <ContactLink channel="call" className="inline-flex min-h-10 items-center gap-2 text-left hover:text-ochre">
+              <ContactLink channel="call" source="footer" className="inline-flex min-h-10 items-center gap-2 text-left hover:text-ochre">
                 <PhoneIcon size={16} /> {c.call.href ? c.call.display : "Call"}
               </ContactLink>
             </li>
             <li>
-              <ContactLink channel="whatsapp" className="inline-flex min-h-10 items-center gap-2 text-left hover:text-ochre">
+              <ContactLink channel="whatsapp" source="footer" className="inline-flex min-h-10 items-center gap-2 text-left hover:text-ochre">
                 <WhatsAppIcon size={16} /> WhatsApp
               </ContactLink>
             </li>
             <li>
-              <ContactLink channel="email" className="inline-flex min-h-10 items-center gap-2 text-left hover:text-ochre">
+              <ContactLink channel="email" source="footer" className="inline-flex min-h-10 items-center gap-2 text-left hover:text-ochre">
                 <MailIcon size={16} /> {c.email.href ? c.email.display : "Email"}
               </ContactLink>
             </li>

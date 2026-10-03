@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "@/components/ui/Icon";
 import { SheetLabel } from "@/components/ui/SheetLabel";
-import { equipment } from "@/content/equipment";
+import { equipment, equipmentHref } from "@/content/equipment";
 import type { MediaKey } from "@/content/media";
 import { pillars, servicesInPillar, servicePath } from "@/content/services";
 import { IndexPreview } from "./IndexPreview";
@@ -15,7 +15,7 @@ const rowsFor = (pillarId: (typeof pillars)[number]["id"], number: string): Row[
       num: `${number}.${i + 1}`,
       name: e.name,
       summary: e.category,
-      href: `${servicePath("equipment-hire")}#${e.id}`,
+      href: equipmentHref(e),
       preview: e.media,
     }));
   }

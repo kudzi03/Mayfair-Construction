@@ -1,3 +1,4 @@
+import { Analytics } from "@/components/analytics/Analytics";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MobileActionBar } from "@/components/layout/MobileActionBar";
@@ -22,6 +23,7 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
       <MobileActionBar />
       <Toaster />
       <RevealObserver />
+      <Analytics />
     </>
   );
 }

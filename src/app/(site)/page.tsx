@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ContactSection } from "@/components/contact/ContactSection";
 import { BuildShowcase } from "@/components/home/BuildShowcase";
 import { ClientsSection } from "@/components/home/ClientsSection";
@@ -8,8 +9,12 @@ import { HeroSequence } from "@/components/home/HeroSequence";
 import { InstallSection } from "@/components/home/InstallSection";
 import { PillarHeader } from "@/components/home/PillarHeader";
 import { ServiceIndex } from "@/components/home/ServiceIndex";
+import { TrustSection } from "@/components/trust/TrustSection";
 import { WorkSection } from "@/components/home/WorkSection";
 import { pillarById, servicesInPillar } from "@/content/services";
+import { homeDescription, homeTitle, pageMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = pageMetadata({ absoluteTitle: homeTitle, description: homeDescription, path: "/" });
 
 export default function HomePage() {
   const build = servicesInPillar("build");
@@ -38,6 +43,7 @@ export default function HomePage() {
       <InstallSection />
       <EquipSection />
       <WorkSection />
+      <TrustSection />
       <ClientsSection />
       <CoverageSection />
       <FaqSection />

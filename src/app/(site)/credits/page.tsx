@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { media } from "@/content/media";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+// A utility page: crawlable, but not something anyone searches for.
+export const metadata: Metadata = pageMetadata({
   title: "Image Credits",
   description: "Sources and licences for the photography, illustrations, map data and typefaces used on this site.",
-  alternates: { canonical: "/credits" },
-  openGraph: { title: "Image Credits | Mayfair Construction", url: "/credits" },
-};
+  path: "/credits",
+  index: false,
+});
 
 export default function CreditsPage() {
   // One entry per source photo (crops of the same photo share a credit).

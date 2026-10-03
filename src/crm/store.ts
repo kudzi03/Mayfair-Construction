@@ -194,6 +194,16 @@ function addEnquiry(s: CrmState, input: NewEnquiry): { state: CrmState; id: stri
   };
 }
 
+
+/** " — landed on /painting via google / organic / gbp" from the visit's attribution. */
+const visitSource = (e: WebsiteEnquiry) => {
+  const a = e.attribution;
+  if (!a) return "";
+  const tags = [a.utmSource, a.utmMedium, a.utmCampaign].filter(Boolean).join(" / ");
+  const from = tags || (a.referrer ? new URL(a.referrer).host : "direct");
+  return ` — landed on ${a.landingPage} via ${from}`;
+};
+
 export function createEnquiry(input: NewEnquiry) {
   const r = addEnquiry(getState(), input);
   commit(r.state);
@@ -240,7 +250,7 @@ function absorbInbox(s: CrmState): CrmState {
       location: e.location,
       notes,
       receivedAt: e.receivedAt,
-      receivedText: `Enquiry received via the website form${e.page ? ` (${e.page})` : ""}`,
+      receivedText: `Enquiry received via the website form${e.page ? ` (${e.page})` : ""}${visitSource(e)}`,
     }).state;
   }
   clearInbox();
