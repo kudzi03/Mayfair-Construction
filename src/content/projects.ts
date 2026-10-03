@@ -66,6 +66,7 @@ export const projects: Project[] = [
     summary: "Paving bricks lifted and re-laid outside a busy shopping centre, with the work area taped off while the crew worked.",
     shots: [
       { media: "pavingRelay", caption: "Re-laying" },
+      { media: "pavingCompactor", caption: "Compacting" },
     ],
   },
 ];

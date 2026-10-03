@@ -18,6 +18,7 @@ import doorFloorSpring from "@/assets/images/work/door-floor-spring.jpg";
 import doorNew from "@/assets/images/work/door-new.jpg";
 import lockersAfter from "@/assets/images/work/lockers-after.jpg";
 import lockersBefore from "@/assets/images/work/lockers-before.jpg";
+import pavingCompactor from "@/assets/images/work/paving-compactor.jpg";
 import pavingRelay from "@/assets/images/work/paving-relay.jpg";
 import roofCrew from "@/assets/images/work/roof-crew.jpg";
 import roofMembrane from "@/assets/images/work/roof-membrane.jpg";
@@ -50,7 +51,11 @@ const pexels = (id: string, slug: string) => ({
 
 const illustration = { source: "AI-generated illustration for this demo (VelaBuilt)" };
 
-/** Mayfair's own site photos, supplied by the company. Faces of passers-by and number plates are blurred. */
+/**
+ * Mayfair's own site photos, supplied by the company and prepared with
+ * scripts/work-photo.mjs (crop + light colour correction only). Bystanders
+ * and number plates are cropped out rather than blurred.
+ */
 const own = { source: "Mayfair Construction — site photo" };
 const photo = (src: StaticImageData, alt: string, focus?: string): Media => ({ src, alt, representative: false, credit: own, focus });
 
@@ -165,7 +170,8 @@ const registry = {
   lockersAfter: photo(lockersAfter, "After: a new pigeon-hole locker cabinet with lockable doors, installed against an office wall"),
   doorNew: photo(doorNew, "A replaced double glass entrance door with white aluminium frames", "50% 40%"),
   doorFloorSpring: photo(doorFloorSpring, "A Mayfair crew member setting a door floor spring into the floor beneath a glass door", "60% 40%"),
-  pavingRelay: photo(pavingRelay, "A Mayfair crew member re-laying paving bricks outside a shopping centre, with the work area taped off", "78% 50%"),
+  pavingRelay: photo(pavingRelay, "A Mayfair crew member in a hi-vis vest re-laying paving bricks outside a shopping centre, with the work area taped off", "55% 50%"),
+  pavingCompactor: photo(pavingCompactor, "A plate compactor on levelled sand beside stacks of lifted paving bricks", "45% 60%"),
   gaborone: {
     src: gaborone,
     alt: "High-rise towers on the Gaborone skyline, seen across open grassland",
