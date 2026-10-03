@@ -8,8 +8,8 @@ export const contentType = "image/png";
 export default function Image() {
   return renderOg({
     eyebrow: site.name,
-    lines: ["Build. Restore.", "Install. Equip."],
+    lines: ["From bare shell", "to open for business."],
     footer: `Based in ${site.base.city} · Working across ${site.base.country}`,
-    image: "heroStructure",
+    image: "sequenceOpen",
   });
 }

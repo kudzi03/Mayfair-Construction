@@ -4,6 +4,7 @@ import { SheetLabel } from "@/components/ui/SheetLabel";
 import { equipment } from "@/content/equipment";
 import type { MediaKey } from "@/content/media";
 import { pillars, servicesInPillar, servicePath } from "@/content/services";
+import { Collage } from "./Collage";
 import { IndexPreview } from "./IndexPreview";
 
 type Row = { key: string; num: string; name: string; summary: string; href: string; preview: MediaKey };
@@ -37,24 +38,22 @@ export function ServiceIndex() {
     <section
       id="services"
       aria-labelledby="services-title"
-      className="grid-light relative bg-bone pt-24 pb-20 md:pt-36 md:pb-28"
+      className="relative bg-paper pt-24 pb-20 md:pt-36 md:pb-28"
       data-sheet="Index"
       data-tone="light"
     >
       <div className="container-x">
-        <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-3">
-            <SheetLabel name="Index" detail="Services" />
-            <h2 id="services-title" className="display h-section mt-6" data-reveal="mask">
-              Three lines of work.
-            </h2>
-          </div>
-          <p className="statement lg:col-span-9 lg:pt-10" data-reveal="up">
-            Mayfair Construction is a Gaborone-based contractor. We take on building and property work, install
-            specialist infrastructure, and hire out equipment — for homeowners, property managers, developers,
-            businesses and banks, anywhere in Botswana.
-          </p>
-        </div>
+        <SheetLabel name="Services" detail="Build · Install · Equip" />
+        <h2 id="services-title" className="display mt-6 max-w-[14ch] text-[clamp(3rem,1.6rem+6vw,8rem)]" data-reveal="up">
+          Every trade it takes.
+        </h2>
+        <p className="statement mt-8 max-w-4xl text-muted" data-reveal="up" style={{ "--d": 120 } as React.CSSProperties}>
+          Mayfair Construction is a Gaborone-based contractor. We take on building and property work, install
+          specialist infrastructure, and hire out equipment — for homeowners, property managers, developers,
+          businesses and banks, anywhere in Botswana.
+        </p>
+
+        <Collage />
 
         <IndexPreview keys={previewKeys}>
           <div className="mt-16 grid gap-14 md:mt-24">

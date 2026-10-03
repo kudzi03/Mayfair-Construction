@@ -63,7 +63,7 @@ export function WorkSection() {
     <section
       id="work"
       aria-labelledby="work-title"
-      className="grid-light relative bg-paper py-24 md:py-36"
+      className="relative bg-bone py-24 md:py-36"
       data-sheet="06 — Work"
       data-tone="light"
     >

@@ -32,7 +32,6 @@ export function ContactSection({
       data-sheet={`${sheet} — Contact`}
       data-tone="dark"
     >
-      <div className="blueprint pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
       <div className="container-x relative">
         <SheetLabel number={sheet} name="Contact" detail="Quote · Call · WhatsApp" />
         <h2 id="quote-title" className="display mt-6 text-[clamp(3.5rem,1.5rem+9vw,11.5rem)]">

@@ -14,7 +14,17 @@ export function MobileActionBar() {
   const [pastHero, setPastHero] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
 
-  useEffect(() => subscribeScroll(() => setPastHero(window.scrollY > window.innerHeight * 0.6)), []);
+  // Appear once the page's hero (marked data-hero) has scrolled mostly away.
+  useEffect(
+    () =>
+      subscribeScroll(() => {
+        const hero = document.querySelector("[data-hero]");
+        setPastHero(
+          hero ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.5 : window.scrollY > window.innerHeight * 0.6,
+        );
+      }),
+    [],
+  );
 
   useEffect(() => {
     const form = document.getElementById("quote");
@@ -34,7 +44,7 @@ export function MobileActionBar() {
       <ContactLink channel="whatsapp" className="flex items-center justify-center gap-2 border-r border-white/10 font-semibold text-bone">
         <WhatsAppIcon size={18} /> WhatsApp
       </ContactLink>
-      <a href={quoteHref} className="flex items-center justify-center bg-ochre font-bold uppercase tracking-wide text-ink">
+      <a href={quoteHref} className="flex items-center justify-center bg-ochre font-semibold text-ink">
         Get a quote
       </a>
     </div>

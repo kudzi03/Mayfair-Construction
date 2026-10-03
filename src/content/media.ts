@@ -9,8 +9,6 @@ import evChargerPost from "@/assets/images/ev-charger-post.jpg";
 import evCharging from "@/assets/images/ev-charging.jpg";
 import forklift from "@/assets/images/forklift.jpg";
 import gaborone from "@/assets/images/gaborone.jpg";
-import heroStructure from "@/assets/images/hero-structure.jpg";
-import heroStructurePortrait from "@/assets/images/hero-structure-portrait.jpg";
 import officePartitioning from "@/assets/images/office-partitioning.jpg";
 import painting from "@/assets/images/painting.jpg";
 import palletJack from "@/assets/images/pallet-jack.jpg";
@@ -21,6 +19,7 @@ import projectFoundation from "@/assets/images/project-foundation.jpg";
 import projectFrame from "@/assets/images/project-frame.jpg";
 import projectRebar from "@/assets/images/project-rebar.jpg";
 import restoration from "@/assets/images/restoration.jpg";
+import sequenceOpen from "@/assets/images/sequence-open.jpg";
 
 export type Media = {
   src: StaticImageData;
@@ -30,7 +29,8 @@ export type Media = {
    * When Mayfair supplies photographs, replace the import and set this to false.
    */
   representative: boolean;
-  credit: { source: string; url: string };
+  /** url is omitted for in-house illustrations. */
+  credit: { source: string; url?: string };
   /** CSS object-position for art direction. */
   focus?: string;
 };
@@ -40,19 +40,14 @@ const pexels = (id: string, slug: string) => ({
   url: `https://www.pexels.com/photo/${slug}-${id}/`,
 });
 
+const illustration = { source: "AI-generated illustration for this demo (VelaBuilt)" };
+
 const registry = {
-  heroStructure: {
-    src: heroStructure,
-    alt: "Reinforced concrete building frame under construction, lit by late-afternoon sun",
+  sequenceOpen: {
+    src: sequenceOpen,
+    alt: "Illustration: a refurbished commercial building in Gaborone at dusk, lights on, with an ATM in the wall and an electric car charging",
     representative: true,
-    credit: pexels("35886613", "modern-building-construction-during-sunset"),
-    focus: "60% 40%",
-  },
-  heroStructurePortrait: {
-    src: heroStructurePortrait,
-    alt: "Reinforced concrete building frame under construction, lit by late-afternoon sun",
-    representative: true,
-    credit: pexels("35886613", "modern-building-construction-during-sunset"),
+    credit: illustration,
   },
   restoration: {
     src: restoration,

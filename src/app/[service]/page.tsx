@@ -68,6 +68,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
         aria-labelledby="service-title"
         data-sheet={`${pillar.number} — ${service.name}`}
         data-tone="dark"
+        data-hero
       >
         <div className="hero-media">
           <Image
@@ -83,7 +84,6 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
           />
         </div>
         <div className="hero-shade" />
-        <div className="blueprint pointer-events-none absolute inset-0 -z-[1] opacity-50" aria-hidden="true" />
 
         <div className="hero-content container-x relative flex flex-1 flex-col pt-[calc(var(--header-h)+1.5rem)] pb-10 md:pt-[calc(var(--header-h)+2.5rem)] md:pb-14">
           <nav aria-label="Breadcrumb" className="hero-fade" style={{ "--delay": "100ms" } as React.CSSProperties}>
@@ -154,7 +154,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
       {/* Overview + scope */}
       <section
         aria-labelledby="scope-title"
-        className="grid-light bg-paper py-20 md:py-32"
+        className="bg-paper py-20 md:py-32"
         data-sheet={`${pillar.number} — ${service.name}: scope`}
         data-tone="light"
       >

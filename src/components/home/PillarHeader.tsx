@@ -1,8 +1,7 @@
-import { ScrollVar } from "@/components/motion/ScrollVar";
 import { SheetLabel } from "@/components/ui/SheetLabel";
 import type { Pillar } from "@/content/services";
 
-/** Oversized pillar word ("BUILD") that drifts sideways with scroll, plus the sheet title row. */
+/** Editorial section header for a pillar: label, title, intro. */
 export function PillarHeader({
   pillar,
   titleId,
@@ -15,24 +14,16 @@ export function PillarHeader({
   intro: string;
 }) {
   return (
-    <header className="relative">
-      <ScrollVar className="overflow-clip" aria-hidden="true">
-        <p
-          className="pillar-word display -ml-[0.04em]"
-          data-reveal="mask"
-          style={{ "--chars": pillar.number.length + pillar.name.length } as React.CSSProperties}
-        >
-          <span className="pillar-num mr-[0.08em]">{pillar.number}</span>
-          {pillar.name}
-        </p>
-      </ScrollVar>
-      <div className="container-x">
-        <div className="hairline-t grid gap-6 pt-5 md:grid-cols-12">
-          <SheetLabel number={pillar.number} name={pillar.name} detail={count} className="md:col-span-3" />
-          <h2 id={titleId} className="text-[clamp(1.75rem,1.2rem+2vw,2.75rem)] leading-[1.05] font-semibold tracking-tight md:col-span-4">
+    <header className="container-x">
+      <div className="hairline-t grid gap-6 pt-6 lg:grid-cols-12">
+        <SheetLabel number={pillar.number} name={pillar.name} detail={count} className="lg:col-span-3" />
+        <div className="lg:col-span-9">
+          <h2 id={titleId} className="display h-section" data-reveal="up">
             {pillar.title}
           </h2>
-          <p className="max-w-xl text-[1.0625rem] opacity-80 md:col-span-5">{intro}</p>
+          <p className="lead mt-6 max-w-2xl opacity-85" data-reveal="up" style={{ "--d": 120 } as React.CSSProperties}>
+            {intro}
+          </p>
         </div>
       </div>
     </header>

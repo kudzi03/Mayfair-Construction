@@ -92,16 +92,30 @@ export function Footer() {
         </ul>
       </nav>
 
-      <div aria-hidden="true" className="display pointer-events-none -mb-[0.12em] select-none px-[1vw] text-center text-[31.5vw] leading-[0.8] text-white/[0.06]">
-        Mayfair
-      </div>
+      {/* Decorative wordmark, drawn as SVG so it scales to the full width. */}
+      <svg aria-hidden="true" viewBox="0 0 1000 250" className="pointer-events-none block w-full select-none">
+        <text
+          x="500"
+          y="232"
+          textAnchor="middle"
+          textLength="980"
+          lengthAdjust="spacingAndGlyphs"
+          fill="rgb(255 255 255 / 0.06)"
+          fontSize="320"
+          fontWeight="600"
+          letterSpacing="-12"
+          style={{ fontStretch: "86%" }}
+        >
+          Mayfair
+        </text>
+      </svg>
 
       <div className="container-x relative flex flex-col gap-3 border-t border-white/10 py-6 text-sm text-muted-dark md:flex-row md:items-center md:justify-between">
         <p>
           © {year} {site.name}. {site.base.city}, {site.base.country}.
         </p>
         <p>
-          {site.isDemo && <>Photography on this site is representative, not Mayfair projects. </>}
+          {site.isDemo && <>Imagery on this site is representative or illustrated — none of it shows Mayfair projects. </>}
           <Link href="/credits" className="underline underline-offset-4 hover:text-bone">
             Image credits
           </Link>
