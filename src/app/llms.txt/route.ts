@@ -16,7 +16,7 @@ export function GET() {
     `> ${site.description}`,
     "",
     `- Base: ${site.base.city}, ${site.base.country}`,
-    `- Service area: anywhere in ${site.base.country}`,
+    `- Service area: across ${site.base.country}`,
     `- Works with: ${clientTypes.map((c) => c.name.toLowerCase()).join(", ")}`,
     "",
     ...pillars.flatMap((p) => [

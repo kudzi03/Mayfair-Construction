@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/config/site";
-import type { MediaKey } from "@/content/media";
+import { media, mediaLabel, type MediaKey } from "@/content/media";
 
 export const ogSize = { width: 1200, height: 630 };
 
@@ -50,6 +50,24 @@ export async function renderOg({
             background: "linear-gradient(90deg, #14120f 0%, #14120f 52%, rgba(20,18,15,0.35) 100%)",
           }}
         />
+        {media[image].representative && (
+          <div
+            style={{
+              position: "absolute",
+              right: 24,
+              bottom: 24,
+              display: "flex",
+              padding: "6px 10px",
+              background: "rgba(20,18,15,0.8)",
+              color: "#ebe5da",
+              fontFamily: "Body",
+              fontSize: 16,
+              letterSpacing: 1,
+            }}
+          >
+            {mediaLabel(media[image]).toUpperCase()}
+          </div>
+        )}
         <div style={{ position: "relative", display: "flex", flexDirection: "column", padding: "56px 64px", width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: "Body", fontSize: 22, letterSpacing: 2 }}>
             <div style={{ width: 14, height: 14, background: "#e08a2c" }} />

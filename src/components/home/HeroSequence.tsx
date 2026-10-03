@@ -8,7 +8,6 @@ import { site } from "@/config/site";
 import { sequence, stages } from "@/content/sequence";
 import { serviceBySlug, servicePath } from "@/content/services";
 import { clamp01, prefersReducedMotion, subscribeScroll } from "@/lib/scroll-loop";
-import { useMediaQuery } from "@/lib/use-media-query";
 
 /* ---------------------------------------------------------------------------
    Timeline: a short hold on each stage, then a move to the next.
@@ -83,8 +82,6 @@ export function HeroSequence() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [stage, setStage] = useState(0);
   const [ready, setReady] = useState(false);
-  // On small screens the intro gives way to the captions, so take it out of the tab order.
-  const wide = useMediaQuery("(min-width: 64rem)");
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -259,7 +256,7 @@ export function HeroSequence() {
             sizes="100vw"
             width={sequence.sizes.lg.width}
             height={sequence.sizes.lg.height}
-            alt="Illustration: a vacant single-storey commercial building in Gaborone, restored and fitted out stage by stage as you scroll"
+            alt="Illustration: a vacant single-storey commercial building, restored and fitted out stage by stage as you scroll"
             fetchPriority="high"
           />
           <canvas ref={canvasRef} className="seq-canvas" data-ready={ready} aria-hidden="true" />
@@ -268,7 +265,7 @@ export function HeroSequence() {
         </div>
 
         <div className="seq-content container-x">
-          <div className="seq-intro" inert={!wide && stage > 0}>
+          <div className="seq-intro">
             <div className="seq-intro-copy">
               <p className="mono text-bone/80">
                 {site.name} <span className="mx-1.5 text-ochre">/</span> {site.base.city}, {site.base.country}
@@ -278,7 +275,7 @@ export function HeroSequence() {
               </h1>
               <p className="lead mt-5 max-w-xl text-bone/90">
                 Restoration, fit-out, electrical, ATM and EV charger installation, and equipment hire — for homes,
-                businesses and banks. Based in Gaborone, working anywhere in Botswana.
+                businesses and banks. Based in Gaborone, working across Botswana.
               </p>
             </div>
             <div className="seq-intro-actions mt-7 flex flex-wrap gap-3">
@@ -317,7 +314,7 @@ export function HeroSequence() {
           </div>
         </div>
 
-        <nav className="seq-rail container-x" aria-label="Building stages">
+        <div className="seq-rail container-x" role="group" aria-label="Building stages">
           <ol className="flex">
             {stages.map((s, i) => (
               <li key={s.label} className="flex-1">
@@ -337,7 +334,7 @@ export function HeroSequence() {
           <a href="#services" className="seq-skip mono">
             Skip <ArrowRight size={14} className="rotate-90" />
           </a>
-        </nav>
+        </div>
       </div>
 
       {/* The whole story as text, for screen readers and search. */}

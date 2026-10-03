@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { RepNote } from "@/components/ui/RepNote";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { media, type MediaKey } from "@/content/media";
 import { prefersReducedMotion } from "@/lib/scroll-loop";
@@ -65,6 +66,7 @@ export function IndexPreview({ keys, children }: { keys: MediaKey[]; children: R
           {keys.map((k) => (
             <div key={k} className="pv" data-on={active === k}>
               <Image src={media[k].src} alt="" fill sizes="272px" quality={60} className="object-cover" />
+              <RepNote media={media[k]} className="absolute right-2 bottom-2 z-10" />
             </div>
           ))}
         </div>

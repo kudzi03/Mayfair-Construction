@@ -7,9 +7,7 @@
 
 @theme {
   --color-ink: #14120f;
-  --color-ink-2: #1c1a16;
   --color-graphite: #2c2925;
-  --color-steel: #8f8981;
   --color-muted: #5b564f;
   --color-muted-dark: #aaa49b;
   --color-concrete: #ddd5c7;
@@ -18,7 +16,6 @@
   --color-ochre: #e08a2c;
   --color-ochre-deep: #9a4f1c;
   --color-sky: #7fb2e0;
-  --color-sky-deep: #2f6ea8;
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
@@ -219,6 +216,10 @@ img {
     padding: 0 1.15rem;
     font-size: 0.9rem;
   }
+  .btn-square {
+    width: 2.75rem;
+    padding: 0;
+  }
 
   .link-arrow {
     display: inline-flex;
@@ -338,7 +339,7 @@ img {
     min-height: 3.25rem;
     padding: 0.75rem 0.9rem;
     background: #fff;
-    border: 1px solid rgb(14 15 16 / 0.28);
+    border: 1px solid rgb(14 15 16 / 0.52);
     border-radius: 2px;
     font-size: 1rem;
     color: var(--color-ink);
@@ -347,10 +348,10 @@ img {
       box-shadow 0.2s;
   }
   .input::placeholder {
-    color: #7a7e83;
+    color: #6b6760;
   }
   .input:hover {
-    border-color: rgb(14 15 16 / 0.5);
+    border-color: rgb(14 15 16 / 0.8);
   }
   .input:focus {
     outline: none;
@@ -383,7 +384,7 @@ img {
   .segmented {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border: 1px solid rgb(14 15 16 / 0.28);
+    border: 1px solid rgb(14 15 16 / 0.52);
     border-radius: 2px;
     overflow: hidden;
   }
@@ -403,7 +404,7 @@ img {
       color 0.2s;
   }
   .segmented label + label {
-    border-left: 1px solid rgb(14 15 16 / 0.28);
+    border-left: 1px solid rgb(14 15 16 / 0.52);
   }
   .segmented input {
     position: absolute;
@@ -447,18 +448,6 @@ img {
     clip-path: inset(100% 0 0 0);
     transform: translate3d(0, 1.5rem, 0);
   }
-  .js [data-reveal="wipe"]:not([data-revealed]) {
-    clip-path: inset(0 100% 0 0);
-  }
-  .js [data-reveal="wipe"] {
-    clip-path: inset(0 0 0 0);
-  }
-  .js [data-reveal="line"] {
-    transform-origin: left center;
-  }
-  .js [data-reveal="line"]:not([data-revealed]) {
-    transform: scaleX(0);
-  }
 }
 
 /* Component styles live in the components layer so Tailwind utilities
@@ -485,8 +474,14 @@ img {
     border-bottom-color: var(--line-dark);
     backdrop-filter: blur(10px);
   }
-  .site-header[data-hidden="true"] {
+  .site-header[data-hidden="true"]:not(:focus-within) {
     transform: translateY(-100%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .action-bar {
+      transition-property: background-color, border-color, opacity;
+    }
   }
   .nav-link {
     position: relative;
@@ -574,8 +569,8 @@ img {
     position: relative;
     flex: none;
     width: 100%;
-    aspect-ratio: 4 / 3;
-    max-height: 50svh;
+    /* Phones: as much building as the intro copy leaves room for. */
+    height: clamp(15rem, 100svh - 31rem, 30rem);
     overflow: hidden;
     background: #1f1c18;
   }
@@ -636,6 +631,15 @@ img {
   .seq[data-stage="0"] .seq-caption {
     opacity: 0;
     pointer-events: none;
+  }
+  /* A keyboard user tabbing into the hidden intro brings it back. */
+  .seq:not([data-stage="0"]) .seq-intro:focus-within {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .seq:not([data-stage="0"]):has(.seq-intro:focus-within) .seq-caption {
+    opacity: 0;
   }
   .seq-caption-inner {
     animation: rise 0.6s var(--ease-out-expo);
@@ -712,8 +716,7 @@ img {
     .seq-media {
       position: absolute;
       inset: 0;
-      aspect-ratio: auto;
-      max-height: none;
+      height: auto;
       margin: 0;
     }
     .seq-shade {
@@ -966,11 +969,6 @@ img {
      Pillar headers — oversized words that drift with scroll
      ========================================================================== */
 
-  /* Collage: frames drift at their own depth (--p from ScrollVar). */
-  .collage-item {
-    transform: translate3d(0, calc((0.5 - var(--p, 0.5)) * var(--depth) * 1vh), 0);
-  }
-
   /* ==========================================================================
      Build — sticky image frame
      ========================================================================== */
@@ -979,7 +977,7 @@ img {
     position: absolute;
     inset: 0;
     clip-path: inset(100% 0 0 0);
-    transition: clip-path 1s var(--ease-in-out-quart);
+    transition: clip-path 0.7s var(--ease-out-expo);
   }
   .build-frame .bf-img[data-on="true"] {
     clip-path: inset(0 0 0 0);
@@ -1024,104 +1022,53 @@ img {
   }
 
   /* ==========================================================================
-     Install — technical annotations
+     Install
      ========================================================================== */
 
   .install-figure img {
-    filter: grayscale(1) contrast(1.05) brightness(1.05);
-    transition:
-      filter 0.9s var(--ease-out-expo),
-      transform 1.4s var(--ease-out-expo);
-  }
-  .install-figure::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--color-sky-deep);
-    mix-blend-mode: multiply;
-    opacity: 0.4;
-    transition: opacity 0.9s var(--ease-out-expo);
-    pointer-events: none;
+    transition: transform 1.4s var(--ease-out-expo);
   }
   .install-panel:hover .install-figure img,
   .install-panel:focus-within .install-figure img {
-    filter: none;
     transform: scale(1.03);
-  }
-  .install-panel:hover .install-figure::after,
-  .install-panel:focus-within .install-figure::after {
-    opacity: 0;
-  }
-  /* No hover on touch screens: show the photograph with a lighter tint. */
-  @media (hover: none) {
-    .install-figure img {
-      filter: grayscale(0.4) contrast(1.05);
-    }
-    .install-figure::after {
-      opacity: 0.18;
-    }
-  }
-  .annot line,
-  .annot path,
-  .annot circle,
-  .annot rect {
-    vector-effect: non-scaling-stroke;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .js .annot .draw {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      transition: stroke-dashoffset 1.6s var(--ease-in-out-quart);
-      transition-delay: calc(var(--d, 0) * 1ms + 300ms);
-    }
-    .js [data-revealed] .annot .draw {
-      stroke-dashoffset: 0;
-    }
   }
 
   /* ==========================================================================
-     Equip — horizontal rail
+     Equip — hire cards
      ========================================================================== */
 
-  .rail-track {
+  /* Phones: a native swipe row, with the next card peeking in. */
+  .eq-grid {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    padding-bottom: 0.5rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: var(--gutter);
-    padding-inline: var(--gutter);
-    padding-bottom: 1.5rem;
-    scrollbar-width: thin;
     overscroll-behavior-x: contain;
+    scrollbar-width: none;
   }
-  .rail-panel {
-    flex: none;
-    width: min(86vw, 34rem);
+  .eq-grid > li {
+    flex: 0 0 min(86%, 21rem);
     scroll-snap-align: start;
   }
-  .rail[data-pinned="true"] .rail-sticky {
-    position: sticky;
-    top: 0;
-    height: 100svh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  @media (min-width: 40rem) {
+    .eq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-inline: 0;
+      padding: 0;
+      overflow: visible;
+    }
   }
-  .rail[data-pinned="true"] .rail-track {
-    overflow: visible;
-    scroll-snap-type: none;
-    gap: 2rem;
-    width: max-content;
-    will-change: transform;
-    padding-bottom: 0;
-  }
-  .rail[data-pinned="true"] .rail-panel {
-    width: min(74vw, 72rem);
-  }
-  .rail[data-pinned="true"] .rail-panel.rail-intro,
-  .rail[data-pinned="true"] .rail-panel.rail-outro {
-    width: min(38vw, 30rem);
+  @media (min-width: 64rem) {
+    .eq-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
   }
 
   .spec-row {
@@ -1133,19 +1080,117 @@ img {
   }
 
   /* ==========================================================================
-     Clients — hover focus list
+     Clients — picker
      ========================================================================== */
 
-  @media (hover: hover) {
-    .clients-list:hover .client-row:not(:hover) {
-      opacity: 0.35;
+  .cp-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-content: start;
+  }
+  .cp-tab {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgb(20 18 15 / 0.25);
+    border-radius: 999px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      background-color 0.25s,
+      color 0.25s,
+      border-color 0.25s;
+  }
+  .cp-tab:hover {
+    border-color: var(--color-ink);
+  }
+  .cp-tab[aria-selected="true"] {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-bone);
+  }
+  .cp-num {
+    display: none;
+  }
+  @media (min-width: 64rem) {
+    .cp-tabs {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 0;
+      border-bottom: 1px solid var(--line-light);
+    }
+    .cp-tab {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr;
+      align-items: baseline;
+      width: 100%;
+      min-height: 0;
+      padding: 1.1rem 0;
+      border: 0;
+      border-top: 1px solid var(--line-light);
+      border-radius: 0;
+      color: rgb(20 18 15 / 0.52);
+    }
+    .cp-tab:hover {
+      color: var(--color-ink);
+    }
+    .cp-tab[aria-selected="true"] {
+      background: none;
+      color: var(--color-ink);
+    }
+    .cp-num {
+      display: block;
+      color: var(--accent-text);
+    }
+    .cp-name {
+      font-size: clamp(2rem, 1rem + 2vw, 3.25rem);
+      font-stretch: 86%;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+    .cp-tab[aria-selected="true"] .cp-name::after {
+      content: "";
+      display: inline-block;
+      width: 0.22em;
+      height: 0.22em;
+      margin-left: 0.25em;
+      background: var(--color-ochre);
+      vertical-align: 0.12em;
     }
   }
-  .client-row {
-    transition: opacity 0.4s var(--ease-out-expo);
+  .cp-panel:focus-visible {
+    outline-offset: 8px;
   }
-  .client-name {
-    font-size: clamp(2.5rem, 1.2rem + 6vw, 7.5rem);
+  @media (prefers-reduced-motion: no-preference) {
+    .cp-panel:not([hidden]) {
+      animation: cp-in 0.5s var(--ease-out-expo);
+    }
+  }
+  @keyframes cp-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+  .cp-service {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.25rem 1.5rem;
+    min-height: 3.5rem;
+    padding-block: 0.9rem;
+    border-top: 1px solid var(--line-light);
+  }
+  .cp-service:hover {
+    color: var(--accent-text);
+  }
+  @media (min-width: 40rem) {
+    .cp-service {
+      grid-template-columns: 14rem 1fr auto;
+    }
   }
 
   /* ==========================================================================
@@ -1161,8 +1206,8 @@ img {
       stroke-dashoffset: 1;
       fill-opacity: 0;
       transition:
-        stroke-dashoffset 2.6s var(--ease-in-out-quart),
-        fill-opacity 1.2s ease 1.8s;
+        stroke-dashoffset 1.6s var(--ease-out-expo),
+        fill-opacity 1s ease 0.9s;
     }
     .js .map[data-revealed] .m-outline {
       stroke-dashoffset: 0;
@@ -1171,7 +1216,7 @@ img {
     .js .map .m-route {
       stroke-dashoffset: 1;
       transition: stroke-dashoffset 1.3s var(--ease-in-out-quart);
-      transition-delay: calc(var(--i) * 110ms + 1400ms);
+      transition-delay: calc(var(--i) * 90ms + 700ms);
     }
     .js .map[data-revealed] .m-route {
       stroke-dashoffset: 0;
@@ -1179,7 +1224,7 @@ img {
     .js .map .m-town {
       opacity: 0;
       transition: opacity 0.6s ease;
-      transition-delay: calc(var(--i) * 110ms + 2000ms);
+      transition-delay: calc(var(--i) * 110ms + 900ms);
     }
     .js .map[data-revealed] .m-town {
       opacity: 1;
@@ -1187,7 +1232,7 @@ img {
     .map .m-pulse {
       transform-box: fill-box;
       transform-origin: center;
-      animation: pulse 3.2s var(--ease-out-expo) infinite;
+      animation: pulse 3.2s var(--ease-out-expo) 4;
     }
     .map .m-pulse:nth-of-type(2) {
       animation-delay: 1.6s;
@@ -1229,24 +1274,67 @@ img {
   }
 
   /* ==========================================================================
-     Work — project dossiers
+     FAQ
      ========================================================================== */
 
-  .dossier-img img {
-    filter: grayscale(0.85) contrast(1.05);
-    transition:
-      filter 0.9s var(--ease-out-expo),
-      transform 1.4s var(--ease-out-expo);
+  .faq {
+    border-top: 1px solid var(--line-light);
   }
-  .dossier:hover .dossier-img img {
-    filter: grayscale(0);
-    transform: scale(1.03);
+  .faq:last-child {
+    border-bottom: 1px solid var(--line-light);
   }
-  .pending {
-    display: inline-block;
-    min-width: 6rem;
-    border-bottom: 1px dashed currentColor;
-    opacity: 0.55;
+  .faq-q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 4rem;
+    padding-block: 1.1rem;
+    font-size: clamp(1.15rem, 1rem + 0.5vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-q:hover {
+    color: var(--accent-text);
+  }
+  .faq-icon {
+    position: relative;
+    flex: none;
+    width: 1rem;
+    height: 1rem;
+  }
+  .faq-icon::before,
+  .faq-icon::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+  .faq-icon::after {
+    transform: rotate(90deg);
+  }
+  .faq[open] .faq-icon::after {
+    transform: rotate(0deg);
+  }
+  .faq-a {
+    max-width: 44rem;
+    padding-bottom: 1.6rem;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--color-muted);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .faq[open] .faq-a {
+      animation: cp-in 0.45s var(--ease-out-expo);
+    }
   }
 
   /* ==========================================================================

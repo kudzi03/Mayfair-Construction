@@ -1,9 +1,9 @@
-import { Suspense } from "react";
 import { ContactSection } from "@/components/contact/ContactSection";
 import { BuildShowcase } from "@/components/home/BuildShowcase";
 import { ClientsSection } from "@/components/home/ClientsSection";
 import { CoverageSection } from "@/components/home/CoverageSection";
 import { EquipSection } from "@/components/home/EquipSection";
+import { FaqSection } from "@/components/home/FaqSection";
 import { HeroSequence } from "@/components/home/HeroSequence";
 import { InstallSection } from "@/components/home/InstallSection";
 import { PillarHeader } from "@/components/home/PillarHeader";
@@ -17,11 +17,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSequence />
-      {/* Suspense boundaries let React hydrate each section in its own task,
-          keeping the main thread responsive on slower phones. */}
-      <Suspense>
-        <ServiceIndex />
-      </Suspense>
+      <ServiceIndex />
 
       <section
         id="build"
@@ -36,29 +32,16 @@ export default function HomePage() {
           count={`${build.length} services`}
           intro="The work that keeps homes, offices and commercial property in use — repaired, repainted, rewired, re-carpeted and re-planned."
         />
-        <Suspense>
-          <BuildShowcase services={build} />
-        </Suspense>
+        <BuildShowcase services={build} />
       </section>
 
-      <Suspense>
-        <InstallSection />
-      </Suspense>
-      <Suspense>
-        <EquipSection />
-      </Suspense>
-      <Suspense>
-        <ClientsSection />
-      </Suspense>
-      <Suspense>
-        <CoverageSection />
-      </Suspense>
-      <Suspense>
-        <WorkSection />
-      </Suspense>
-      <Suspense>
-        <ContactSection />
-      </Suspense>
+      <InstallSection />
+      <EquipSection />
+      <ClientsSection />
+      <CoverageSection />
+      <WorkSection />
+      <FaqSection />
+      <ContactSection />
     </>
   );
 }

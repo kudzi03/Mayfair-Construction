@@ -77,8 +77,8 @@ export const services: Service[] = [
       "Restoration is the work between “this building has problems” and “this building is ready to use again”. Mayfair takes on restoration for homes, rental units, offices and commercial property in Gaborone and across Botswana — and because painting, electrical work and carpeting sit with the same contractor, one enquiry can cover the whole job.",
     scope: [
       {
-        title: "Condition first",
-        text: "The building is looked at before it is priced, so the quote reflects the real job rather than a guess.",
+        title: "Cracks, damp and wear",
+        text: "The problems that leave a building tired: cracked render, stained walls, worn finishes and fittings.",
       },
       {
         title: "Repair and make good",
@@ -105,7 +105,7 @@ export const services: Service[] = [
     secondaryMedia: "projectFoundation",
     related: ["painting", "electrical", "carpeting"],
     meta: {
-      title: "Building Restoration in Gaborone & Across Botswana",
+      title: "Building Restoration in Gaborone, Botswana",
       description:
         "Restoration of homes, rental units, offices and commercial property — repairs, refinishing, painting, electrical and flooring from one Gaborone-based contractor working across Botswana.",
     },
@@ -116,7 +116,7 @@ export const services: Service[] = [
     name: "Painting",
     summary: "Interior and exterior painting for homes, offices and commercial buildings.",
     intro:
-      "A paint job is judged on how it looks in year three, not week one. That comes down to preparation. Mayfair paints interiors and exteriors for homeowners, property managers, developers and businesses in Gaborone and across Botswana.",
+      "Paint is the fastest way to change how a building looks and how long its surfaces last. Mayfair paints interiors and exteriors for homeowners, property managers, developers and businesses in Gaborone and across Botswana.",
     scope: [
       {
         title: "Interiors",
@@ -128,7 +128,7 @@ export const services: Service[] = [
       },
       {
         title: "Preparation",
-        text: "Cleaning, filling and priming before paint goes on — the part that decides how long the finish lasts.",
+        text: "Cleaning, filling and priming surfaces before paint goes on.",
       },
       {
         title: "Portfolio repaints",
@@ -146,9 +146,9 @@ export const services: Service[] = [
     media: "painting",
     related: ["restoration", "office-partitioning", "carpeting"],
     meta: {
-      title: "Painting Contractor in Gaborone — Interior & Exterior",
+      title: "Interior & Exterior Painting in Gaborone",
       description:
-        "Interior and exterior painting for homes, offices and commercial buildings in Gaborone and across Botswana. Proper surface preparation, portfolio repaints and quotes from photos.",
+        "Interior and exterior painting for homes, offices and commercial buildings in Gaborone and across Botswana. Interiors, exteriors and repaints across several properties.",
     },
   },
   {
@@ -188,7 +188,7 @@ export const services: Service[] = [
     secondaryMedia: "electricalPanel",
     related: ["ev-charging", "atm-installation", "office-partitioning"],
     meta: {
-      title: "Electrical Work in Gaborone — Installation & Repairs",
+      title: "Electrical Installation & Repairs, Gaborone",
       description:
         "Electrical installation and repair for homes and commercial property in Gaborone and across Botswana — new points, lighting, fault finding, and power for fit-outs, ATMs and EV chargers.",
     },
@@ -203,7 +203,7 @@ export const services: Service[] = [
     scope: [
       {
         title: "Measure and plan",
-        text: "Rooms measured and layouts planned to reduce joins and waste.",
+        text: "Rooms measured and the layout planned before carpet is cut.",
       },
       {
         title: "Offices and commercial floors",
@@ -229,7 +229,7 @@ export const services: Service[] = [
     media: "carpeting",
     related: ["office-partitioning", "painting", "restoration"],
     meta: {
-      title: "Carpet Fitting in Gaborone — Offices & Homes",
+      title: "Carpet Fitting for Offices & Homes, Gaborone",
       description:
         "Carpet fitting for offices, homes and commercial interiors in Gaborone and across Botswana, sequenced with painting and partitioning when it’s part of a larger fit-out.",
     },
@@ -252,7 +252,7 @@ export const services: Service[] = [
       },
       {
         title: "Finished rooms",
-        text: "Doors, paint, carpet and power points so the room is ready to use, not just divided.",
+        text: "Paint, carpet and power points so the room is ready to use, not just divided.",
       },
       {
         title: "Reconfiguration",
@@ -263,7 +263,7 @@ export const services: Service[] = [
     quoteChecklist: [
       "A floor plan or a sketch with measurements",
       "How many rooms you need and roughly what size",
-      "Solid or glazed partitions, if you have a preference",
+      "The kind of partition you have in mind, if any",
       "Whether the landlord has approved the work",
       "Your move-in or completion date",
     ],
@@ -271,9 +271,9 @@ export const services: Service[] = [
     secondaryMedia: "partitionInstall",
     related: ["carpeting", "electrical", "painting"],
     meta: {
-      title: "Office Partitioning in Gaborone — Offices & Meeting Rooms",
+      title: "Office Partitioning in Gaborone, Botswana",
       description:
-        "Office partitioning for companies, property managers and banks in Gaborone and across Botswana — partition walls, doors, finishes and power points on one job.",
+        "Office partitioning for companies, property managers and banks in Gaborone and across Botswana — partition walls, finishes and power points on one job.",
     },
   },
   {
@@ -312,7 +312,7 @@ export const services: Service[] = [
     media: "atmInstallation",
     related: ["electrical", "office-partitioning", "painting"],
     meta: {
-      title: "ATM Installation in Botswana — For Banks & Financial Institutions",
+      title: "ATM Installation for Banks in Botswana",
       description:
         "ATM installation for banks and financial institutions in Gaborone and across Botswana — site preparation, placement, power and finishing.",
     },
@@ -326,8 +326,8 @@ export const services: Service[] = [
       "Electric vehicles need somewhere to charge, and that means installing chargers at homes, workplaces and new developments. Mayfair installs EV charging systems in Gaborone and across Botswana, with the electrical connection as part of the same job.",
     scope: [
       {
-        title: "Site check",
-        text: "Supply capacity, charger position and cable route looked at before work starts.",
+        title: "Position and route",
+        text: "Charger position and cable route planned around the parking bays and the existing supply.",
       },
       {
         title: "Mounting",
@@ -338,8 +338,8 @@ export const services: Service[] = [
         text: "Connection back to the distribution board.",
       },
       {
-        title: "Handover",
-        text: "Charger tested and shown working before the job is closed.",
+        title: "Homes to developments",
+        text: "A single charger at home, or several bays at a workplace or new development.",
       },
     ],
     clients: ["homeowners", "businesses", "developers", "property-managers"],
@@ -354,9 +354,9 @@ export const services: Service[] = [
     secondaryMedia: "evChargerPost",
     related: ["electrical", "atm-installation", "equipment-hire"],
     meta: {
-      title: "EV Charger Installation in Gaborone & Across Botswana",
+      title: "EV Charger Installation in Gaborone",
       description:
-        "EV charging system installation for homes, businesses and property developments in Gaborone and across Botswana — site check, mounting, electrical connection and handover.",
+        "EV charging system installation for homes, businesses and property developments in Gaborone and across Botswana — charger mounting and electrical connection.",
     },
   },
   {
@@ -394,9 +394,9 @@ export const services: Service[] = [
     media: "forklift",
     related: ["restoration", "ev-charging", "electrical"],
     meta: {
-      title: "Equipment Hire in Gaborone — Forklifts, Mixers & Compactors",
+      title: "Forklift & Site Equipment Hire, Gaborone",
       description:
-        "Hire forklifts, pallet jacks, concrete mixers and plate compactors from Mayfair Construction in Gaborone. Check availability and request hire online.",
+        "Hire forklifts, pallet jacks, concrete mixers and plate compactors from Mayfair Construction in Gaborone. Ask about availability and send a hire request online.",
     },
   },
 ];

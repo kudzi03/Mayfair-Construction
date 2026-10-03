@@ -23,7 +23,8 @@ export type SocialLink = { label: string; href: string };
 const resolveSiteUrl = () => {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  return "http://localhost:3000";
+  // Local development; production builds default to the demo deployment.
+  return process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://mayfair-construction.vercel.app";
 };
 
 export const site = {

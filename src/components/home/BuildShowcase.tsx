@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { RepNote } from "@/components/ui/RepNote";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { QuoteLink } from "@/components/contact/QuoteLink";
 import { ArrowRight } from "@/components/ui/Icon";
-import { site } from "@/config/site";
 import { media } from "@/content/media";
 import { servicePath, type Service } from "@/content/services";
+import { subscribeScroll } from "@/lib/scroll-loop";
 
 /**
  * Desktop: a sticky image frame on the left wipes between services as their
@@ -17,18 +18,17 @@ export function BuildShowcase({ services }: { services: Service[] }) {
   const [active, setActive] = useState(0);
   const blocks = useRef<(HTMLElement | null)[]>([]);
 
+  // The active service is the last one whose heading has passed the middle of the screen.
   useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          setActive(Number((e.target as HTMLElement).dataset.index));
-        });
-      },
-      { rootMargin: "-45% 0px -45% 0px" },
-    );
-    blocks.current.forEach((b) => b && io.observe(b));
-    return () => io.disconnect();
+    const headings = blocks.current.map((b) => b?.querySelector("h3") ?? null);
+    return subscribeScroll(() => {
+      const line = window.innerHeight * 0.55;
+      let next = 0;
+      headings.forEach((h, i) => {
+        if (h && h.getBoundingClientRect().top < line) next = i;
+      });
+      setActive(next);
+    });
   }, []);
 
   const current = services[active];
@@ -58,7 +58,7 @@ export function BuildShowcase({ services }: { services: Service[] }) {
               <p className="mono" aria-live="off">
                 01.{active + 1} — {current.name}
               </p>
-              {site.isDemo && <p className="rep-note">Representative image</p>}
+              <RepNote media={media[current.media]} />
             </div>
           </div>
           <ol className="mt-4 flex gap-1.5" aria-hidden="true">
@@ -93,7 +93,7 @@ export function BuildShowcase({ services }: { services: Service[] }) {
                   className="object-cover"
                   style={{ objectPosition: m.focus }}
                 />
-                {site.isDemo && <p className="rep-note absolute right-3 bottom-3">Representative image</p>}
+                <RepNote media={m} className="absolute right-3 bottom-3" />
               </div>
               <p className="mono text-(--accent-text)">01.{i + 1}</p>
               <h3 id={`build-${s.slug}`} className="display mt-3 text-[clamp(3rem,2rem+4.5vw,6rem)]">

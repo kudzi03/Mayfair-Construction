@@ -19,9 +19,9 @@ export function ContactSection({
 }) {
   const c = channels();
   const routes = [
-    { ...c.whatsapp, note: "Fastest for photos and quick questions" },
+    { ...c.whatsapp, note: "Easiest for photos and quick questions" },
     { ...c.call, note: "Talk it through" },
-    { ...c.email, note: "For drawings, specs and tenders" },
+    { ...c.email, note: "For drawings and documents" },
   ];
 
   return (

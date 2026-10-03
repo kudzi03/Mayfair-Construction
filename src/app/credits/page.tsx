@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Image Credits",
   description: "Sources and licences for the photography, map data and typefaces used on this site.",
   alternates: { canonical: "/credits" },
+  openGraph: { title: "Image Credits | Mayfair Construction", url: "/credits" },
 };
 
 export default function CreditsPage() {
@@ -21,7 +22,7 @@ export default function CreditsPage() {
         </h1>
         <p className="lead mt-6 max-w-2xl text-muted">
           Photographs on this site are representative stock images used under the Pexels License. The building in the
-          opening sequence is an AI-generated illustration made for this demo. None of these images show Mayfair
+          opening sequence and the ATM installation scene are AI-generated illustrations made for this demo. None of these images show Mayfair
           Construction’s projects, staff or equipment; they will be replaced with Mayfair’s own photography.
         </p>
 

@@ -24,8 +24,8 @@ export function CoverageSection() {
             Based in Gaborone. Working across Botswana.
           </h2>
           <p className="lead mt-6 max-w-lg text-bone/85">
-            Mayfair operates from Gaborone and takes on work anywhere in the country — from a repaint in the capital to an
-            installation in Maun or Kasane.
+            Mayfair operates from Gaborone and works across the country. The towns on the map are there for scale —
+            tell Mayfair where your site is.
           </p>
         </div>
 
@@ -61,16 +61,16 @@ export function CoverageSection() {
 
           <div className="mt-10">
             <h3 className="mono text-muted-dark">Distance from base — straight line</h3>
-            <dl className="mt-3 grid grid-cols-2 gap-x-8 text-[0.9375rem]">
+            <dl className="mt-3 grid grid-cols-2 gap-x-5 text-[0.875rem] sm:gap-x-8 sm:text-[0.9375rem]">
               {sorted.map((t) => (
                 <div key={t.name} className="flex justify-between gap-3 border-t border-white/10 py-2.5">
                   <dt>{t.name}</dt>
-                  <dd className="font-mono text-sky">{distanceFromBase(t.lat, t.lon)} km</dd>
+                  <dd className="font-mono whitespace-nowrap text-sky">{distanceFromBase(t.lat, t.lon)} km</dd>
                 </div>
               ))}
             </dl>
             <p className="mt-4 text-sm text-muted-dark">
-              Reference towns for scale. Mayfair has one base, in Gaborone.
+              Reference towns for scale, measured from Gaborone.
             </p>
           </div>
         </div>

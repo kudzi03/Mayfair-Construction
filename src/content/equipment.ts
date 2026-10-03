@@ -2,9 +2,9 @@ import type { MediaKey } from "./media";
 
 /**
  * Equipment-hire inventory.
- * Only the four categories Mayfair has confirmed are listed. Specs (capacity,
- * fuel, rates) are deliberately left as "on request" until the real fleet
- * details are supplied — add them to `specs` and they render automatically.
+ * Only the four categories Mayfair has confirmed are listed. Specs are left
+ * empty until real fleet details are supplied — add them to `specs`
+ * (e.g. `{ label: "Lift capacity", value: "2.5 t" }`) and they render automatically.
  */
 export type Equipment = {
   id: string;
@@ -24,10 +24,7 @@ export const equipment: Equipment[] = [
     category: "Material handling",
     use: "Loading, unloading and moving palletised goods and building materials around a yard, warehouse or site.",
     media: "forklift",
-    specs: [
-      { label: "Lift capacity", value: "On request" },
-      { label: "Hire period", value: "On request" },
-    ],
+    specs: [],
   },
   {
     id: "pallet-jack",
@@ -36,10 +33,7 @@ export const equipment: Equipment[] = [
     category: "Material handling",
     use: "Moving pallets across warehouse floors, loading bays and truck beds where a forklift is too much machine.",
     media: "palletJack",
-    specs: [
-      { label: "Load rating", value: "On request" },
-      { label: "Hire period", value: "On request" },
-    ],
+    specs: [],
   },
   {
     id: "concrete-mixer",
@@ -48,10 +42,7 @@ export const equipment: Equipment[] = [
     category: "Concrete & masonry",
     use: "Mixing concrete and mortar on site for slabs, footings, plaster and brickwork.",
     media: "concreteMixer",
-    specs: [
-      { label: "Drum size", value: "On request" },
-      { label: "Hire period", value: "On request" },
-    ],
+    specs: [],
   },
   {
     id: "plate-compactor",
@@ -60,9 +51,6 @@ export const equipment: Equipment[] = [
     category: "Groundworks",
     use: "Compacting soil, sand and gravel bases before paving, slabs and foundations go down.",
     media: "plateCompactor",
-    specs: [
-      { label: "Plate size", value: "On request" },
-      { label: "Hire period", value: "On request" },
-    ],
+    specs: [],
   },
 ];

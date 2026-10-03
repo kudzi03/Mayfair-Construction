@@ -3,38 +3,20 @@ import type { MediaKey } from "./media";
 import type { ServiceSlug } from "./services";
 
 /**
- * Project record.
- *
- * `status: "slot"` entries are layout placeholders that use representative
- * imagery and show no project facts. When Mayfair supplies a real project,
- * add an entry with `status: "published"` and fill every field — the UI drops
- * the placeholder treatment automatically.
+ * Project record — empty until Mayfair supplies real, photographed projects.
+ * The "Selected work" section and its nav link appear automatically once the
+ * first entry is added. Never add a project that did not happen.
  */
-export type Project =
-  | {
-      status: "slot";
-      id: string;
-      service: ServiceSlug;
-      media: MediaKey;
-    }
-  | {
-      status: "published";
-      id: string;
-      title: string;
-      service: ServiceSlug;
-      location: string;
-      clientType: ClientId;
-      year: string;
-      summary: string;
-      media: MediaKey;
-      gallery?: MediaKey[];
-    };
+export type Project = {
+  id: string;
+  title: string;
+  service: ServiceSlug;
+  location: string;
+  clientType: ClientId;
+  year: string;
+  summary: string;
+  /** Add the photo to src/assets/images and register it in media.ts with `representative: false`. */
+  media: MediaKey;
+};
 
-export const projects: Project[] = [
-  { status: "slot", id: "slot-01", service: "restoration", media: "projectFrame" },
-  { status: "slot", id: "slot-02", service: "office-partitioning", media: "projectFacade" },
-  { status: "slot", id: "slot-03", service: "atm-installation", media: "projectRebar" },
-];
-
-/** The fields each published case study needs — shown on placeholder slots. */
-export const projectFields = ["Project", "Location", "Client type", "Scope", "Completed"] as const;
+export const projects: Project[] = [];

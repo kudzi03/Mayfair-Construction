@@ -65,12 +65,6 @@ export const CloseIcon = ({ size = 22, ...p }: IconProps) => (
   </svg>
 );
 
-export const PinIcon = ({ size = 18, ...p }: IconProps) => (
-  <svg {...base(size, p)}>
-    <path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" />
-    <circle cx="12" cy="9" r="2.5" />
-  </svg>
-);
 
 export const CheckIcon = ({ size = 18, ...p }: IconProps) => (
   <svg {...base(size, p)}>
@@ -85,8 +79,3 @@ export const AlertIcon = ({ size = 16, ...p }: IconProps) => (
   </svg>
 );
 
-export const ChevronIcon = ({ size = 20, ...p }: IconProps) => (
-  <svg {...base(size, p)}>
-    <path d="m9 5 7 7-7 7" />
-  </svg>
-);

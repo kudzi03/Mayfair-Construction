@@ -48,7 +48,7 @@ export const stages: Stage[] = [
     frame: step * 2,
     label: "Fit out",
     title: "Divided and wired.",
-    text: "New partitions frame the rooms. Conduit, boards and lighting go in before the walls close.",
+    text: "New partitions frame the rooms. Power points and lighting go in for each room.",
     services: ["office-partitioning", "electrical"],
   },
   {
@@ -69,7 +69,7 @@ export const stages: Stage[] = [
     frame: step * 5,
     label: "Open",
     title: "Open for business.",
-    text: "One contractor for every trade on this list. Based in Gaborone, working anywhere in Botswana.",
+    text: "One contractor for every trade on this list. Based in Gaborone, working across Botswana.",
     services: [],
   },
 ];

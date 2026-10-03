@@ -12,8 +12,8 @@ export function Footer() {
 
   return (
     <footer className="site-footer on-dark relative overflow-clip bg-ink text-bone">
-      <div className="container-x grid gap-12 pt-20 pb-12 md:grid-cols-12 md:pt-28">
-        <div className="md:col-span-4">
+      <div className="container-x grid grid-cols-2 gap-x-6 gap-y-10 pt-20 pb-12 md:grid-cols-12 md:gap-12 md:pt-28">
+        <div className="col-span-2 md:col-span-4">
           <p className="display text-[2.5rem]">{site.name}</p>
           <p className="mt-4 max-w-sm text-muted-dark">
             Construction, restoration, specialist installation and equipment hire. Based in {site.base.city}. Working

@@ -14,7 +14,7 @@ export function Wordmark({ className = "" }: { className?: string }) {
         height={site.logo.height}
         alt={site.name}
         className={className}
-        priority
+        preload
       />
     );
   }

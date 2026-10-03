@@ -15,16 +15,14 @@ export function MobileActionBar() {
   const [formVisible, setFormVisible] = useState(false);
 
   // Appear once the page's hero (marked data-hero) has scrolled mostly away.
-  useEffect(
-    () =>
-      subscribeScroll(() => {
-        const hero = document.querySelector("[data-hero]");
-        setPastHero(
-          hero ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.5 : window.scrollY > window.innerHeight * 0.6,
-        );
-      }),
-    [],
-  );
+  useEffect(() => {
+    const hero = document.querySelector("[data-hero]");
+    return subscribeScroll(() => {
+      setPastHero(
+        hero ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.5 : window.scrollY > window.innerHeight * 0.6,
+      );
+    });
+  }, [pathname]);
 
   useEffect(() => {
     const form = document.getElementById("quote");
@@ -37,7 +35,7 @@ export function MobileActionBar() {
   const show = pastHero && !formVisible;
 
   return (
-    <div className="action-bar lg:hidden" data-show={show} aria-hidden={!show} inert={!show}>
+    <nav aria-label="Quick contact" className="action-bar lg:hidden" data-show={show} aria-hidden={!show} inert={!show}>
       <ContactLink channel="call" className="flex items-center justify-center gap-2 border-r border-white/10 font-semibold text-bone">
         <PhoneIcon size={18} /> Call
       </ContactLink>
@@ -47,6 +45,6 @@ export function MobileActionBar() {
       <a href={quoteHref} className="flex items-center justify-center bg-ochre font-semibold text-ink">
         Get a quote
       </a>
-    </div>
+    </nav>
   );
 }

@@ -25,7 +25,7 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const title = `${site.name} — Construction, Installation & Equipment Hire in Gaborone, Botswana`;
+const title = `${site.name} | Construction & Equipment Hire in Gaborone`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0e0f10",
+  themeColor: "#14120f",
   width: "device-width",
   initialScale: 1,
 };

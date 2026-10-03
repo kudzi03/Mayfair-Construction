@@ -35,13 +35,15 @@ const validate = (v: Values): Errors => {
   return e;
 };
 
-const order: (keyof Values)[] = ["name", "phone", "email", "service", "location", "message"];
+const order: (keyof Values)[] = ["name", "phone", "service", "location", "message", "email"];
 
 export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }) {
   const uid = useId();
   const id = (f: string) => `${uid}-${f}`;
   const summaryRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
+  const doneRef = useRef<HTMLHeadingElement>(null);
+  const refocusName = useRef(false);
 
   const [values, setValues] = useState<Values>({
     name: "",
@@ -60,16 +62,33 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
   useEffect(
     () =>
       onPrefill(({ service, equipment: eq }) => {
-        setValues((v) => ({ ...v, service: service ?? v.service, equipment: eq ?? v.equipment }));
+        setValues((v) => ({
+          ...v,
+          service: service ?? v.service,
+          equipment: eq ?? (service && service !== "equipment-hire" ? "" : v.equipment),
+        }));
         setStatus("idle");
         // Let the anchor scroll land, then put the cursor in the first field.
-        window.setTimeout(() => nameRef.current?.focus({ preventScroll: true }), 650);
+        // Skipped on touch screens, where focusing would throw up the keyboard.
+        if (window.matchMedia("(pointer: fine)").matches) {
+          window.setTimeout(() => nameRef.current?.focus({ preventScroll: true }), 650);
+        }
       }),
     [],
   );
 
+  // Keep focus on the form as it swaps between the fields and the confirmation.
+  useEffect(() => {
+    if (status === "sent") doneRef.current?.focus();
+    if (status === "idle" && refocusName.current) {
+      refocusName.current = false;
+      nameRef.current?.focus();
+    }
+  }, [status]);
+
   const set = <K extends keyof Values>(key: K, value: Values[K]) => {
     const next = { ...values, [key]: value };
+    if (key === "service" && value !== "equipment-hire") next.equipment = "";
     setValues(next);
     if (submitted) setErrors(validate(next));
   };
@@ -119,7 +138,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
         <div className="flex size-12 items-center justify-center bg-ochre text-ink">
           <CheckIcon size={24} />
         </div>
-        <h3 className="display mt-6 text-5xl">{site.enquiry.mode === "demo" ? "Enquiry ready." : "Enquiry sent."}</h3>
+        <h3 ref={doneRef} tabIndex={-1} className="display mt-6 text-5xl focus:outline-none">{site.enquiry.mode === "demo" ? "Enquiry ready." : "Enquiry sent."}</h3>
         {site.enquiry.mode === "demo" ? (
           <p className="mt-4 max-w-md text-muted">
             <strong className="text-ink">Demo:</strong> nothing has been sent. On the live site this enquiry goes
@@ -154,6 +173,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
             type="button"
             className="btn btn-outline"
             onClick={() => {
+              refocusName.current = true;
               setStatus("idle");
               setSubmitted(false);
               setValues((v) => ({ ...v, message: "", equipment: "" }));

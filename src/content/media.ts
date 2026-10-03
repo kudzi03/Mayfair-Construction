@@ -14,10 +14,7 @@ import painting from "@/assets/images/painting.jpg";
 import palletJack from "@/assets/images/pallet-jack.jpg";
 import partitionInstall from "@/assets/images/partition-install.jpg";
 import plateCompactor from "@/assets/images/plate-compactor.jpg";
-import projectFacade from "@/assets/images/project-facade.jpg";
 import projectFoundation from "@/assets/images/project-foundation.jpg";
-import projectFrame from "@/assets/images/project-frame.jpg";
-import projectRebar from "@/assets/images/project-rebar.jpg";
 import restoration from "@/assets/images/restoration.jpg";
 import sequenceOpen from "@/assets/images/sequence-open.jpg";
 
@@ -29,6 +26,8 @@ export type Media = {
    * When Mayfair supplies photographs, replace the import and set this to false.
    */
   representative: boolean;
+  /** AI or drawn illustration rather than a photograph. */
+  illustration?: boolean;
   /** url is omitted for in-house illustrations. */
   credit: { source: string; url?: string };
   /** CSS object-position for art direction. */
@@ -45,8 +44,9 @@ const illustration = { source: "AI-generated illustration for this demo (VelaBui
 const registry = {
   sequenceOpen: {
     src: sequenceOpen,
-    alt: "Illustration: a refurbished commercial building in Gaborone at dusk, lights on, with an ATM in the wall and an electric car charging",
+    alt: "Illustration: a refurbished commercial building at dusk, lights on, with an ATM in the wall and an electric car charging",
     representative: true,
+    illustration: true,
     credit: illustration,
   },
   restoration: {
@@ -94,10 +94,11 @@ const registry = {
   },
   atmInstallation: {
     src: atmInstallation,
-    alt: "Technician kneeling at an opened ATM unit during installation work",
+    alt: "Illustration: a technician in a hi-vis vest checking a newly installed through-the-wall ATM on a rendered commercial building",
     representative: true,
-    credit: pexels("28374708", "a-man-is-kneeling-down-in-front-of-an-atm-machine"),
-    focus: "50% 55%",
+    illustration: true,
+    credit: illustration,
+    focus: "62% 55%",
   },
   evCharging: {
     src: evCharging,
@@ -143,24 +144,6 @@ const registry = {
     representative: true,
     credit: pexels("39179468", "modern-skyscraper-in-gaborone-landscape"),
   },
-  projectFrame: {
-    src: projectFrame,
-    alt: "Curved multi-storey concrete frame with a tower crane behind it",
-    representative: true,
-    credit: pexels("1463917", "unfinished-gray-concrete-building"),
-  },
-  projectFacade: {
-    src: projectFacade,
-    alt: "Steel and glass facade going up beside a finished building",
-    representative: true,
-    credit: pexels("38654069", "urban-architecture-building-construction-at-sunset"),
-  },
-  projectRebar: {
-    src: projectRebar,
-    alt: "Site worker in a hard hat standing among reinforcing steel",
-    representative: true,
-    credit: pexels("19982408", "worker-at-construction-site"),
-  },
   projectFoundation: {
     src: projectFoundation,
     alt: "Worker walking through a trench between new block foundation walls",
@@ -171,3 +154,6 @@ const registry = {
 
 export type MediaKey = keyof typeof registry;
 export const media: Record<MediaKey, Media> = registry;
+
+/** Label for any image that is not Mayfair's own work. */
+export const mediaLabel = (m: Media) => (m.illustration ? "Illustration — not a Mayfair project" : "Representative image");

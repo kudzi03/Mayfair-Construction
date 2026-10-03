@@ -4,7 +4,6 @@ import { SheetLabel } from "@/components/ui/SheetLabel";
 import { equipment } from "@/content/equipment";
 import type { MediaKey } from "@/content/media";
 import { pillars, servicesInPillar, servicePath } from "@/content/services";
-import { Collage } from "./Collage";
 import { IndexPreview } from "./IndexPreview";
 
 type Row = { key: string; num: string; name: string; summary: string; href: string; preview: MediaKey };
@@ -50,10 +49,8 @@ export function ServiceIndex() {
         <p className="statement mt-8 max-w-4xl text-muted" data-reveal="up" style={{ "--d": 120 } as React.CSSProperties}>
           Mayfair Construction is a Gaborone-based contractor. We take on building and property work, install
           specialist infrastructure, and hire out equipment — for homeowners, property managers, developers,
-          businesses and banks, anywhere in Botswana.
+          businesses and banks, across Botswana.
         </p>
-
-        <Collage />
 
         <IndexPreview keys={previewKeys}>
           <div className="mt-16 grid gap-14 md:mt-24">
