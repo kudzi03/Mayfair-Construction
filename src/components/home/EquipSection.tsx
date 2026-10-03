@@ -25,7 +25,7 @@ export function EquipSection() {
         <ul className="eq-grid" aria-label="Equipment available for hire">
           {equipment.map((item, i) => (
             <li key={item.id} data-reveal="up" style={{ "--d": i * 80 } as React.CSSProperties}>
-              <EquipmentCard item={item} index={i} />
+              <EquipmentCard item={item} />
             </li>
           ))}
         </ul>

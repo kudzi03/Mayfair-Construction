@@ -1,8 +1,11 @@
+import Image from "next/image";
 import { ContactLink } from "@/components/contact/ContactLink";
 import { EnquiryForm } from "@/components/contact/EnquiryForm";
 import { ArrowUpRight, MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/Icon";
+import { RepNote } from "@/components/ui/RepNote";
 import { SheetLabel } from "@/components/ui/SheetLabel";
 import { site } from "@/config/site";
+import { media } from "@/content/media";
 import type { ServiceSlug } from "@/content/services";
 import { channels } from "@/lib/contact";
 
@@ -28,21 +31,36 @@ export function ContactSection({
     <section
       id="quote"
       aria-labelledby="quote-title"
-      className="on-dark relative bg-ink pt-24 pb-24 text-bone md:pt-36 md:pb-32"
-      data-sheet={`${sheet} — Contact`}
+      className="on-dark relative bg-ink pb-24 text-bone md:pb-32"
       data-tone="dark"
     >
-      <div className="container-x relative">
-        <SheetLabel number={sheet} name="Contact" detail="Quote · Call · WhatsApp" />
-        <h2 id="quote-title" className="display mt-6 text-[clamp(3.5rem,1.5rem+9vw,11.5rem)]">
-          <span className="block" data-reveal="mask">
-            {lines[0]}
-          </span>
-          <span className="block text-ochre" data-reveal="mask" style={{ "--d": 120 } as React.CSSProperties}>
-            {lines[1]}
-          </span>
-        </h2>
+      {/* Where the opening story ends: the same building, finished and lit. */}
+      <div className="contact-band">
+        <Image
+          src={media.sequenceOpen.src}
+          alt=""
+          fill
+          sizes="100vw"
+          quality={60}
+          className="object-cover"
+          style={{ objectPosition: "55% 60%" }}
+        />
+        <div className="contact-band-shade" aria-hidden="true" />
+        <RepNote media={media.sequenceOpen} className="absolute top-[calc(var(--header-h)+1rem)] right-[var(--gutter)] z-10" />
+        <div className="container-x relative z-10 flex h-full flex-col justify-end pb-2">
+          <SheetLabel number={sheet} name="Contact" detail="Quote · Call · WhatsApp" />
+          <h2 id="quote-title" className="display mt-6 text-[clamp(3.25rem,1.5rem+8.5vw,11rem)]">
+            <span className="block" data-reveal="mask">
+              {lines[0]}
+            </span>
+            <span className="block text-ochre" data-reveal="mask" style={{ "--d": 120 } as React.CSSProperties}>
+              {lines[1]}
+            </span>
+          </h2>
+        </div>
+      </div>
 
+      <div className="container-x relative">
         <div className="mt-14 grid gap-12 md:mt-20 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <p className="lead max-w-md text-bone/85">
@@ -77,14 +95,11 @@ export function ContactSection({
           </div>
 
           <div className="lg:col-span-8">
-            <div className="reg relative text-sky">
-              <div className="bg-paper text-ink">
-                <div className="flex items-center justify-between gap-4 border-b border-ink/12 px-5 py-3.5 sm:px-6 md:px-10">
-                  <p className="mono">Request a quote</p>
-                  <p className="mono text-muted">Form MC-01</p>
-                </div>
-                <EnquiryForm defaultService={defaultService} />
+            <div className="bg-paper text-ink">
+              <div className="border-b border-ink/12 px-5 py-3.5 sm:px-6 md:px-10">
+                <p className="mono">Request a quote</p>
               </div>
+              <EnquiryForm defaultService={defaultService} />
             </div>
           </div>
         </div>

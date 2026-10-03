@@ -10,7 +10,7 @@ import { media } from "@/content/media";
  * One hire category. Specs render only once real figures are added to
  * `equipment.ts`, so the card never shows filler.
  */
-export function EquipmentCard({ item, index, headingLevel = "h3" }: { item: Equipment; index: number; headingLevel?: "h2" | "h3" }) {
+export function EquipmentCard({ item, headingLevel = "h3" }: { item: Equipment; headingLevel?: "h2" | "h3" }) {
   const m = media[item.media];
   const Heading = headingLevel;
 
@@ -20,7 +20,7 @@ export function EquipmentCard({ item, index, headingLevel = "h3" }: { item: Equi
       className="eq-card group flex h-full scroll-mt-28 flex-col bg-paper ring-1 ring-ink/10"
       aria-labelledby={`eq-${item.id}`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-concrete">
+      <div className="relative aspect-[4/3] overflow-hidden bg-[#9c9184]">
         <Image
           src={m.src}
           alt={m.alt}
@@ -30,7 +30,6 @@ export function EquipmentCard({ item, index, headingLevel = "h3" }: { item: Equi
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           style={{ objectPosition: m.focus }}
         />
-        <span className="mono absolute top-3 left-3 bg-ochre px-1.5 py-0.5 text-ink">EQ-0{index + 1}</span>
         <RepNote media={m} className="absolute right-2 bottom-2" />
       </div>
       <div className="flex flex-1 flex-col p-5 sm:p-6">

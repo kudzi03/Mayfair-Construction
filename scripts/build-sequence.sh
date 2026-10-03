@@ -41,5 +41,16 @@ for c in "${!clips[@]}"; do
   done
 done
 
+# The interpolated finish→install clip (t4) renders a ghosted crowd of
+# motion-blurred figures mid-way. Replace that stretch with an eased dissolve
+# between its two stage frames (needs ImageMagick).
+for size in sm lg; do
+  for i in $(seq $((FRAMES_PER_CLIP * 3 + 1)) $((FRAMES_PER_CLIP * 4 - 1))); do
+    pct=$(awk -v i="$i" -v s=$((FRAMES_PER_CLIP * 3)) -v n=$FRAMES_PER_CLIP 'BEGIN { a = (i - s) / n; printf "%.2f", 100 * a * a * (3 - 2 * a) }')
+    convert "$OUT/$size/$(printf %03d $((FRAMES_PER_CLIP * 3))).webp" "$OUT/$size/$(printf %03d $((FRAMES_PER_CLIP * 4))).webp" \
+      -compose blend -define compose:args="$pct" -composite -quality 50 -define webp:method=6 "$OUT/$size/$(printf %03d "$i").webp"
+  done
+done
+
 echo "Wrote $index frames to $OUT"
 du -sh "$OUT/sm" "$OUT/lg"

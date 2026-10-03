@@ -42,7 +42,6 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
 
   const pillar = pillarById(service.pillar);
   const hero = media[service.media];
-  const detail = service.secondaryMedia ? media[service.secondaryMedia] : null;
   const isHire = service.slug === "equipment-hire";
   const related = service.related.map((slug) => serviceBySlug(slug)!);
   const clients = service.clients.map(clientById);
@@ -169,15 +168,14 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
 
           {isHire ? (
             <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-9 lg:gap-5">
-              {equipment.map((eq, i) => (
+              {equipment.map((eq) => (
                 <li key={eq.id} data-reveal="up">
-                  <EquipmentCard item={eq} index={i} />
+                  <EquipmentCard item={eq} />
                 </li>
               ))}
             </ul>
           ) : (
-            <>
-              <ol className={detail ? "lg:col-span-5" : "lg:col-span-9 lg:grid lg:grid-cols-2 lg:gap-x-10"}>
+            <ol className="lg:col-span-9 lg:grid lg:grid-cols-2 lg:gap-x-10">
                 {service.scope.map((item, i) => (
                   <li key={item.title} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-ink/15 py-6" data-reveal="up">
                     <span className="mono pt-1.5 text-(--accent-text)">{n(i)}</span>
@@ -187,14 +185,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                     </div>
                   </li>
                 ))}
-              </ol>
-              {detail && (
-                <figure className="relative aspect-[4/5] overflow-hidden bg-concrete lg:col-span-4" data-reveal="fade">
-                  <Image src={detail.src} alt={detail.alt} fill sizes="(min-width: 64rem) 30vw, 92vw" quality={60} className="object-cover" />
-                  <RepNote as="figcaption" media={detail} className="absolute right-3 bottom-3" />
-                </figure>
-              )}
-            </>
+            </ol>
           )}
         </div>
       </section>
@@ -288,7 +279,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                         fill
                         sizes="(min-width: 48rem) 30vw, 92vw"
                         quality={60}
-                        className="object-cover grayscale transition duration-700 group-hover:scale-[1.03] group-hover:grayscale-0"
+                        className="object-cover transition duration-700 group-hover:scale-[1.03]"
                       />
                       <RepNote media={m} className="absolute right-3 bottom-3" />
                     </div>

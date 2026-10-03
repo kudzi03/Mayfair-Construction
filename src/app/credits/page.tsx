@@ -21,9 +21,9 @@ export default function CreditsPage() {
           Image credits
         </h1>
         <p className="lead mt-6 max-w-2xl text-muted">
-          Photographs on this site are representative stock images used under the Pexels License. The building in the
-          opening sequence and the ATM installation scene are AI-generated illustrations made for this demo. None of these images show Mayfair
-          Construction’s projects, staff or equipment; they will be replaced with Mayfair’s own photography.
+          The building, interiors and equipment shown on this site are AI-generated illustrations made for this demo,
+          and the Gaborone skyline is a stock photograph used under the Pexels License. None of these images show
+          Mayfair Construction’s projects, staff or equipment; they will be replaced with Mayfair’s own photography.
         </p>
 
         <ul className="mt-14 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">

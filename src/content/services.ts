@@ -62,7 +62,6 @@ export type Service = {
   /** What a customer should send for an accurate quote. */
   quoteChecklist: string[];
   media: MediaKey;
-  secondaryMedia?: MediaKey;
   related: ServiceSlug[];
   meta: { title: string; description: string };
 };
@@ -102,7 +101,6 @@ export const services: Service[] = [
       "Any deadline: a new tenant, a sale, an opening date",
     ],
     media: "restoration",
-    secondaryMedia: "projectFoundation",
     related: ["painting", "electrical", "carpeting"],
     meta: {
       title: "Building Restoration in Gaborone, Botswana",
@@ -185,7 +183,6 @@ export const services: Service[] = [
       "How urgent it is",
     ],
     media: "electrical",
-    secondaryMedia: "electricalPanel",
     related: ["ev-charging", "atm-installation", "office-partitioning"],
     meta: {
       title: "Electrical Installation & Repairs, Gaborone",
@@ -268,7 +265,6 @@ export const services: Service[] = [
       "Your move-in or completion date",
     ],
     media: "officePartitioning",
-    secondaryMedia: "partitionInstall",
     related: ["carpeting", "electrical", "painting"],
     meta: {
       title: "Office Partitioning in Gaborone, Botswana",
@@ -351,7 +347,6 @@ export const services: Service[] = [
       "Photos of the distribution board and the parking area",
     ],
     media: "evCharging",
-    secondaryMedia: "evChargerPost",
     related: ["electrical", "atm-installation", "equipment-hire"],
     meta: {
       title: "EV Charger Installation in Gaborone",
@@ -391,7 +386,7 @@ export const services: Service[] = [
       "Where it will be used",
       "What the job is — what you’re lifting, mixing or compacting",
     ],
-    media: "forklift",
+    media: "equipmentSite",
     related: ["restoration", "ev-charging", "electrical"],
     meta: {
       title: "Forklift & Site Equipment Hire, Gaborone",

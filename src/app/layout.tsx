@@ -3,7 +3,6 @@ import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MobileActionBar } from "@/components/layout/MobileActionBar";
-import { SheetIndicator } from "@/components/layout/SheetIndicator";
 import { RevealObserver } from "@/components/motion/RevealObserver";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Toaster } from "@/components/ui/Toaster";
@@ -70,7 +69,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </main>
         <Footer />
         <MobileActionBar />
-        <SheetIndicator />
         <Toaster />
         <RevealObserver />
       </body>

@@ -16,7 +16,19 @@ import { subscribeScroll } from "@/lib/scroll-loop";
  */
 export function BuildShowcase({ services }: { services: Service[] }) {
   const [active, setActive] = useState(0);
+  const [near, setNear] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
   const blocks = useRef<(HTMLElement | null)[]>([]);
+
+  // Start loading every frame image a screen or so before the section arrives,
+  // so the wipe never reveals an image that is still downloading.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: "150% 0px" });
+    io.observe(root);
+    return () => io.disconnect();
+  }, []);
 
   // The active service is the last one whose heading has passed the middle of the screen.
   useEffect(() => {
@@ -34,10 +46,10 @@ export function BuildShowcase({ services }: { services: Service[] }) {
   const current = services[active];
 
   return (
-    <div className="container-x mt-14 grid grid-cols-1 gap-x-16 lg:mt-20 lg:grid-cols-12">
+    <div ref={rootRef} className="container-x mt-14 grid grid-cols-1 gap-x-16 lg:mt-20 lg:grid-cols-12">
       <div className="hidden lg:col-span-6 lg:block">
         <div className="sticky top-[calc(var(--header-h)+2rem)]">
-          <div className="build-frame reg relative h-[calc(100svh-var(--header-h)-6rem)] max-h-[54rem] overflow-hidden bg-concrete text-ink">
+          <div className="build-frame relative h-[calc(100svh-var(--header-h)-6rem)] max-h-[54rem] overflow-hidden bg-concrete text-ink">
             {services.map((s, i) => {
               const m = media[s.media];
               return (
@@ -48,6 +60,8 @@ export function BuildShowcase({ services }: { services: Service[] }) {
                     fill
                     sizes="(min-width: 64rem) 46vw, 1px"
                     quality={75}
+                    loading={near ? "eager" : "lazy"}
+                    fetchPriority="low"
                     className="object-cover"
                     style={{ objectPosition: m.focus }}
                   />
@@ -100,14 +114,14 @@ export function BuildShowcase({ services }: { services: Service[] }) {
                 {s.name}
               </h3>
               <p className="lead mt-5 max-w-lg">{s.summary}</p>
-              <ul className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
-                {s.scope.map((item) => (
-                  <li key={item.title} className="border-t border-ink/15 pt-3">
-                    <p className="font-semibold">{item.title}</p>
-                    <p className="mt-1 text-[0.9375rem] leading-snug text-muted">{item.text}</p>
+              <ol className="mt-8 max-w-lg border-t border-ink/15">
+                {s.scope.map((item, n) => (
+                  <li key={item.title} className="flex items-baseline gap-4 border-b border-ink/15 py-3">
+                    <span className="mono text-muted">{String(n + 1).padStart(2, "0")}</span>
+                    <span className="text-lg font-medium">{item.title}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
               <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
                 <QuoteLink service={s.slug} className="btn btn-dark">
                   Quote for {s.name.toLowerCase()} <ArrowRight />

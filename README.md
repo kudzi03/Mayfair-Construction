@@ -52,6 +52,7 @@ The home page opens on one building taken from derelict shell to "open for busin
 
 - **What it is:** an AI-generated illustration, labelled on the page and on `/credits` as not a Mayfair project. Six keyframes were made by editing one anchor image (so the camera never moves), and the five transitions between them were generated with start/end-frame video interpolation.
 - **Frames:** `public/sequence/{sm,lg}/000–080.webp` (768px ≈ 1.7 MB total, 1440px ≈ 3.7 MB total). Rebuild with `scripts/build-sequence.sh <dir with t1.mp4…t5.mp4>`; stage copy lives in `src/content/sequence.ts`.
+- **Illustrated world:** every other image on the site (interiors, the ATM wall, the EV bay, the equipment set) was generated against the same hero keyframe so light, materials and palette match. All are labelled and listed on `/credits`. The finish→install transition is a dissolve rather than the raw interpolation, which rendered ghosted figures; the build script applies it automatically.
 - **Loading:** a server-rendered poster is the LCP image. After the page loads, stage keyframes stream first, then progressively finer passes; the canvas blends between the nearest loaded frames, so it stays smooth while frames arrive.
 - **Fallbacks:** Save-Data / 2G and `prefers-reduced-motion` load only the six stage frames and switch between them without animation. Small screens show the full building in a 4:3 band with captions below.
 - **When real photos exist:** the strongest version is Mayfair's own before/during/after photos of one real job, sequenced the same way.
@@ -93,4 +94,4 @@ See `.env.example`.
 
 ## Credits
 
-Photography: Pexels (Pexels License) — full list at `/credits`. Hero sequence and the ATM installation scene: AI-generated illustrations made for this demo. Map: Natural Earth (public domain). Fonts: Archivo and IBM Plex Mono (SIL OFL; static Archivo instances for OG images in `src/assets/fonts/`).
+Imagery: AI-generated illustrations made for this demo (one building, its interiors and the hire equipment, all labelled), plus one Pexels photo of Gaborone — full list at `/credits`. Map: Natural Earth (public domain). Fonts: Archivo and IBM Plex Mono (SIL OFL; static Archivo instances for OG images in `src/assets/fonts/`).

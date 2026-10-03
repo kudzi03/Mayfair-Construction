@@ -257,32 +257,6 @@ img {
     background-size: 64px 64px;
   }
 
-  /* Registration crosses at the corners of a frame */
-  .reg {
-    position: relative;
-  }
-  .reg::before,
-  .reg::after {
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    pointer-events: none;
-    background:
-      linear-gradient(currentColor, currentColor) center / 1px 100% no-repeat,
-      linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat;
-    opacity: 0.6;
-    z-index: 2;
-  }
-  .reg::before {
-    top: -7px;
-    left: -7px;
-  }
-  .reg::after {
-    bottom: -7px;
-    right: -7px;
-  }
-
   .chip {
     display: inline-flex;
     align-items: center;
@@ -1028,6 +1002,12 @@ img {
   .install-figure img {
     transition: transform 1.4s var(--ease-out-expo);
   }
+  .install-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(20 18 15 / 0) 58%, rgb(20 18 15 / 0.5) 80%, rgb(20 18 15 / 0.88) 100%);
+    pointer-events: none;
+  }
   .install-panel:hover .install-figure img,
   .install-panel:focus-within .install-figure img {
     transform: scale(1.03);
@@ -1274,6 +1254,28 @@ img {
   }
 
   /* ==========================================================================
+     Contact — closing image band
+     ========================================================================== */
+
+  .contact-band {
+    position: relative;
+    height: clamp(30rem, 82svh, 52rem);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .contact-band > img {
+    z-index: -2;
+  }
+  .contact-band-shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(180deg, rgb(20 18 15 / 0.55) 0%, rgb(20 18 15 / 0) 26%, rgb(20 18 15 / 0) 46%, rgb(20 18 15 / 0.72) 78%, var(--color-ink) 100%),
+      linear-gradient(90deg, rgb(20 18 15 / 0.45) 0%, rgb(20 18 15 / 0) 60%);
+  }
+
+  /* ==========================================================================
      FAQ
      ========================================================================== */
 
@@ -1374,19 +1376,6 @@ img {
     }
   }
 
-  .sheet-indicator {
-    position: fixed;
-    left: calc(var(--gutter) / 2);
-    top: 50%;
-    z-index: 30;
-    transform: translate(-50%, -50%) rotate(-90deg);
-    transform-origin: center;
-    transition:
-      opacity 0.4s,
-      color 0.4s;
-    white-space: nowrap;
-    pointer-events: none;
-  }
 
   /* Lift footer content above the mobile action bar */
   @media (max-width: 63.99rem) {
