@@ -115,7 +115,7 @@ export function Footer() {
           © {year} {site.name}. {site.base.city}, {site.base.country}.
         </p>
         <p>
-          {site.isDemo && <>Imagery on this site is representative or illustrated — none of it shows Mayfair projects. </>}
+          {site.isDemo && <>Photos under Recent work are Mayfair’s own; all other imagery is illustrated or stock and labelled. </>}
           <Link href="/credits" className="underline underline-offset-4 hover:text-bone">
             Image credits
           </Link>

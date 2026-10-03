@@ -37,9 +37,9 @@ export default function HomePage() {
 
       <InstallSection />
       <EquipSection />
+      <WorkSection />
       <ClientsSection />
       <CoverageSection />
-      <WorkSection />
       <FaqSection />
       <ContactSection />
     </>

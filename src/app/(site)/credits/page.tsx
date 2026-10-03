@@ -4,7 +4,7 @@ import { media } from "@/content/media";
 
 export const metadata: Metadata = {
   title: "Image Credits",
-  description: "Sources and licences for the photography, map data and typefaces used on this site.",
+  description: "Sources and licences for the photography, illustrations, map data and typefaces used on this site.",
   alternates: { canonical: "/credits" },
   openGraph: { title: "Image Credits | Mayfair Construction", url: "/credits" },
 };
@@ -21,9 +21,10 @@ export default function CreditsPage() {
           Image credits
         </h1>
         <p className="lead mt-6 max-w-2xl text-muted">
-          The building, interiors and equipment shown on this site are AI-generated illustrations made for this demo,
-          and the Gaborone skyline is a stock photograph used under the Pexels License. None of these images show
-          Mayfair Construction’s projects, staff or equipment; they will be replaced with Mayfair’s own photography.
+          The site photos and video under Recent work are Mayfair Construction’s own, supplied by the company, with
+          passers-by and number plates blurred. Everything else — the building, interiors and equipment — is an
+          AI-generated illustration made for this demo, and the Gaborone skyline is a stock photograph used under the
+          Pexels License. Those images do not show Mayfair’s projects, staff or equipment, and are labelled on the page.
         </p>
 
         <ul className="mt-14 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">

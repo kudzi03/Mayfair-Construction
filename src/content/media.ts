@@ -14,6 +14,19 @@ import palletJack from "@/assets/images/pallet-jack.jpg";
 import plateCompactor from "@/assets/images/plate-compactor.jpg";
 import restoration from "@/assets/images/restoration.jpg";
 import sequenceOpen from "@/assets/images/sequence-open.jpg";
+import doorFloorSpring from "@/assets/images/work/door-floor-spring.jpg";
+import doorNew from "@/assets/images/work/door-new.jpg";
+import lockersAfter from "@/assets/images/work/lockers-after.jpg";
+import lockersBefore from "@/assets/images/work/lockers-before.jpg";
+import lockersCarcass from "@/assets/images/work/lockers-carcass.jpg";
+import pavingRelay from "@/assets/images/work/paving-relay.jpg";
+import roofCrew from "@/assets/images/work/roof-crew.jpg";
+import roofMembrane from "@/assets/images/work/roof-membrane.jpg";
+import roofParapet from "@/assets/images/work/roof-parapet.jpg";
+import roofPonding from "@/assets/images/work/roof-ponding.jpg";
+import roofPrimer from "@/assets/images/work/roof-primer.jpg";
+import roofScreed from "@/assets/images/work/roof-screed.jpg";
+import roofTorchPoster from "@/assets/images/work/roof-torch-poster.jpg";
 
 export type Media = {
   src: StaticImageData;
@@ -37,6 +50,10 @@ const pexels = (id: string, slug: string) => ({
 });
 
 const illustration = { source: "AI-generated illustration for this demo (VelaBuilt)" };
+
+/** Mayfair's own site photos, supplied by the company. Faces of passers-by and number plates are blurred. */
+const own = { source: "Mayfair Construction — site photo" };
+const photo = (src: StaticImageData, alt: string, focus?: string): Media => ({ src, alt, representative: false, credit: own, focus });
 
 const registry = {
   sequenceOpen: {
@@ -138,6 +155,19 @@ const registry = {
     illustration: true,
     credit: illustration,
   },
+  roofTorchPoster: photo(roofTorchPoster, "A Mayfair crew member torching down a roll of bitumen waterproofing membrane on a flat concrete roof"),
+  roofPonding: photo(roofPonding, "Rainwater ponding across a flat concrete roof before waterproofing, with a crew member at the parapet", "50% 60%"),
+  roofParapet: photo(roofParapet, "Cracked and lifting render along a flat roof’s parapet, seen from above", "45% 50%"),
+  roofScreed: photo(roofScreed, "Fresh screed laid along the edge of a flat roof beside the parapet", "45% 35%"),
+  roofPrimer: photo(roofPrimer, "Black bitumen primer being rolled onto a flat roof slab", "55% 30%"),
+  roofMembrane: photo(roofMembrane, "Two Mayfair crew members torching down a roll of bitumen membrane on a flat roof", "55% 45%"),
+  roofCrew: photo(roofCrew, "Mayfair crew members laying a roll of waterproofing membrane on a flat roof, gas cylinder alongside", "50% 40%"),
+  lockersBefore: photo(lockersBefore, "Before: a worn bank of wooden lockers with broken and missing doors"),
+  lockersAfter: photo(lockersAfter, "After: a new pigeon-hole locker cabinet with lockable doors, installed against an office wall"),
+  lockersCarcass: photo(lockersCarcass, "The new locker cabinet’s pigeon-hole carcass during fabrication"),
+  doorNew: photo(doorNew, "A replaced double glass entrance door with white aluminium frames", "50% 40%"),
+  doorFloorSpring: photo(doorFloorSpring, "A Mayfair crew member setting a door floor spring into the floor beneath a glass door", "60% 40%"),
+  pavingRelay: photo(pavingRelay, "A Mayfair crew member re-laying paving bricks outside a shopping centre, with the work area taped off", "78% 50%"),
   gaborone: {
     src: gaborone,
     alt: "High-rise towers on the Gaborone skyline, seen across open grassland",

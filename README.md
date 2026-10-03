@@ -21,7 +21,7 @@ npx tsc --noEmit
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Main experience: scroll-built hero sequence, service index, Build / Install / Equip, client picker, coverage map, FAQ, enquiry (plus "Selected work" once real projects are added) |
+| `/` | Main experience: scroll-built hero sequence, service index, Build / Install / Equip, client picker, coverage map, FAQ, enquiry and "Recent work" (Mayfair's own site photos and video) |
 | `/restoration` `/painting` `/electrical` `/carpeting` `/office-partitioning` | Build services |
 | `/atm-installation` `/ev-charging` | Specialist installations |
 | `/equipment-hire` | Equipment hire, with `#forklift`, `#pallet-jack`, `#concrete-mixer`, `#plate-compactor` anchors |
@@ -38,7 +38,7 @@ src/config/site.ts        ← business details, contact channels, enquiry routin
 src/content/services.ts   ← all service copy (pillars, scope, checklists, meta)
 src/content/equipment.ts  ← equipment-hire inventory and specs
 src/content/clients.ts    ← client types and which services matter to each
-src/content/projects.ts   ← project record (empty until real projects exist; the section appears automatically)
+src/content/projects.ts   ← Mayfair's own work (photos in src/assets/images/work, clip in public/work)
 src/content/faq.ts        ← FAQ copy (also emitted as FAQPage JSON-LD)
 src/content/media.ts      ← every image, its alt text, credit and representative flag
 src/content/coverage.ts   ← reference towns, projection, distances
@@ -91,7 +91,7 @@ New enquiry (button, or the `n` key) needs only a name and a service. Search: th
 1. **Contact details** — set `phone`, `whatsapp` (E.164, e.g. `+26771234567`), `email`, `streetAddress`, `hours` in `src/config/site.ts`. Call/WhatsApp/Email buttons, the footer, `llms.txt` and the JSON-LD update automatically. While a value is `null`, its button shows a "demo" notice instead of a dead link.
 2. **Enquiries** — set `NEXT_PUBLIC_ENQUIRY_ENDPOINT` to a URL that accepts a JSON POST (Formspree, a CRM webhook, or a Next route handler that emails Mayfair). Without it the form runs in demo mode and sends nothing.
 3. **Photography** — replace files in `src/assets/images/` (keep the names or update the imports in `media.ts`), rewrite each `alt`, and set `representative: false` (and drop `illustration`). Labels are driven by each image's own flag, so any stock or illustrated image stays labelled until it is replaced.
-4. **Projects** — add real, photographed projects to `src/content/projects.ts`. The "Selected work" section and its nav link appear with the first entry.
+4. **Projects** — `src/content/projects.ts` holds Mayfair's own photographed work; the first entry is the featured one (optionally with a short muted clip in `public/work/`). Only state what the photos show or what Mayfair wrote about them, keep `ownerCaption` word for word, and blur passers-by and number plates before adding a photo.
 5. **Equipment** — add real capacities, sizes and hire terms to each item's `specs` in `equipment.ts`; spec rows only render once they exist.
 6. **Logo** — put the SVG in `public/` and set `site.logo`.
 7. **Social / Google Business Profile** — add verified URLs to `site.social`; they flow into the footer and `sameAs`.
@@ -123,4 +123,4 @@ See `.env.example`.
 
 ## Credits
 
-Imagery: AI-generated illustrations made for this demo (one building, its interiors and the hire equipment, all labelled), plus one Pexels photo of Gaborone — full list at `/credits`. Map: Natural Earth (public domain). Fonts: Archivo and IBM Plex Mono (SIL OFL; static Archivo instances for OG images in `src/assets/fonts/`).
+Imagery: Mayfair's own site photos and one site clip (Recent work, supplied by the company; passers-by and plates blurred), AI-generated illustrations made for this demo (one building, its interiors and the hire equipment, all labelled), plus one Pexels photo of Gaborone — full list at `/credits`. Map: Natural Earth (public domain). Fonts: Archivo and IBM Plex Mono (SIL OFL; static Archivo instances for OG images in `src/assets/fonts/`).
