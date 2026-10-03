@@ -49,7 +49,7 @@ export const site = {
   },
 
   description:
-    "Mayfair Construction is a Gaborone-based contractor for restoration, painting, electrical work, carpeting, office partitioning, ATM and EV charger installation, and equipment hire — working across Botswana.",
+    "Mayfair Construction is a Gaborone-based contractor for restoration, waterproofing, painting, electrical, fit-out and joinery, paving, ATM and EV charger installation, and equipment hire — working across Botswana.",
 
   contact: {
     phone: null,

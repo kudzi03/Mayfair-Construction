@@ -8,7 +8,7 @@ import { media } from "@/content/media";
 import { pillarById, servicePath, servicesInPillar } from "@/content/services";
 import { PillarHeader } from "./PillarHeader";
 
-/** Two full-bleed panels: the installation on the image, the scope underneath. */
+/** Full-bleed panels, two per row: the installation on the image, the scope underneath. */
 export function InstallSection() {
   const pillar = pillarById("install");
   const items = servicesInPillar("install");
@@ -23,8 +23,8 @@ export function InstallSection() {
       <PillarHeader
         pillar={pillar}
         titleId="install-title"
-        count="2 services"
-        intro="Specialist equipment, fitted on site. ATM installation and EV charging sit alongside Mayfair’s building and electrical services — so the wall, the power and the finish can be one enquiry."
+        count={`${items.length} services`}
+        intro="Specialist work, fitted on site. ATM installation, EV charging, entrance doors and built-in joinery sit alongside Mayfair’s building and electrical services — so the wall, the power and the finish can be one enquiry."
       />
 
       <div className="mt-14 grid gap-px bg-white/10 md:mt-20 lg:grid-cols-2">
@@ -38,7 +38,7 @@ export function InstallSection() {
                   alt={m.alt}
                   fill
                   sizes="(min-width: 64rem) 50vw, 100vw"
-                  quality={60}
+                  quality={m.representative ? 60 : 75}
                   className="object-cover"
                   style={{ objectPosition: m.focus }}
                 />

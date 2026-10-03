@@ -39,12 +39,16 @@ export const STAGE_NEXT: Partial<Record<StageId, { action: string; inDays: numbe
 
 export const SERVICES = [
   { id: "restoration", label: "Restoration", group: "Build" },
+  { id: "waterproofing", label: "Waterproofing", group: "Build" },
   { id: "painting", label: "Painting", group: "Build" },
   { id: "electrical", label: "Electrical", group: "Build" },
   { id: "carpeting", label: "Carpeting", group: "Build" },
   { id: "office_partitioning", label: "Office Partitioning", group: "Build" },
+  { id: "paving", label: "Paving", group: "Build" },
   { id: "atm_installation", label: "ATM Installation", group: "Install" },
   { id: "ev_charging", label: "EV Charging", group: "Install" },
+  { id: "doors", label: "Doors & Floor Springs", group: "Install" },
+  { id: "joinery", label: "Joinery", group: "Install" },
   { id: "forklift_hire", label: "Forklift Hire", group: "Equipment hire" },
   { id: "pallet_jack_hire", label: "Pallet Jack Hire", group: "Equipment hire" },
   { id: "concrete_mixer_hire", label: "Concrete Mixer Hire", group: "Equipment hire" },

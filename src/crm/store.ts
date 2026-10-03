@@ -209,6 +209,10 @@ const WEBSITE_SERVICE: Record<string, ServiceId> = {
   "office-partitioning": "office_partitioning",
   "atm-installation": "atm_installation",
   "ev-charging": "ev_charging",
+  waterproofing: "waterproofing",
+  paving: "paving",
+  doors: "doors",
+  joinery: "joinery",
 };
 const WEBSITE_EQUIPMENT: Record<string, ServiceId> = {
   Forklift: "forklift_hire",

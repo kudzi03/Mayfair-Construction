@@ -10,14 +10,23 @@ import { ScrollVar } from "@/components/motion/ScrollVar";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ArrowRight, WhatsAppIcon } from "@/components/ui/Icon";
 import { SheetLabel } from "@/components/ui/SheetLabel";
+import { GalleryTrigger, WorkGallery } from "@/components/work/WorkLightbox";
+import { galleryItems, PRIVACY_NOTE, WorkFeature } from "@/components/work/WorkParts";
 import { site } from "@/config/site";
 import { clientById } from "@/content/clients";
 import { equipment } from "@/content/equipment";
 import { media } from "@/content/media";
+import { projectsFor } from "@/content/projects";
 import { pillarById, serviceBySlug, servicePath, services } from "@/content/services";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
 export const dynamicParams = false;
+
+/** Hero lines for a framed name: break after "&" ("Doors &" / "Floor Springs"), otherwise one word per line. */
+const heroLines = (name: string) => {
+  const [left, right] = name.split(" & ");
+  return right ? [`${left} &`, right] : name.split(" ");
+};
 
 export function generateStaticParams() {
   return services.map((s) => ({ service: s.slug }));
@@ -46,9 +55,14 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
   const related = service.related.map((slug) => serviceBySlug(slug)!);
   const clients = service.clients.map(clientById);
   const n = (i: number) => String(i + 1).padStart(2, "0");
+  // Mayfair's own photos are phone-sized: show them framed, near their own size, not stretched full-bleed.
+  const framed = !hero.representative;
+  const work = projectsFor(service.slug);
+  const shots = work.flatMap((p) => p.shots);
+  const captionOf = (key: string) => shots.find((s) => s.media === key)?.caption ?? "Site photo";
 
   return (
-    <>
+    <WorkGallery items={galleryItems(work)}>
       <JsonLd
         data={[
           serviceSchema(service),
@@ -69,19 +83,23 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
         data-tone="dark"
         data-hero
       >
-        <div className="hero-media">
-          <Image
-            src={hero.src}
-            alt={hero.alt}
-            fill
-            preload
-            quality={60}
-            sizes="(max-aspect-ratio: 3/4) 160vw, (max-aspect-ratio: 3/2) 140vw, 100vw"
-            className="object-cover"
-            style={{ objectPosition: hero.focus }}
-          />
-        </div>
-        <div className="hero-shade" />
+        {!framed && (
+          <>
+            <div className="hero-media">
+              <Image
+                src={hero.src}
+                alt={hero.alt}
+                fill
+                preload
+                quality={60}
+                sizes="(max-aspect-ratio: 3/4) 160vw, (max-aspect-ratio: 3/2) 140vw, 100vw"
+                className="object-cover"
+                style={{ objectPosition: hero.focus }}
+              />
+            </div>
+            <div className="hero-shade" />
+          </>
+        )}
 
         <div className="hero-content container-x relative flex flex-1 flex-col pt-[calc(var(--header-h)+1.5rem)] pb-10 md:pt-[calc(var(--header-h)+2.5rem)] md:pb-14">
           <nav aria-label="Breadcrumb" className="hero-fade" style={{ "--delay": "100ms" } as React.CSSProperties}>
@@ -110,38 +128,118 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
           <div className="hero-rule mt-4 h-px bg-white/25" aria-hidden="true" />
           <RepNote media={hero} className="hero-fade mt-3 self-end" />
 
-          <div className="mt-auto grid items-end gap-x-10 gap-y-8 pt-16 lg:grid-cols-12">
-            <h1 id="service-title" className="lg:col-span-8">
-              <span className="hero-words display block text-[clamp(3.5rem,1.5rem+9vw,10.5rem)]!">
-                {service.name.split(" ").map((word, i) => (
-                  <span key={`${i}-${word}`} className="line">
-                    <span style={{ "--i": i } as React.CSSProperties}>{word}</span>
+          {framed ? (
+            <div className="mt-auto grid items-end gap-x-12 gap-y-10 pt-12 lg:grid-cols-12">
+              <div className={service.heroPair ? "lg:col-span-6" : "lg:col-span-7"}>
+                <h1 id="service-title">
+                  <span className="hero-words display block text-[clamp(3rem,1rem+6.2vw,7.25rem)]!">
+                    {heroLines(service.name).map((line, i) => (
+                      <span key={line} className="line">
+                        <span style={{ "--i": i } as React.CSSProperties}>{line}</span>
+                      </span>
+                    ))}
                   </span>
-                ))}
-              </span>
-              <span
-                className="hero-fade mt-5 block text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium"
-                style={{ "--delay": "500ms" } as React.CSSProperties}
-              >
-                {isHire ? `from ${site.name}, ${site.base.city}` : `in ${site.base.city} and across ${site.base.country}`}
-              </span>
-            </h1>
-            <div className="hero-fade lg:col-span-4" style={{ "--delay": "650ms" } as React.CSSProperties}>
-              <p className="lead text-bone">{service.summary}</p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a href="#quote" className="btn btn-primary">
-                  {isHire ? "Check availability" : "Request a quote"} <ArrowRight />
-                </a>
-                <ContactLink
-                  channel="whatsapp"
-                  message={`Hello Mayfair, I’d like to ask about ${service.name.toLowerCase()}.`}
-                  className="btn btn-light"
+                  <span
+                    className="hero-fade mt-5 block text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium"
+                    style={{ "--delay": "500ms" } as React.CSSProperties}
+                  >
+                    in {site.base.city} and across {site.base.country}
+                  </span>
+                </h1>
+                <div className="hero-fade mt-8 max-w-xl" style={{ "--delay": "650ms" } as React.CSSProperties}>
+                  <p className="lead text-bone">{service.summary}</p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <a href="#quote" className="btn btn-primary">
+                      Request a quote <ArrowRight />
+                    </a>
+                    <ContactLink
+                      channel="whatsapp"
+                      message={`Hello Mayfair, I’d like to ask about ${service.name.toLowerCase()}.`}
+                      className="btn btn-light"
+                    >
+                      <WhatsAppIcon /> WhatsApp
+                    </ContactLink>
+                  </div>
+                </div>
+              </div>
+              {service.heroPair ? (
+                <div className="hero-fade grid grid-cols-2 gap-3 lg:col-span-6" style={{ "--delay": "300ms" } as React.CSSProperties}>
+                  {service.heroPair.map((key, i) => {
+                    const m = media[key];
+                    return (
+                      <figure key={key} className={i === 1 ? "lg:-mb-6" : "lg:mb-6"}>
+                        <GalleryTrigger id={key} label={captionOf(key)} className="relative aspect-[4/5] bg-graphite">
+                          <Image
+                            src={m.src}
+                            alt={m.alt}
+                            fill
+                            preload={i === 0}
+                            quality={75}
+                            sizes="(min-width: 64rem) 22vw, 46vw"
+                            className="object-cover"
+                            style={{ objectPosition: m.focus }}
+                          />
+                          <span className="mono absolute top-2 left-2 bg-ink px-2 py-1 text-bone">{captionOf(key)}</span>
+                        </GalleryTrigger>
+                      </figure>
+                    );
+                  })}
+                  <p className="mono col-span-2 mt-1 text-bone/70 lg:mt-7 lg:text-right">Mayfair site photos</p>
+                </div>
+              ) : (
+                <figure className="hero-fade lg:col-span-5" style={{ "--delay": "300ms" } as React.CSSProperties}>
+                  <div
+                    className="hero-photo relative overflow-hidden bg-graphite"
+                    style={{ "--w": hero.src.width, "--h": hero.src.height } as React.CSSProperties}
+                  >
+                    <Image
+                      src={hero.src}
+                      alt={hero.alt}
+                      fill
+                      preload
+                      quality={75}
+                      sizes={`(min-width: 64rem) min(36vw, ${hero.src.width}px), min(92vw, ${hero.src.width}px)`}
+                      className="object-cover"
+                    />
+                  </div>
+                  <figcaption className="mono mt-3 text-bone/70 lg:text-right">Mayfair site photo</figcaption>
+                </figure>
+              )}
+            </div>
+          ) : (
+            <div className="mt-auto grid items-end gap-x-10 gap-y-8 pt-16 lg:grid-cols-12">
+              <h1 id="service-title" className="lg:col-span-8">
+                <span className="hero-words display block text-[clamp(3.5rem,1.5rem+9vw,10.5rem)]!">
+                  {service.name.split(" ").map((word, i) => (
+                    <span key={`${i}-${word}`} className="line">
+                      <span style={{ "--i": i } as React.CSSProperties}>{word}</span>
+                    </span>
+                  ))}
+                </span>
+                <span
+                  className="hero-fade mt-5 block text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium"
+                  style={{ "--delay": "500ms" } as React.CSSProperties}
                 >
-                  <WhatsAppIcon /> WhatsApp
-                </ContactLink>
+                  {isHire ? `from ${site.name}, ${site.base.city}` : `in ${site.base.city} and across ${site.base.country}`}
+                </span>
+              </h1>
+              <div className="hero-fade lg:col-span-4" style={{ "--delay": "650ms" } as React.CSSProperties}>
+                <p className="lead text-bone">{service.summary}</p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a href="#quote" className="btn btn-primary">
+                    {isHire ? "Check availability" : "Request a quote"} <ArrowRight />
+                  </a>
+                  <ContactLink
+                    channel="whatsapp"
+                    message={`Hello Mayfair, I’d like to ask about ${service.name.toLowerCase()}.`}
+                    className="btn btn-light"
+                  >
+                    <WhatsAppIcon /> WhatsApp
+                  </ContactLink>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </ScrollVar>
 
@@ -176,22 +274,47 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
             </ul>
           ) : (
             <ol className="lg:col-span-9 lg:grid lg:grid-cols-2 lg:gap-x-10">
-                {service.scope.map((item, i) => (
-                  <li key={item.title} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-ink/15 py-6" data-reveal="up">
-                    <span className="mono pt-1.5 text-(--accent-text)">{n(i)}</span>
-                    <div>
-                      <h3 className="text-2xl font-semibold tracking-tight">{item.title}</h3>
-                      <p className="mt-2 text-muted">{item.text}</p>
-                    </div>
-                  </li>
-                ))}
+              {service.scope.map((item, i) => (
+                <li key={item.title} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-ink/15 py-6" data-reveal="up">
+                  <span className="mono pt-1.5 text-(--accent-text)">{n(i)}</span>
+                  <div>
+                    <h3 className="text-2xl font-semibold tracking-tight">{item.title}</h3>
+                    <p className="mt-2 text-muted">{item.text}</p>
+                  </div>
+                </li>
+              ))}
             </ol>
           )}
         </div>
       </section>
 
+      {/* Mayfair's own photos of this kind of work */}
+      {work.length > 0 && (
+        <section aria-labelledby="site-title" className="bg-bone py-20 md:py-32" data-sheet={`${pillar.number} — From site`} data-tone="light">
+          <div className="container-x">
+            <div className="grid gap-8 lg:grid-cols-12">
+              <SheetLabel name="From site" detail="Mayfair’s own photos" className="lg:col-span-3" />
+              <h2 id="site-title" className="display text-[clamp(2.5rem,1.8rem+2.5vw,4rem)] lg:col-span-9" data-reveal="up">
+                Recent {service.name.toLowerCase()} work
+              </h2>
+            </div>
+            {work.map((p) => (
+              <div key={p.id} className="mt-12 md:mt-16">
+                <WorkFeature p={p} linkService={false} />
+              </div>
+            ))}
+            <p className="mono mt-14 text-muted">{PRIVACY_NOTE}</p>
+          </div>
+        </section>
+      )}
+
       {/* Who it's for */}
-      <section aria-labelledby="for-title" className="bg-bone py-20 md:py-28" data-sheet={`${pillar.number} — Who it’s for`} data-tone="light">
+      <section
+        aria-labelledby="for-title"
+        className={`${work.length > 0 ? "bg-paper" : "bg-bone"} py-20 md:py-28`}
+        data-sheet={`${pillar.number} — Who it’s for`}
+        data-tone="light"
+      >
         <div className="container-x grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-3">
             <h2 id="for-title" className="display text-[clamp(2.5rem,1.8rem+2.5vw,4rem)]">
@@ -210,7 +333,12 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
       </section>
 
       {/* Quote checklist */}
-      <section aria-labelledby="checklist-title" className="bg-concrete py-20 md:py-28" data-sheet={`${pillar.number} — Quote checklist`} data-tone="light">
+      <section
+        aria-labelledby="checklist-title"
+        className="bg-concrete py-20 md:py-28"
+        data-sheet={`${pillar.number} — Quote checklist`}
+        data-tone="light"
+      >
         <div className="container-x grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SheetLabel name="Checklist" detail="For an accurate quote" />
@@ -235,7 +363,12 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
           </div>
           <ol className="lg:col-span-6 lg:col-start-7">
             {service.quoteChecklist.map((item, i) => (
-              <li key={item} className="flex gap-5 border-t border-ink/20 py-4 text-lg" data-reveal="up" style={{ "--d": i * 60 } as React.CSSProperties}>
+              <li
+                key={item}
+                className="flex gap-5 border-t border-ink/20 py-4 text-lg"
+                data-reveal="up"
+                style={{ "--d": i * 60 } as React.CSSProperties}
+              >
                 <span className="mono pt-1.5 text-muted">{n(i)}</span>
                 {item}
               </li>
@@ -245,7 +378,12 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
       </section>
 
       {/* Coverage + related */}
-      <section aria-labelledby="related-title" className="on-dark bg-ink py-20 text-bone md:py-28" data-sheet={`${pillar.number} — Related`} data-tone="dark">
+      <section
+        aria-labelledby="related-title"
+        className="on-dark bg-ink py-20 text-bone md:py-28"
+        data-sheet={`${pillar.number} — Related`}
+        data-tone="dark"
+      >
         <div className="container-x">
           <div className="grid gap-6 border-b border-white/12 pb-12 md:grid-cols-12">
             <p className="mono text-ochre md:col-span-3">Coverage</p>
@@ -297,6 +435,6 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
       </section>
 
       <ContactSection defaultService={service.slug} sheet={pillar.number} lines={["Get a quote for", `${service.name}.`]} />
-    </>
+    </WorkGallery>
   );
 }

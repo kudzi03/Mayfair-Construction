@@ -17,14 +17,14 @@ export const pillars: Pillar[] = [
     number: "01",
     name: "Build",
     title: "Construction & property works",
-    summary: "Restoration, painting, electrical, carpeting and office partitioning.",
+    summary: "Restoration, waterproofing, painting, electrical, carpeting, office partitioning and paving.",
   },
   {
     id: "install",
     number: "02",
     name: "Install",
     title: "Specialist installations",
-    summary: "ATM installation and EV charging systems.",
+    summary: "ATM installation, EV charging, glass doors and floor springs, and joinery.",
   },
   {
     id: "equip",
@@ -37,12 +37,16 @@ export const pillars: Pillar[] = [
 
 export type ServiceSlug =
   | "restoration"
+  | "waterproofing"
   | "painting"
   | "electrical"
   | "carpeting"
   | "office-partitioning"
+  | "paving"
   | "atm-installation"
   | "ev-charging"
+  | "doors"
+  | "joinery"
   | "equipment-hire";
 
 export type Service = {
@@ -62,6 +66,8 @@ export type Service = {
   /** What a customer should send for an accurate quote. */
   quoteChecklist: string[];
   media: MediaKey;
+  /** Two of Mayfair's own photos for the service page hero (shown instead of a full-bleed image). */
+  heroPair?: [MediaKey, MediaKey];
   related: ServiceSlug[];
   meta: { title: string; description: string };
 };
@@ -101,11 +107,53 @@ export const services: Service[] = [
       "Any deadline: a new tenant, a sale, an opening date",
     ],
     media: "restoration",
-    related: ["painting", "electrical", "carpeting"],
+    related: ["waterproofing", "painting", "electrical"],
     meta: {
       title: "Building Restoration in Gaborone, Botswana",
       description:
         "Restoration of homes, rental units, offices and commercial property — repairs, refinishing, painting, electrical and flooring from one Gaborone-based contractor working across Botswana.",
+    },
+  },
+  {
+    slug: "waterproofing",
+    pillar: "build",
+    name: "Waterproofing",
+    summary: "Flat concrete roofs sealed with torch-on bitumen membrane.",
+    intro:
+      "A flat roof that holds water will eventually let it in. Mayfair waterproofs flat concrete roofs with torch-on bitumen membrane — dealing with the ponding, cracks and broken-up parapets first, so the membrane goes down on a sound, primed surface. For homes, offices and commercial buildings in Gaborone and across Botswana.",
+    scope: [
+      {
+        title: "Ponding and cracks",
+        text: "Low spots that hold water, cracked screed and render, and parapets that have started to break up.",
+      },
+      {
+        title: "Screed and primer",
+        text: "Low areas screeded and the slab primed, so the membrane bonds to a sound surface.",
+      },
+      {
+        title: "Torch-on membrane",
+        text: "Rolls of bitumen membrane torched down onto the roof, each one overlapping the last.",
+      },
+      {
+        title: "Edges and parapets",
+        text: "The membrane taken right to the roof’s edges and parapets, not just across the open area.",
+      },
+    ],
+    clients: ["homeowners", "property-managers", "businesses", "developers"],
+    quoteChecklist: [
+      "Photos of the roof, including any standing water and cracks",
+      "Rough roof area in m², or its length and width",
+      "Whether water is getting inside, and where",
+      "How the roof is reached — stairs, hatch or ladder",
+      "The building’s town or area",
+    ],
+    media: "roofMembrane",
+    heroPair: ["roofPonding", "roofMembrane"],
+    related: ["restoration", "painting", "paving"],
+    meta: {
+      title: "Flat Roof Waterproofing in Gaborone, Botswana",
+      description:
+        "Torch-on bitumen waterproofing for flat concrete roofs — ponding, cracks and parapets dealt with, the slab primed and the membrane torched down. Gaborone-based, working across Botswana.",
     },
   },
   {
@@ -273,6 +321,48 @@ export const services: Service[] = [
     },
   },
   {
+    slug: "paving",
+    pillar: "build",
+    name: "Paving",
+    summary: "Brick paving lifted, levelled, compacted and re-laid — walkways, steps and kerbs.",
+    intro:
+      "Sunken, broken and lifting paving is a trip hazard outside any building. Mayfair repairs brick paving for shopping centres, offices, property owners and homes in Gaborone and across Botswana — lifting the damaged area, re-levelling and compacting the bed, and laying the bricks back so the surface is even again.",
+    scope: [
+      {
+        title: "Lift and re-lay",
+        text: "Damaged and sunken areas lifted and the bricks re-laid, reusing sound bricks where they can be.",
+      },
+      {
+        title: "Level and compact",
+        text: "The sand bed re-levelled and compacted with a plate compactor before the bricks go back down.",
+      },
+      {
+        title: "Steps and kerbs",
+        text: "Paved steps, kerbs and edges put right along with the surface around them.",
+      },
+      {
+        title: "Busy sites",
+        text: "Work areas taped off, so shops, walkways and parking can keep running around the job.",
+      },
+    ],
+    clients: ["property-managers", "businesses", "developers", "homeowners"],
+    quoteChecklist: [
+      "Photos of the damaged paving",
+      "Rough area in m², or how many separate spots",
+      "Whether steps or kerbs are involved",
+      "Whether the area has to stay open to the public during the work",
+      "The site’s town or area",
+    ],
+    media: "pavingRelay",
+    heroPair: ["pavingRelay", "pavingCompactor"],
+    related: ["equipment-hire", "restoration", "waterproofing"],
+    meta: {
+      title: "Paving Repairs in Gaborone, Botswana",
+      description:
+        "Brick paving repairs for shopping centres, offices and homes — lifting, levelling, compacting and re-laying walkways, steps and kerbs. Gaborone-based, working across Botswana.",
+    },
+  },
+  {
     slug: "atm-installation",
     pillar: "install",
     name: "ATM Installation",
@@ -306,7 +396,7 @@ export const services: Service[] = [
       "Access hours and any security requirements",
     ],
     media: "atmInstallation",
-    related: ["electrical", "office-partitioning", "painting"],
+    related: ["electrical", "doors", "office-partitioning"],
     meta: {
       title: "ATM Installation for Banks in Botswana",
       description:
@@ -355,6 +445,90 @@ export const services: Service[] = [
     },
   },
   {
+    slug: "doors",
+    pillar: "install",
+    name: "Doors & Floor Springs",
+    summary: "Glass entrance doors replaced, and floor springs fitted so they swing and close under control.",
+    intro:
+      "An entrance door that drags, sticks or won’t close is the first thing every visitor notices. Mayfair replaces glass entrance doors and installs door floor springs for banks, shops, offices and other commercial buildings in Gaborone and across Botswana.",
+    scope: [
+      {
+        title: "Entrance door replacement",
+        text: "Worn or damaged double glass entrance doors taken out and replaced.",
+      },
+      {
+        title: "Floor springs",
+        text: "Floor springs set into the floor beneath the door, so it swings and closes under control.",
+      },
+      {
+        title: "Frames and fittings",
+        text: "Aluminium frames, handles and push plates fitted with the new doors.",
+      },
+      {
+        title: "Part of a refit",
+        text: "Door work coordinated with partitioning, painting and electrical work on the same job.",
+      },
+    ],
+    clients: ["banks", "businesses", "property-managers", "developers"],
+    quoteChecklist: [
+      "Photos of the door from both sides, and of the floor beneath it",
+      "The size of the opening — width and height",
+      "Single or double door, glass or framed",
+      "What is wrong now — dragging, not closing, broken glass, a failed spring",
+      "The building’s town or area",
+    ],
+    media: "doorFloorSpring",
+    heroPair: ["doorNew", "doorFloorSpring"],
+    related: ["office-partitioning", "joinery", "atm-installation"],
+    meta: {
+      title: "Glass Door Replacement & Floor Springs, Gaborone",
+      description:
+        "Glass entrance door replacement and door floor spring installation for banks, shops and offices in Gaborone and across Botswana.",
+    },
+  },
+  {
+    slug: "joinery",
+    pillar: "install",
+    name: "Joinery",
+    summary: "Lockers, cabinets and storage units fabricated and installed.",
+    intro:
+      "Built-in storage takes a beating in offices, staff rooms and changing areas. Mayfair fabricates and installs lockers, cabinets and storage units for businesses, banks and commercial property in Gaborone and across Botswana — and takes the worn units out.",
+    scope: [
+      {
+        title: "Fabrication",
+        text: "Units built to suit the space and the number of compartments needed.",
+      },
+      {
+        title: "Lockers and pigeon-holes",
+        text: "Lockable pigeon-hole lockers for staff rooms, changing areas and offices.",
+      },
+      {
+        title: "Cabinets and storage",
+        text: "Cabinets and storage units for offices and commercial spaces.",
+      },
+      {
+        title: "Out with the old",
+        text: "Worn units removed and the new ones fitted and fixed in place.",
+      },
+    ],
+    clients: ["businesses", "banks", "property-managers", "developers"],
+    quoteChecklist: [
+      "Photos and rough measurements of the space",
+      "What the units are for — lockers, filing, general storage",
+      "How many compartments or units you need",
+      "Any finish or colour preference",
+      "The building’s town or area",
+    ],
+    media: "lockersAfter",
+    heroPair: ["lockersBefore", "lockersAfter"],
+    related: ["office-partitioning", "carpeting", "doors"],
+    meta: {
+      title: "Lockers, Cabinets & Joinery in Gaborone",
+      description:
+        "Lockers, pigeon-hole cabinets and storage units fabricated and installed for offices, banks and commercial property in Gaborone and across Botswana.",
+    },
+  },
+  {
     slug: "equipment-hire",
     pillar: "equip",
     name: "Equipment Hire",
@@ -387,7 +561,7 @@ export const services: Service[] = [
       "What the job is — what you’re lifting, mixing or compacting",
     ],
     media: "equipmentSite",
-    related: ["restoration", "ev-charging", "electrical"],
+    related: ["paving", "restoration", "electrical"],
     meta: {
       title: "Forklift & Site Equipment Hire, Gaborone",
       description:

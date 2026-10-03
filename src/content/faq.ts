@@ -17,7 +17,11 @@ export const faqs: Faq[] = [
   },
   {
     q: "Can one contractor handle a whole refit?",
-    a: "Mayfair’s building services cover restoration, painting, electrical work, carpeting and office partitioning, so a refit that needs several of these can go to one contractor instead of five.",
+    a: "Mayfair’s building services cover restoration, waterproofing, painting, electrical work, carpeting, office partitioning, joinery, entrance doors and paving, so a refit that needs several of them can go to one contractor instead of one per trade.",
+  },
+  {
+    q: "Does Mayfair waterproof roofs?",
+    a: "Yes. Mayfair waterproofs flat concrete roofs with torch-on bitumen membrane, including the screeding, priming and parapet work underneath it. Photos and video from Mayfair’s roof jobs are in the Recent work section.",
   },
   {
     q: "Does Mayfair install ATMs and EV chargers?",

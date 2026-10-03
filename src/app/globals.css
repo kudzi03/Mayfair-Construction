@@ -809,6 +809,16 @@ img {
   .hero-words {
     font-size: clamp(4.25rem, min(17.5vw, 15.5svh), 13.5rem);
   }
+  /* Service pages with Mayfair's own photo: framed, never wider than the photo's pixels. */
+  .hero-photo {
+    width: min(100%, calc(var(--w) * 1px), calc(62svh * var(--w) / var(--h)));
+    aspect-ratio: var(--w) / var(--h);
+  }
+  @media (min-width: 64rem) {
+    .hero-photo {
+      margin-left: auto;
+    }
+  }
   @media (min-width: 64rem) {
     .hero-words {
       font-size: clamp(5rem, min(11.5vw, 15.5svh), 13.5rem);

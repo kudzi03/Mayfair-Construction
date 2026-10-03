@@ -30,7 +30,7 @@ export default function HomePage() {
           pillar={pillarById("build")}
           titleId="build-title"
           count={`${build.length} services`}
-          intro="The work that keeps homes, offices and commercial property in use — repaired, repainted, rewired, re-carpeted and re-planned."
+          intro="The work that keeps homes, offices and commercial property in use — repaired, waterproofed, repainted, rewired, re-carpeted, re-planned and re-paved."
         />
         <BuildShowcase services={build} />
       </section>

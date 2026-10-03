@@ -4,29 +4,30 @@ import Image, { type StaticImageData } from "next/image";
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 
 export type GalleryItem = {
+  id: string;
   src: StaticImageData;
   alt: string;
   caption: string;
   project: string;
 };
 
-const OpenContext = createContext<(index: number) => void>(() => {});
+const OpenContext = createContext<(id: string) => void>(() => {});
 
-/** Wraps an image so it opens the viewer at `index`. */
+/** Wraps an image so it opens the viewer on the photo with this `id`. */
 export function GalleryTrigger({
-  index,
+  id,
   label,
   className = "",
   children,
 }: {
-  index: number;
+  id: string;
   label: string;
   className?: string;
   children: ReactNode;
 }) {
   const open = useContext(OpenContext);
   return (
-    <button type="button" className={`work-zoom ${className}`} onClick={() => open(index)} aria-label={`View photo: ${label}`} aria-haspopup="dialog">
+    <button type="button" className={`work-zoom ${className}`} onClick={() => open(id)} aria-label={`View photo: ${label}`} aria-haspopup="dialog">
       {children}
       <span className="work-zoom-icon" aria-hidden="true">
         <svg viewBox="0 0 16 16" className="size-4">
@@ -40,7 +41,7 @@ export function GalleryTrigger({
 const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
- * Full-screen photo viewer for the Recent work section. Native <dialog>
+ * Full-screen photo viewer for Mayfair's site photos. Native <dialog>
  * (focus trap, Esc, focus returned to the trigger), arrow keys, swipe,
  * neighbours preloaded so stepping through is instant.
  */
@@ -50,7 +51,13 @@ export function WorkGallery({ items, children }: { items: GalleryItem[]; childre
   const swipe = useRef<{ x: number; y: number; moved: boolean } | null>(null);
   const n = items.length;
 
-  const open = useCallback((i: number) => setIndex(i), []);
+  const open = useCallback(
+    (id: string) => {
+      const i = items.findIndex((it) => it.id === id);
+      if (i >= 0) setIndex(i);
+    },
+    [items],
+  );
   const step = useCallback((d: number) => setIndex((i) => (i === null ? i : (i + d + n) % n)), [n]);
   const close = useCallback(() => ref.current?.close(), []);
 

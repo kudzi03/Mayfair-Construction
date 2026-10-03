@@ -22,14 +22,14 @@ npx tsc --noEmit
 | Route | Purpose |
 | --- | --- |
 | `/` | Main experience: scroll-built hero sequence, service index, Build / Install / Equip, client picker, coverage map, FAQ, enquiry and "Recent work" (Mayfair's own site photos and video) |
-| `/restoration` `/painting` `/electrical` `/carpeting` `/office-partitioning` | Build services |
-| `/atm-installation` `/ev-charging` | Specialist installations |
+| `/restoration` `/waterproofing` `/painting` `/electrical` `/carpeting` `/office-partitioning` `/paving` | Build services |
+| `/atm-installation` `/ev-charging` `/doors` `/joinery` | Specialist installations |
 | `/equipment-hire` | Equipment hire, with `#forklift`, `#pallet-jack`, `#concrete-mixer`, `#plate-compactor` anchors |
 | `/credits` | Image, map and font credits |
 | `/sitemap.xml` `/robots.txt` `/llms.txt` `/manifest.webmanifest` | SEO and discovery |
 | `/opengraph-image`, `/[service]/opengraph-image` | Generated social cards |
 
-Each service page has its own scope, client types, "what to send for a quote" checklist, related services, structured data and a pre-selected enquiry form.
+Each service page has its own scope, client types, "what to send for a quote" checklist, related services, structured data and a pre-selected enquiry form. Services with Mayfair's own photos (waterproofing, paving, doors, joinery) get a framed hero with a two-photo pair (`heroPair` in `services.ts`) instead of a stretched full-bleed image, plus a "From site" section built from the matching entries in `projects.ts`; every photo opens in the full-screen viewer.
 
 ## Where things live
 

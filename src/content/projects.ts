@@ -1,4 +1,5 @@
 import type { MediaKey } from "./media";
+import type { ServiceSlug } from "./services";
 
 /**
  * Mayfair's own work, from photos and video the company supplied.
@@ -11,7 +12,8 @@ export type ProjectShot = { media: MediaKey; caption: string };
 export type Project = {
   id: string;
   title: string;
-  trade: string;
+  /** The service page this work appears on. */
+  service: ServiceSlug;
   ownerCaption?: string;
   summary: string;
   shots: ProjectShot[];
@@ -22,8 +24,8 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: "roof-waterproofing",
+    service: "waterproofing",
     title: "Flat-roof waterproofing",
-    trade: "Waterproofing",
     summary:
       "Torch-on bitumen membrane on flat concrete roofs: dealing with ponding water and cracked parapets, screeding and priming the slab, then torching each roll down with overlapped joints.",
     video: { mp4: "/work/roof-torch.mp4", webm: "/work/roof-torch.webm", poster: "roofTorchPoster", caption: "Torching a membrane roll down — site video" },
@@ -38,8 +40,8 @@ export const projects: Project[] = [
   },
   {
     id: "pigeon-lockers",
+    service: "joinery",
     title: "Pigeon-hole locker cabinet",
-    trade: "Joinery",
     ownerCaption: "Before meets after Pigeon locker cabinet fabrication and installation",
     summary: "A worn bank of lockers replaced with a new pigeon-hole locker cabinet, fabricated and installed by Mayfair.",
     shots: [
@@ -49,8 +51,8 @@ export const projects: Project[] = [
   },
   {
     id: "entrance-doors",
+    service: "doors",
     title: "Glass entrance doors",
-    trade: "Doors & hardware",
     ownerCaption: "New and old · Door floor springs installation",
     summary: "A double glass entrance door replaced, and door floor springs set into the floor.",
     shots: [
@@ -60,8 +62,8 @@ export const projects: Project[] = [
   },
   {
     id: "station-mall-paving",
+    service: "paving",
     title: "Paving repairs",
-    trade: "Paving",
     ownerCaption: "Paving repairs by Station mall",
     summary: "Paving bricks lifted and re-laid outside a busy shopping centre, with the work area taped off while the crew worked.",
     shots: [
@@ -70,3 +72,5 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export const projectsFor = (slug: ServiceSlug) => projects.filter((p) => p.service === slug);

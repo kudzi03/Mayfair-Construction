@@ -274,8 +274,8 @@ export function HeroSequence() {
                 From bare shell to open for business.
               </h1>
               <p className="lead mt-5 max-w-xl text-bone/90">
-                Restoration, fit-out, electrical, ATM and EV charger installation, and equipment hire — for homes,
-                businesses and banks. Based in Gaborone, working across Botswana.
+                Restoration, waterproofing, fit-out, electrical, paving, ATM and EV charger installation, and equipment
+                hire — for homes, businesses and banks. Based in Gaborone, working across Botswana.
               </p>
             </div>
             <div className="seq-intro-actions mt-7 flex flex-wrap gap-3">

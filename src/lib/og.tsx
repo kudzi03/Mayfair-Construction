@@ -24,7 +24,8 @@ export async function renderOg({
   const [display, body, photo] = await Promise.all([
     readFile(join(assets, "fonts/archivo-extracondensed-800.ttf")),
     readFile(join(assets, "fonts/archivo-500.ttf")),
-    readFile(join(assets, `images/${kebab(image)}.jpg`), "base64"),
+    // Mayfair's own photos live in images/work/; illustrations and stock in images/.
+    readFile(join(assets, `images/${media[image].representative ? "" : "work/"}${kebab(image)}.jpg`), "base64"),
   ]);
   const longest = Math.max(...lines.map((l) => l.length));
   const size = Math.min(132, Math.floor(1150 / Math.max(longest, 6)));
