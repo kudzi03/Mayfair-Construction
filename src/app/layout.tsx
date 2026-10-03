@@ -1,13 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
-import { MobileActionBar } from "@/components/layout/MobileActionBar";
-import { RevealObserver } from "@/components/motion/RevealObserver";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Toaster } from "@/components/ui/Toaster";
 import { site } from "@/config/site";
-import { businessSchema, websiteSchema } from "@/lib/schema";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -57,21 +50,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         {/* Opt into motion styles only when JS runs, so content never hides without it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        <JsonLd data={[businessSchema(), websiteSchema()]} />
       </head>
-      <body>
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
-        <Header />
-        <main id="main" tabIndex={-1} className="outline-none">
-          {children}
-        </main>
-        <Footer />
-        <MobileActionBar />
-        <Toaster />
-        <RevealObserver />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

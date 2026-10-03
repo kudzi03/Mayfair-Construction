@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { AlertIcon, ArrowRight, CheckIcon, WhatsAppIcon } from "@/components/ui/Icon";
 import { site } from "@/config/site";
@@ -7,6 +8,7 @@ import { towns } from "@/content/coverage";
 import { equipment } from "@/content/equipment";
 import { pillars, servicesInPillar, serviceBySlug, type ServiceSlug } from "@/content/services";
 import { whatsappHref } from "@/lib/contact";
+import { queueWebsiteEnquiry } from "@/crm/inbox";
 import { onPrefill } from "@/lib/events";
 
 type Values = {
@@ -58,6 +60,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
+  const [inCrm, setInCrm] = useState(false);
 
   useEffect(
     () =>
@@ -117,6 +120,20 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
       }
       return;
     }
+    // Demo: hand the enquiry to the CRM demo in this browser (nothing is sent anywhere).
+    setInCrm(
+      queueWebsiteEnquiry({
+        name: values.name.trim(),
+        phone: values.phone.trim(),
+        email: values.email.trim() || undefined,
+        service: values.service,
+        equipment: values.equipment || undefined,
+        location: values.location.trim() || undefined,
+        message: values.message.trim() || undefined,
+        reply: values.reply,
+        page: window.location.pathname,
+      }),
+    );
     setStatus("sent");
   };
 
@@ -141,8 +158,18 @@ export function EnquiryForm({ defaultService }: { defaultService?: ServiceSlug }
         <h3 ref={doneRef} tabIndex={-1} className="display mt-6 text-5xl focus:outline-none">{site.enquiry.mode === "demo" ? "Enquiry ready." : "Enquiry sent."}</h3>
         {site.enquiry.mode === "demo" ? (
           <p className="mt-4 max-w-md text-muted">
-            <strong className="text-ink">Demo:</strong> nothing has been sent. On the live site this enquiry goes
+            <strong className="text-ink">Demo:</strong> nothing has left this device. On the live site this enquiry goes
             straight to Mayfair, with your details and the service you chose.
+            {inCrm && (
+              <>
+                {" "}
+                In this demo it has been added to the{" "}
+                <Link href="/crm/enquiries?show=new" className="font-semibold text-ink underline underline-offset-4">
+                  CRM demo
+                </Link>{" "}
+                as a new enquiry.
+              </>
+            )}
           </p>
         ) : (
           <p className="mt-4 max-w-md text-muted">

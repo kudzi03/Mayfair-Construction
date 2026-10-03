@@ -57,6 +57,35 @@ The home page opens on one building taken from derelict shell to "open for busin
 - **Fallbacks:** Save-Data / 2G and `prefers-reduced-motion` load only the six stage frames and switch between them without animation. Small screens show the full building in a 4:3 band with captions below.
 - **When real photos exist:** the strongest version is Mayfair's own before/during/after photos of one real job, sequenced the same way.
 
+## CRM demo (`/crm`)
+
+A small enquiry, pipeline and follow-up system that shows what happens after someone asks for a quote. It is a **demo workflow**, not a record of how Mayfair sells today. Stages, sources, services and next actions all live in `src/crm/config.ts`, so they can be reshaped after discovery.
+
+| Route | Purpose |
+| --- | --- |
+| `/crm` | Today: what needs attention (overdue, due today, no next step), key numbers, recent enquiries, pipeline, where enquiries come from |
+| `/crm/follow-ups` | Overdue · Today · Upcoming · On hold (parked items return on their date) |
+| `/crm/pipeline` | Board of open stages (drag and drop, or "Move…" on each card), plus Won and Lost |
+| `/crm/enquiries`, `/crm/enquiries/[id]` | Every enquiry; the record has contact buttons, next step, stage, details, source and an activity timeline |
+| `/crm/customers`, `/crm/customers/[id]` | One record per customer, with all their enquiries |
+
+New enquiry (button, or the `n` key) needs only a name and a service. Search: the `/` key or Ctrl/⌘+K.
+
+**Storage (demo).** Everything lives in the viewer's own browser (`localStorage`), seeded with fictional sample data dated relative to today. Nothing is shared or sent anywhere; "Reset demo" restores the sample. `src/crm/store.ts` is the only module that writes data, so moving to a database replaces that file, not the UI.
+
+**Website → CRM (demo).** In demo mode the public quote form also drops the submission into this browser's CRM inbox (`src/crm/inbox.ts`). Submit a quote on the website, open `/crm`, and it appears under New enquiries with source *Website*.
+
+**Security.** There is no login, because there is nothing real to protect: the data is fictional and never leaves the device. `/crm` is `noindex` and disallowed in `robots.txt`. **Do not put real customer data into this demo.**
+
+**Production.** `supabase/crm-schema.sql` has the schema (customers, opportunities, activities, staff), RLS that only lets signed-in staff read or write, and a `submit_enquiry()` function only the server can call. To go live:
+
+1. Create the Supabase project and run the SQL. Add staff as Supabase Auth users and rows in `staff`.
+2. Protect `/crm` with Supabase Auth (sign-in page and a session check in a server layout or `proxy.ts`).
+3. Replace `src/crm/store.ts` with Supabase queries (the function names stay the same).
+4. Add `app/api/enquiries/route.ts`: validate the form, add spam protection (honeypot, rate limit) and call `submit_enquiry` with `SUPABASE_SERVICE_ROLE_KEY` (server-only env var). Point `NEXT_PUBLIC_ENQUIRY_ENDPOINT` at it and remove the demo inbox call in `EnquiryForm`.
+5. Capture landing page, referrer and UTM tags with each website enquiry so Google Business Profile, organic search and Google Ads can be told apart.
+6. Later, if wanted: a daily follow-up digest by email or WhatsApp to staff. Nothing is sent to customers automatically.
+
 ## Going live: replacing demo content
 
 1. **Contact details** — set `phone`, `whatsapp` (E.164, e.g. `+26771234567`), `email`, `streetAddress`, `hours` in `src/config/site.ts`. Call/WhatsApp/Email buttons, the footer, `llms.txt` and the JSON-LD update automatically. While a value is `null`, its button shows a "demo" notice instead of a dead link.

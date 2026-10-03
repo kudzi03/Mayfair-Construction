@@ -7,7 +7,8 @@ export default function robots(): MetadataRoute.Robots {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
   return {
-    rules: { userAgent: "*", allow: "/" },
+    // The CRM is never public content.
+    rules: { userAgent: "*", allow: "/", disallow: "/crm" },
     sitemap: `${site.url}/sitemap.xml`,
   };
 }
