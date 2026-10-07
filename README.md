@@ -138,4 +138,4 @@ See `.env.example`.
 
 ## Credits
 
-Imagery: Mayfair's own site photos and one site clip (Recent work, supplied by the company; cropped and lightly colour-corrected only), AI-generated illustrations made for this demo (one building, its interiors and the hire equipment, all labelled), plus one Pexels photo of Gaborone — full list at `/credits`. Map: Natural Earth (public domain). Fonts: Archivo and IBM Plex Mono (SIL OFL; static Archivo instances for OG images in `src/assets/fonts/`).
+Imagery: Mayfair's own site photos and one site clip (Recent work, the ATM and equipment-hire heroes, and the concrete mixer and plate compactor cards; supplied by the company, cropped to remove bystanders, number plates and client branding, and lightly colour-corrected only), AI-generated illustrations made for this demo (one building, its interiors, the forklift and the pallet jack, all labelled), plus one Pexels photo of Gaborone — full list at `/credits`. Map: Natural Earth (public domain). Fonts: Archivo and IBM Plex Mono (SIL OFL; static Archivo instances for OG images in `src/assets/fonts/`).
