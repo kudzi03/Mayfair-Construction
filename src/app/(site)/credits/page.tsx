@@ -23,11 +23,12 @@ export default function CreditsPage() {
           Image credits
         </h1>
         <p className="lead mt-6 max-w-2xl text-muted">
-          The site photos and video under Recent work are Mayfair Construction’s own, supplied by the company. They are
-          cropped to keep bystanders and number plates out of frame and lightly colour-corrected — nothing is added or
-          removed. Everything else — the building, interiors and equipment — is an AI-generated illustration made for
-          this demo, and the Gaborone skyline is a stock photograph used under the Pexels License. Those images do not
-          show Mayfair’s projects, staff or equipment, and are labelled on the page.
+          The site photos and video — under Recent work, on the service pages and on the concrete mixer and plate
+          compactor cards — are Mayfair Construction’s own, supplied by the company. They are cropped to keep
+          bystanders, number plates and client branding out of frame and lightly colour-corrected — nothing is added or
+          removed. Everything else — the illustrated building and its interiors, the forklift and the pallet jack — is
+          an AI-generated illustration made for this demo, and the Gaborone skyline is a stock photograph used under the
+          Pexels License. Those images do not show Mayfair’s projects, staff or equipment, and are labelled on the page.
         </p>
 
         <ul className="mt-14 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">

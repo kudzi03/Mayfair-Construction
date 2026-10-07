@@ -57,7 +57,11 @@ function OwnerCaption({ text }: { text: string }) {
   );
 }
 
+/** The service name, or the project's own label when no service page covers the work. */
+const categoryOf = (p: Project) => (p.service ? serviceBySlug(p.service)!.name : (p.label ?? "Recent work"));
+
 function ServiceLink({ p }: { p: Project }) {
+  if (!p.service) return null;
   const s = serviceBySlug(p.service)!;
   return (
     <Link href={servicePath(s.slug)} className="link-arrow mt-5">
@@ -74,10 +78,9 @@ const pad = (i: number) => String(i + 1).padStart(2, "0");
  */
 export function WorkFeature({ p, linkService = true }: { p: Project; linkService?: boolean }) {
   const poster = p.video && media[p.video.poster];
-  const service = serviceBySlug(p.service)!;
   const story = (
     <>
-      <p className="mono text-(--accent-text)">{service.name}</p>
+      <p className="mono text-(--accent-text)">{categoryOf(p)}</p>
       <h3 id={`work-${p.id}`} className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
         {p.title}
       </h3>
@@ -123,7 +126,6 @@ export function WorkFeature({ p, linkService = true }: { p: Project; linkService
 
 /** A project as a compact card: two photos, the story, a link to the service. */
 export function WorkCard({ p }: { p: Project }) {
-  const service = serviceBySlug(p.service)!;
   return (
     <article aria-labelledby={`work-${p.id}`}>
       <div className="grid grid-cols-2 gap-2">
@@ -135,7 +137,7 @@ export function WorkCard({ p }: { p: Project }) {
             .map((s) => <Shot key={s.media} shot={s} tag={s.caption} sizes="(min-width: 64rem) 15vw, (min-width: 48rem) 23vw, 46vw" />)
         )}
       </div>
-      <p className="mono mt-5 text-(--accent-text)">{service.name}</p>
+      <p className="mono mt-5 text-(--accent-text)">{categoryOf(p)}</p>
       <h3 id={`work-${p.id}`} className="mt-2 text-2xl font-semibold tracking-tight">
         {p.title}
       </h3>
@@ -146,4 +148,4 @@ export function WorkCard({ p }: { p: Project }) {
   );
 }
 
-export const PRIVACY_NOTE = "Clients are not named. Bystanders and number plates are cropped out or too small to identify.";
+export const PRIVACY_NOTE = "Clients are not named. Bystanders, number plates and client branding are cropped out or too small to identify.";

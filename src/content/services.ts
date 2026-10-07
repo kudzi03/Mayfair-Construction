@@ -402,7 +402,8 @@ export const services: Service[] = [
       "What power is available at the location now",
       "Access hours and any security requirements",
     ],
-    media: "atmInstallation",
+    media: "atmInstalled",
+    heroPair: ["atmOpening", "atmInstalled"],
     related: ["electrical", "doors", "office-partitioning"],
     meta: {
       title: "ATM Installation for Banks in Botswana",
@@ -567,7 +568,8 @@ export const services: Service[] = [
       "Where it will be used",
       "What the job is — what you’re lifting, mixing or compacting",
     ],
-    media: "equipmentSite",
+    media: "concreteMixer",
+    heroPair: ["concreteMixer", "plateCompactor"],
     related: ["paving", "restoration", "electrical"],
     heroTail: "in Gaborone: forklifts, pallet jacks, mixers and compactors",
     meta: {
@@ -582,3 +584,9 @@ export const serviceBySlug = (slug: string) => services.find((s) => s.slug === s
 export const servicesInPillar = (pillar: PillarId) => services.filter((s) => s.pillar === pillar);
 export const pillarById = (id: PillarId) => pillars.find((p) => p.id === id)!;
 export const servicePath = (slug: ServiceSlug) => `/${slug}`;
+/** Service name for use mid-sentence: "office partitioning", but "ATM installation" and "EV charging systems". */
+export const inSentence = (name: string) =>
+  name
+    .split(" ")
+    .map((w) => (w.length > 1 && w === w.toUpperCase() ? w : w.toLowerCase()))
+    .join(" ");

@@ -18,7 +18,9 @@ Nothing below may be guessed. Each item goes into one file and flows through the
 | Where enquiries should go (email inbox, CRM) | `NEXT_PUBLIC_ENQUIRY_ENDPOINT` | Turns on real form submission |
 | Logo (SVG) | `public/` + `site.logo` | Header, JSON-LD `logo`, GBP logo |
 | Credentials actually held: CIPA number, PPADB contractor code/grade, electrical contractor licence, any manufacturer approvals (ATM, EV chargers) | `content/trust.ts` → `credentials` | Banks and property managers check these before shortlisting |
-| Real project photos per service, with permission | `src/assets/images/work/`, `content/projects.ts` | Replace labelled illustrations; strongest trust signal there is |
+| Real project photos per service, with permission | `src/assets/images/work/`, `content/projects.ts` | Replace labelled illustrations; strongest trust signal there is. Still illustrated: restoration, painting, electrical, carpeting, office partitioning and EV charging heroes, the forklift and the pallet jack |
+| Permission to show bank and client sites | — | ATM photos are used with the bank's logo cropped out; confirm the bank is comfortable with its installations appearing at all |
+| Whether Mayfair builds new houses as a service | a new service page | Photos of house builds are on the home page; "building contractors Gaborone" is a high-intent search the site has no page for yet |
 | Client testimonials with written permission | `content/trust.ts` → `testimonials` | Shown automatically once added |
 | Clients that may be named (e.g. a bank, a mall) with permission | `content/trust.ts` → `clientNames` | "Worked for" line |
 | Equipment fleet: capacities/sizes, quantity, delivery, operator offered or not, minimum hire period, deposit | `content/equipment.ts` → `specs` and `page` | Hire searchers compare on exactly this; a machine with specs + hire notes automatically gets its own page (`/equipment-hire/forklifts` etc.) |

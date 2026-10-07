@@ -1,25 +1,31 @@
 import type { StaticImageData } from "next/image";
 
-import atmInstallation from "@/assets/images/atm-installation.jpg";
 import carpeting from "@/assets/images/carpeting.jpg";
-import concreteMixer from "@/assets/images/concrete-mixer.jpg";
 import electrical from "@/assets/images/electrical.jpg";
-import equipmentSite from "@/assets/images/equipment-site.jpg";
 import evCharging from "@/assets/images/ev-charging.jpg";
 import forklift from "@/assets/images/forklift.jpg";
 import gaborone from "@/assets/images/gaborone.jpg";
 import officePartitioning from "@/assets/images/office-partitioning.jpg";
 import painting from "@/assets/images/painting.jpg";
 import palletJack from "@/assets/images/pallet-jack.jpg";
-import plateCompactor from "@/assets/images/plate-compactor.jpg";
 import restoration from "@/assets/images/restoration.jpg";
 import sequenceOpen from "@/assets/images/sequence-open.jpg";
+import atmDelivery from "@/assets/images/work/atm-delivery.jpg";
+import atmInstalled from "@/assets/images/work/atm-installed.jpg";
+import atmOpening from "@/assets/images/work/atm-opening.jpg";
+import concreteMixer from "@/assets/images/work/concrete-mixer.jpg";
 import doorFloorSpring from "@/assets/images/work/door-floor-spring.jpg";
 import doorNew from "@/assets/images/work/door-new.jpg";
+import floorLevelling from "@/assets/images/work/floor-levelling.jpg";
+import houseBlockwork from "@/assets/images/work/house-blockwork.jpg";
+import houseRoofed from "@/assets/images/work/house-roofed.jpg";
 import lockersAfter from "@/assets/images/work/lockers-after.jpg";
 import lockersBefore from "@/assets/images/work/lockers-before.jpg";
+import partitionBrick from "@/assets/images/work/partition-brick.jpg";
 import pavingCompactor from "@/assets/images/work/paving-compactor.jpg";
+import pavingKerb from "@/assets/images/work/paving-kerb.jpg";
 import pavingRelay from "@/assets/images/work/paving-relay.jpg";
+import plateCompactor from "@/assets/images/work/plate-compactor.jpg";
 import roofCrew from "@/assets/images/work/roof-crew.jpg";
 import roofMembrane from "@/assets/images/work/roof-membrane.jpg";
 import roofParapet from "@/assets/images/work/roof-parapet.jpg";
@@ -27,6 +33,7 @@ import roofPonding from "@/assets/images/work/roof-ponding.jpg";
 import roofPrimer from "@/assets/images/work/roof-primer.jpg";
 import roofScreed from "@/assets/images/work/roof-screed.jpg";
 import roofTorchPoster from "@/assets/images/work/roof-torch-poster.jpg";
+import shopfront from "@/assets/images/work/shopfront.jpg";
 
 export type Media = {
   src: StaticImageData;
@@ -107,14 +114,6 @@ const registry = {
     credit: illustration,
     focus: "40% 55%",
   },
-  atmInstallation: {
-    src: atmInstallation,
-    alt: "Illustration: a technician checking a newly installed through-the-wall ATM on a rendered commercial building",
-    representative: true,
-    illustration: true,
-    credit: illustration,
-    focus: "56% 55%",
-  },
   evCharging: {
     src: evCharging,
     alt: "Illustration: a white electric car charging from a post-mounted charger on a building forecourt",
@@ -122,14 +121,6 @@ const registry = {
     illustration: true,
     credit: illustration,
     focus: "52% 60%",
-  },
-  equipmentSite: {
-    src: equipmentSite,
-    alt: "Illustration: a forklift, concrete mixer and scaffolding on site beside a building under restoration",
-    representative: true,
-    illustration: true,
-    credit: illustration,
-    focus: "40% 60%",
   },
   forklift: {
     src: forklift,
@@ -145,20 +136,8 @@ const registry = {
     illustration: true,
     credit: illustration,
   },
-  concreteMixer: {
-    src: concreteMixer,
-    alt: "Illustration: an orange portable concrete mixer on a plain studio backdrop",
-    representative: true,
-    illustration: true,
-    credit: illustration,
-  },
-  plateCompactor: {
-    src: plateCompactor,
-    alt: "Illustration: an orange walk-behind plate compactor on a plain studio backdrop",
-    representative: true,
-    illustration: true,
-    credit: illustration,
-  },
+  concreteMixer: photo(concreteMixer, "A yellow portable concrete mixer on the back of a white bakkie", "32% 50%"),
+  plateCompactor: photo(plateCompactor, "A plate compactor with a red Honda GX270 engine, standing on gravel", "45% 50%"),
   roofTorchPoster: photo(roofTorchPoster, "A Mayfair crew member torching down a roll of bitumen waterproofing membrane on a flat concrete roof"),
   roofPonding: photo(roofPonding, "Rainwater ponding across a flat concrete roof before waterproofing, with a crew member at the parapet", "50% 60%"),
   roofParapet: photo(roofParapet, "Cracked and lifting render along a flat roof’s parapet, seen from above", "45% 50%"),
@@ -171,6 +150,19 @@ const registry = {
   doorNew: photo(doorNew, "A replaced double glass entrance door with white aluminium frames", "50% 40%"),
   doorFloorSpring: photo(doorFloorSpring, "A Mayfair crew member setting a door floor spring into the floor beneath a glass door", "60% 40%"),
   pavingRelay: photo(pavingRelay, "A Mayfair crew member in a hi-vis vest re-laying paving bricks outside a shopping centre, with the work area taped off", "55% 50%"),
+  atmOpening: photo(
+    atmOpening,
+    "Two Mayfair crew members in masks breaking an opening through a face-brick wall, the work area screened with green sheeting",
+    "45% 40%",
+  ),
+  atmInstalled: photo(atmInstalled, "Two newly installed through-the-wall ATMs, still in protective wrap, with a caution sign in front", "50% 35%"),
+  atmDelivery: photo(atmDelivery, "Two freestanding ATMs on pallets on the back of a bakkie outside a shopping centre", "50% 35%"),
+  partitionBrick: photo(partitionBrick, "A new brick-walled room with a red door frame, built inside an open commercial floor", "50% 55%"),
+  floorLevelling: photo(floorLevelling, "A corridor floor skimmed with grey levelling compound, with buckets and a trowel in the foreground", "50% 60%"),
+  shopfront: photo(shopfront, "A new glass shopfront in white aluminium frames, with glass doors and blue frosted panels", "45% 50%"),
+  pavingKerb: photo(pavingKerb, "Paving bricks re-laid along a kerb, with lifted kerb stones, a caution sign and a plate compactor beside the work", "55% 45%"),
+  houseBlockwork: photo(houseBlockwork, "A single-storey house in blockwork, its walls up to roof height, on a sandy plot", "55% 50%"),
+  houseRoofed: photo(houseRoofed, "A single-storey house with plastered walls, timber front doors and a metal sheet roof", "50% 50%"),
   pavingCompactor: photo(pavingCompactor, "A plate compactor on levelled sand beside stacks of lifted paving bricks", "45% 60%"),
   gaborone: {
     src: gaborone,

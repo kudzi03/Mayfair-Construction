@@ -19,7 +19,7 @@ import { clientById } from "@/content/clients";
 import { equipment } from "@/content/equipment";
 import { media } from "@/content/media";
 import { projectsFor } from "@/content/projects";
-import { pillarById, serviceBySlug, servicePath, services } from "@/content/services";
+import { pillarById, serviceBySlug, servicePath, services, inSentence } from "@/content/services";
 import { pageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
@@ -160,7 +160,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                     <ContactLink
                       source="service_hero"
                       channel="whatsapp"
-                      message={`Hello Mayfair, I’d like to ask about ${service.name.toLowerCase()}.`}
+                      message={`Hello Mayfair, I’d like to ask about ${inSentence(service.name)}.`}
                       className="btn btn-light"
                     >
                       <WhatsAppIcon /> WhatsApp
@@ -241,7 +241,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                   <ContactLink
                     source="service_hero"
                     channel="whatsapp"
-                    message={`Hello Mayfair, I’d like to ask about ${service.name.toLowerCase()}.`}
+                    message={`Hello Mayfair, I’d like to ask about ${inSentence(service.name)}.`}
                     className="btn btn-light"
                   >
                     <WhatsAppIcon /> WhatsApp
@@ -305,7 +305,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
             <div className="grid gap-8 lg:grid-cols-12">
               <SheetLabel name="From site" detail="Mayfair’s own photos" className="lg:col-span-3" />
               <h2 id="site-title" className="display text-[clamp(2.5rem,1.8rem+2.5vw,4rem)] lg:col-span-9" data-reveal="up">
-                Recent {service.name.toLowerCase()} work
+                {isHire ? "The machines" : `Recent ${inSentence(service.name)} work`}
               </h2>
             </div>
             {work.map((p) => (
@@ -367,7 +367,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
               <ContactLink
                 source="quote_checklist"
                 channel="whatsapp"
-                message={`Hello Mayfair, I’d like a quote for ${service.name.toLowerCase()}. I’ll send photos and details here.`}
+                message={`Hello Mayfair, I’d like a quote for ${inSentence(service.name)}. I’ll send photos and details here.`}
                 className="btn btn-outline"
               >
                 <WhatsAppIcon /> Send photos on WhatsApp

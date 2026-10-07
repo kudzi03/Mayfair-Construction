@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { QuoteLink } from "@/components/contact/QuoteLink";
 import { ArrowRight } from "@/components/ui/Icon";
 import { media } from "@/content/media";
-import { servicePath, type Service } from "@/content/services";
+import { inSentence, servicePath, type Service } from "@/content/services";
 import { subscribeScroll } from "@/lib/scroll-loop";
 
 /**
@@ -124,7 +124,7 @@ export function BuildShowcase({ services }: { services: Service[] }) {
               </ol>
               <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
                 <QuoteLink service={s.slug} className="btn btn-dark">
-                  Quote for {s.name.toLowerCase()} <ArrowRight />
+                  Quote for {inSentence(s.name)} <ArrowRight />
                 </QuoteLink>
                 <Link href={servicePath(s.slug)} className="link-arrow">
                   {s.name} in detail <ArrowRight size={16} />
