@@ -112,7 +112,7 @@ export default async function EquipmentPage({ params }: PageProps<"/equipment-hi
                 </ContactLink>
               </div>
             </div>
-            <figure className="relative aspect-[4/3] overflow-hidden bg-[#9c9184] lg:col-span-6">
+            <figure className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius)] bg-[#9c9184] lg:col-span-6">
               <Image src={m.src} alt={m.alt} fill preload quality={75} sizes="(min-width: 64rem) 46vw, 92vw" className="object-cover" />
               <RepNote media={m} className="absolute right-3 bottom-3" />
             </figure>

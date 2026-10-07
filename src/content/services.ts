@@ -24,7 +24,7 @@ export const pillars: Pillar[] = [
     number: "02",
     name: "Install",
     title: "Specialist installations",
-    summary: "ATM installation, EV charging, glass doors and floor springs, and joinery.",
+    summary: "ATM installation, EV charging, air conditioning, glass doors and floor springs, and joinery.",
   },
   {
     id: "equip",
@@ -45,6 +45,7 @@ export type ServiceSlug =
   | "paving"
   | "atm-installation"
   | "ev-charging"
+  | "air-conditioning"
   | "doors"
   | "joinery"
   | "equipment-hire";
@@ -450,6 +451,47 @@ export const services: Service[] = [
       title: "EV Charger Installation in Botswana",
       description:
         "EV charger installation for homes, workplaces and property developments in Gaborone and across Botswana — position, mounting and the electrical connection on one job.",
+    },
+  },
+  {
+    slug: "air-conditioning",
+    pillar: "install",
+    name: "Air Conditioning",
+    summary: "Air conditioning installed in offices, shops and homes — ceiling cassettes and wall units, with the power and pipework.",
+    intro:
+      "Air conditioning goes in best while a space is open: before the ceiling closes up, with the power on site and the room layout settled. Mayfair installs air conditioning for offices, shops, banks and homes in Gaborone and across Botswana, and fits it alongside partitioning and electrical work on the same job.",
+    scope: [
+      {
+        title: "Cassette and wall units",
+        text: "Ceiling cassette units for open offices and shops, and wall-mounted units for smaller rooms.",
+      },
+      {
+        title: "Positions and routes",
+        text: "Indoor and outdoor unit positions, and the pipe and cable routes between them, planned around the room.",
+      },
+      {
+        title: "Pipework and drainage",
+        text: "Pipework run between the units, and condensate drainage taken away from each indoor unit.",
+      },
+      {
+        title: "Power and fit-out",
+        text: "Electrical supply to the units, coordinated with partitioning, ceilings and the rest of the refit.",
+      },
+    ],
+    clients: ["businesses", "property-managers", "banks", "developers", "homeowners"],
+    quoteChecklist: [
+      "The rooms or area to be cooled, with rough sizes",
+      "The ceiling type — open, suspended or solid",
+      "Where an outdoor unit could go",
+      "Photos of the space and of the distribution board",
+      "Whether the units are already bought, and their make and model",
+    ],
+    media: "acCassette",
+    related: ["electrical", "office-partitioning", "carpeting"],
+    meta: {
+      title: "Air Conditioning Installation in Gaborone",
+      description:
+        "Air conditioning installation for offices, shops, banks and homes in Gaborone and across Botswana — cassette and wall units, pipework, drainage and power on one job.",
     },
   },
   {

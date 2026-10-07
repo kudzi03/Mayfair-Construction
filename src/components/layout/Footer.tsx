@@ -101,12 +101,11 @@ export function Footer() {
           textLength="980"
           lengthAdjust="spacingAndGlyphs"
           fill="rgb(255 255 255 / 0.06)"
-          fontSize="320"
-          fontWeight="600"
-          letterSpacing="-12"
-          style={{ fontStretch: "86%" }}
+          fontSize="300"
+          fontWeight="800"
+          style={{ fontStretch: "62.5%" }}
         >
-          Mayfair
+          MAYFAIR
         </text>
       </svg>
 

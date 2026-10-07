@@ -32,14 +32,14 @@ export const clientTypes: ClientType[] = [
   {
     id: "businesses",
     name: "Businesses",
-    line: "Office partitions, lockers and storage, entrance doors, carpets and power — and equipment when the work is yours to do.",
-    services: ["office-partitioning", "joinery", "doors", "carpeting", "electrical", "equipment-hire"],
+    line: "Office partitions, air conditioning, lockers and storage, entrance doors, carpets and power — and equipment when the work is yours to do.",
+    services: ["office-partitioning", "air-conditioning", "joinery", "doors", "carpeting", "electrical", "equipment-hire"],
   },
   {
     id: "banks",
     name: "Banks & financial institutions",
-    line: "ATM installation and entrance doors, plus the joinery, electrical and partitioning work around them.",
-    services: ["atm-installation", "doors", "joinery", "electrical", "office-partitioning"],
+    line: "ATM installation and entrance doors, plus the joinery, electrical, air conditioning and partitioning work around them.",
+    services: ["atm-installation", "doors", "joinery", "electrical", "air-conditioning", "office-partitioning"],
   },
 ];
 

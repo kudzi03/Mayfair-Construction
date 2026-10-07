@@ -79,3 +79,22 @@ export const AlertIcon = ({ size = 16, ...p }: IconProps) => (
   </svg>
 );
 
+
+export const PauseIcon = ({ size = 16, ...p }: IconProps) => (
+  <svg {...base(size, p)} fill="currentColor" stroke="none">
+    <rect x="6" y="5" width="4" height="14" rx="1" />
+    <rect x="14" y="5" width="4" height="14" rx="1" />
+  </svg>
+);
+
+export const PlayIcon = ({ size = 16, ...p }: IconProps) => (
+  <svg {...base(size, p)} fill="currentColor" stroke="none">
+    <path d="M7 4.5v15l13-7.5z" />
+  </svg>
+);
+
+export const ArrowLeft = ({ size = 18, ...p }: IconProps) => (
+  <svg {...base(size, p)}>
+    <path d="M20 12H5M11 6l-6 6 6 6" strokeLinecap="square" />
+  </svg>
+);

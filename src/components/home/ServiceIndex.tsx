@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "@/components/ui/Icon";
 import { SheetLabel } from "@/components/ui/SheetLabel";
 import { equipment, equipmentHref } from "@/content/equipment";
-import type { MediaKey } from "@/content/media";
+import { media, type MediaKey } from "@/content/media";
 import { pillars, servicesInPillar, servicePath } from "@/content/services";
 import { IndexPreview } from "./IndexPreview";
 
@@ -43,16 +43,11 @@ export function ServiceIndex() {
     >
       <div className="container-x">
         <SheetLabel name="Services" detail="Build · Install · Equip" />
-        <h2 id="services-title" className="display mt-6 max-w-[14ch] text-[clamp(3rem,1.6rem+6vw,8rem)]" data-reveal="up">
+        <h2 id="services-title" className="display mt-6 max-w-[14ch] text-[clamp(3.25rem,1.6rem+6.5vw,9rem)]" data-reveal="up">
           Every trade it takes.
         </h2>
-        <p className="statement mt-8 max-w-4xl text-muted" data-reveal="up" style={{ "--d": 120 } as React.CSSProperties}>
-          Mayfair Construction is a Gaborone-based contractor. We take on building and property work, install
-          specialist infrastructure, and hire out equipment — for homeowners, property managers, developers,
-          businesses and banks, across Botswana.
-        </p>
 
-        <IndexPreview keys={previewKeys}>
+        <IndexPreview images={Object.fromEntries(previewKeys.map((k) => [k, media[k]]))}>
           <div className="mt-16 grid gap-14 md:mt-24">
             {groups.map(({ pillar, rows }) => (
               <div key={pillar.id} className="grid gap-4 lg:grid-cols-12">

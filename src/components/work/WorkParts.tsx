@@ -11,7 +11,11 @@ import { WorkVideo } from "./WorkVideo";
 /** Every photo in these projects, in page order, for the viewer. */
 export const galleryItems = (list: Project[]): GalleryItem[] =>
   list.flatMap((p) =>
-    p.shots.map((s) => ({ id: s.media, src: media[s.media].src, alt: media[s.media].alt, caption: s.caption, project: p.title })),
+    p.shots.map((s) => {
+      // Only what the viewer needs: no blur placeholder riding along in the page payload.
+      const { src, width, height } = media[s.media].src;
+      return { id: s.media, src: { src, width, height }, alt: media[s.media].alt, caption: s.caption, project: p.title };
+    }),
   );
 
 function Shot({ shot, sizes, tag, label }: { shot: ProjectShot; sizes: string; tag?: string; label?: string }) {

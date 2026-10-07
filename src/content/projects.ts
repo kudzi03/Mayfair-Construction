@@ -45,9 +45,10 @@ export const projects: Project[] = [
     service: "atm-installation",
     title: "ATM installation",
     summary:
-      "Through-the-wall ATMs set into a face-brick wall, with the work area screened off while the opening was cut, and freestanding ATMs brought to site on a bakkie.",
+      "Openings broken through walls for through-the-wall ATMs, with the work area screened off, the units set in and still in their wrap, and freestanding ATMs brought to site on a bakkie.",
     shots: [
       { media: "atmOpening", caption: "Opening the wall" },
+      { media: "atmBreakthrough", caption: "Breaking through" },
       { media: "atmInstalled", caption: "Units in" },
       { media: "atmDelivery", caption: "Delivery" },
     ],
@@ -90,6 +91,13 @@ export const projects: Project[] = [
     title: "Aluminium shopfront",
     summary: "A glass shopfront in white aluminium frames, with glass doors and frosted panels, fitted to a commercial unit.",
     shots: [{ media: "shopfront", caption: "Shopfront" }],
+  },
+  {
+    id: "ac-cassette",
+    service: "air-conditioning",
+    title: "Ceiling cassette air conditioning",
+    summary: "A ceiling cassette unit hung in an open ceiling during a commercial refit, its pipework and cables run through the ceiling void.",
+    shots: [{ media: "acCassette", caption: "Cassette unit" }],
   },
   {
     id: "brick-partition",

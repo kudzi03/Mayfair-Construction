@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import type { Media } from "./media-types";
 
 import carpeting from "@/assets/images/carpeting.jpg";
 import electrical from "@/assets/images/electrical.jpg";
@@ -9,7 +10,8 @@ import officePartitioning from "@/assets/images/office-partitioning.jpg";
 import painting from "@/assets/images/painting.jpg";
 import palletJack from "@/assets/images/pallet-jack.jpg";
 import restoration from "@/assets/images/restoration.jpg";
-import sequenceOpen from "@/assets/images/sequence-open.jpg";
+import acCassette from "@/assets/images/work/ac-cassette.jpg";
+import atmBreakthrough from "@/assets/images/work/atm-breakthrough.jpg";
 import atmDelivery from "@/assets/images/work/atm-delivery.jpg";
 import atmInstalled from "@/assets/images/work/atm-installed.jpg";
 import atmOpening from "@/assets/images/work/atm-opening.jpg";
@@ -35,21 +37,8 @@ import roofScreed from "@/assets/images/work/roof-screed.jpg";
 import roofTorchPoster from "@/assets/images/work/roof-torch-poster.jpg";
 import shopfront from "@/assets/images/work/shopfront.jpg";
 
-export type Media = {
-  src: StaticImageData;
-  alt: string;
-  /**
-   * true = not Mayfair's own work (licensed stock or an illustration made for the demo).
-   * When Mayfair supplies photographs, replace the import and set this to false.
-   */
-  representative: boolean;
-  /** AI or drawn illustration rather than a photograph. */
-  illustration?: boolean;
-  /** url is omitted for in-house illustrations. */
-  credit: { source: string; url?: string };
-  /** CSS object-position for art direction. */
-  focus?: string;
-};
+export type { Media } from "./media-types";
+export { mediaLabel } from "./media-types";
 
 const pexels = (id: string, slug: string) => ({
   source: "Pexels (Pexels License)",
@@ -67,13 +56,6 @@ const own = { source: "Mayfair Construction — site photo" };
 const photo = (src: StaticImageData, alt: string, focus?: string): Media => ({ src, alt, representative: false, credit: own, focus });
 
 const registry = {
-  sequenceOpen: {
-    src: sequenceOpen,
-    alt: "Illustration: a refurbished commercial building at dusk, lights on, with an ATM in the wall and an electric car charging",
-    representative: true,
-    illustration: true,
-    credit: illustration,
-  },
   restoration: {
     src: restoration,
     alt: "Illustration: scaffolding against a commercial building’s end wall, where cracked render has been cut back to the blockwork and fresh render is going on",
@@ -155,6 +137,8 @@ const registry = {
     "Two Mayfair crew members in masks breaking an opening through a face-brick wall, the work area screened with green sheeting",
     "45% 40%",
   ),
+  atmBreakthrough: photo(atmBreakthrough, "Two Mayfair crew members in hard hats breaking an opening through a plastered interior wall", "40% 45%"),
+  acCassette: photo(acCassette, "A ceiling cassette air-conditioning unit hung in an open ceiling, with its pipework and cables running through the ceiling void", "30% 45%"),
   atmInstalled: photo(atmInstalled, "Two newly installed through-the-wall ATMs, still in protective wrap, with a caution sign in front", "50% 35%"),
   atmDelivery: photo(atmDelivery, "Two freestanding ATMs on pallets on the back of a bakkie outside a shopping centre", "50% 35%"),
   partitionBrick: photo(partitionBrick, "A new brick-walled room with a red door frame, built inside an open commercial floor", "50% 55%"),
@@ -173,7 +157,12 @@ const registry = {
 } satisfies Record<string, Media>;
 
 export type MediaKey = keyof typeof registry;
-export const media: Record<MediaKey, Media> = registry;
 
-/** Label for any image that is not Mayfair's own work. */
-export const mediaLabel = (m: Media) => (m.illustration ? "Illustration — not a Mayfair project" : "Representative image");
+/**
+ * The registry without each import's blur placeholder (never used: large images
+ * deliberately skip placeholder="blur"), so it doesn't ride along in every page payload.
+ */
+export const media = Object.fromEntries(
+  Object.entries(registry).map(([key, m]) => [key, { ...m, src: { src: m.src.src, width: m.src.width, height: m.src.height } }]),
+) as Record<MediaKey, Media>;
+

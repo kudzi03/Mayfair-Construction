@@ -9,7 +9,7 @@ import { ContactSection } from "@/components/contact/ContactSection";
 import { EquipmentCard } from "@/components/equipment/EquipmentCard";
 import { ScrollVar } from "@/components/motion/ScrollVar";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ArrowRight, WhatsAppIcon } from "@/components/ui/Icon";
+import { ArrowRight, PhoneIcon, WhatsAppIcon } from "@/components/ui/Icon";
 import { TrustSection } from "@/components/trust/TrustSection";
 import { SheetLabel } from "@/components/ui/SheetLabel";
 import { GalleryTrigger, WorkGallery } from "@/components/work/WorkLightbox";
@@ -21,6 +21,7 @@ import { media } from "@/content/media";
 import { projectsFor } from "@/content/projects";
 import { pillarById, serviceBySlug, servicePath, services, inSentence } from "@/content/services";
 import { pageMetadata } from "@/lib/metadata";
+import { channels } from "@/lib/contact";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
 export const dynamicParams = false;
@@ -54,6 +55,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
   const hero = media[service.media];
   const isHire = service.slug === "equipment-hire";
   const heroTail = service.heroTail ?? `in ${site.base.city} and across ${site.base.country}`;
+  const call = channels().call;
   const related = service.related.map((slug) => serviceBySlug(slug)!);
   const clients = service.clients.map(clientById);
   const n = (i: number) => String(i + 1).padStart(2, "0");
@@ -85,6 +87,11 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
         data-tone="dark"
         data-hero
       >
+        {framed && (
+          <div className="hero-backdrop" aria-hidden="true">
+            <Image src={hero.src} alt="" fill sizes="20vw" quality={60} className="object-cover" />
+          </div>
+        )}
         {!framed && (
           <>
             <div className="hero-media">
@@ -153,8 +160,8 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                 </h1>
                 <div className="hero-fade mt-8 max-w-xl" style={{ "--delay": "650ms" } as React.CSSProperties}>
                   <p className="lead text-bone">{service.summary}</p>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <a href="#quote" className="btn btn-primary">
+                  <div className="mt-6 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
+                    <a href="#quote" className="btn btn-primary col-span-2">
                       Request a quote <ArrowRight />
                     </a>
                     <ContactLink
@@ -164,6 +171,9 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                       className="btn btn-light"
                     >
                       <WhatsAppIcon /> WhatsApp
+                    </ContactLink>
+                    <ContactLink channel="call" source="service_hero" className="btn btn-light">
+                      <PhoneIcon size={16} /> {call.href ? call.display : "Call"}
                     </ContactLink>
                   </div>
                 </div>
@@ -195,7 +205,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
               ) : (
                 <figure className="hero-fade lg:col-span-5" style={{ "--delay": "300ms" } as React.CSSProperties}>
                   <div
-                    className="hero-photo relative overflow-hidden bg-graphite"
+                    className="hero-photo relative overflow-hidden rounded-[var(--radius)] bg-graphite"
                     style={{ "--w": hero.src.width, "--h": hero.src.height } as React.CSSProperties}
                   >
                     <Image
@@ -234,8 +244,8 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
               </h1>
               <div className="hero-fade lg:col-span-4" style={{ "--delay": "650ms" } as React.CSSProperties}>
                 <p className="lead text-bone">{service.summary}</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <a href="#quote" className="btn btn-primary">
+                <div className="mt-6 grid max-w-md grid-cols-2 gap-2.5">
+                  <a href="#quote" className="btn btn-primary col-span-2">
                     {isHire ? "Check availability" : "Request a quote"} <ArrowRight />
                   </a>
                   <ContactLink
@@ -245,6 +255,9 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
                     className="btn btn-light"
                   >
                     <WhatsAppIcon /> WhatsApp
+                  </ContactLink>
+                  <ContactLink channel="call" source="service_hero" className="btn btn-light">
+                    <PhoneIcon size={16} /> {call.href ? call.display : "Call"}
                   </ContactLink>
                 </div>
               </div>
@@ -423,7 +436,7 @@ export default async function ServicePage({ params }: PageProps<"/[service]">) {
               return (
                 <li key={r.slug}>
                   <Link href={servicePath(r.slug)} className="group block">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-graphite">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius)] bg-graphite">
                       <Image
                         src={m.src}
                         alt=""

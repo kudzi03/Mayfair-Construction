@@ -34,7 +34,7 @@ export default function CreditsPage() {
         <ul className="mt-14 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((m) => (
             <li key={m.credit.url ?? m.alt}>
-              <div className="relative aspect-[4/3] overflow-hidden bg-concrete">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius)] bg-concrete">
                 <Image src={m.src} alt="" fill sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 45vw, 92vw" quality={60} className="object-cover" />
               </div>
               <p className="mt-3 text-[0.9375rem] leading-snug">{m.alt}</p>

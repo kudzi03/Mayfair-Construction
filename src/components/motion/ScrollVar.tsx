@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, type ElementType, type ComponentPropsWithoutRef } from "react";
-import { clamp01, prefersReducedMotion, subscribeScroll } from "@/lib/scroll-loop";
+import { useMotion } from "@/lib/motion";
+import { clamp01, subscribeScroll } from "@/lib/scroll-loop";
 
 type Mode = "exit" | "through";
 
@@ -16,24 +17,24 @@ type Props<T extends ElementType> = {
 
 /**
  * Writes scroll progress to the `--p` custom property on its element.
- * CSS decides what moves; under reduced motion `--p` is never written.
+ * CSS decides what moves; with motion off `--p` is removed and CSS falls back to its resting value.
  */
 export function ScrollVar<T extends ElementType = "div">({ as, mode = "through", ...rest }: Props<T>) {
   const ref = useRef<HTMLElement>(null);
   const Tag = (as ?? "div") as ElementType;
+  const motion = useMotion();
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el) return;
+    if (!motion) {
+      el.style.removeProperty("--p");
+      return;
+    }
 
     let visible = false;
-    const io = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting), {
-      rootMargin: "10% 0px",
-    });
-    io.observe(el);
-
     let last = -1;
-    const unsubscribe = subscribeScroll(() => {
+    const update = () => {
       if (!visible && last !== -1) return;
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
@@ -46,13 +47,23 @@ export function ScrollVar<T extends ElementType = "div">({ as, mode = "through",
         el.style.setProperty("--p", String(rounded));
         last = rounded;
       }
-    });
+    };
+    // Re-measure on entering too: after a jump (an anchor link, a reload mid-page) no scroll event follows.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) update();
+      },
+      { rootMargin: "10% 0px" },
+    );
+    io.observe(el);
+    const unsubscribe = subscribeScroll(update);
 
     return () => {
       io.disconnect();
       unsubscribe();
     };
-  }, [mode]);
+  }, [mode, motion]);
 
   return <Tag ref={ref} {...rest} />;
 }

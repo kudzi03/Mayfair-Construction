@@ -57,7 +57,7 @@ export const site = {
   },
 
   description:
-    "Mayfair Construction is a Gaborone-based contractor for building restoration and renovation, roof waterproofing, painting, electrical work, carpeting, office partitioning, paving, joinery, glass doors, ATM and EV charger installation, and equipment hire — working across Botswana.",
+    "Mayfair Construction is a Gaborone-based contractor for building restoration and renovation, roof waterproofing, painting, electrical work, air conditioning, carpeting, office partitioning, paving, joinery, glass doors, ATM and EV charger installation, and equipment hire — working across Botswana.",
 
   /**
    * Google Business Profile alignment. The profile and the website must say
@@ -76,7 +76,7 @@ export const site = {
      * where, who for, how to ask. Paste into the profile as-is or edit both together.
      */
     profileDescription:
-      "Mayfair Construction is a contractor based in Gaborone, working across Botswana. We take on building restoration and renovation, flat-roof waterproofing, interior and exterior painting, electrical work, carpet fitting, office partitioning, paving repairs, lockers and joinery, and glass entrance doors with floor springs. We install ATMs for banks and financial institutions, and EV chargers for homes, businesses and developments. We also hire out forklifts, pallet jacks, concrete mixers and plate compactors. We work for homeowners, property managers, developers, businesses and banks. Send photos and a few details for a quote.",
+      "Mayfair Construction is a contractor based in Gaborone, working across Botswana. We take on building restoration and renovation, flat-roof waterproofing, interior and exterior painting, electrical work, carpet fitting, office partitioning, paving repairs, lockers and joinery, and glass entrance doors with floor springs. We install ATMs for banks and financial institutions, EV chargers for homes, businesses and developments, and air conditioning for offices, shops and homes. We also hire out forklifts, pallet jacks, concrete mixers and plate compactors. We work for homeowners, property managers, developers, businesses and banks. Send photos and a few details for a quote.",
   },
 
   contact: {

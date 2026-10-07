@@ -17,7 +17,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Can one contractor handle a whole refit?",
-    a: "Mayfair’s building services cover restoration, waterproofing, painting, electrical work, carpeting, office partitioning, joinery, entrance doors and paving, so a refit that needs several of them can go to one contractor instead of one per trade.",
+    a: "Mayfair’s building services cover restoration, waterproofing, painting, electrical work, air conditioning, carpeting, office partitioning, joinery, entrance doors and paving, so a refit that needs several of them can go to one contractor instead of one per trade.",
   },
   {
     q: "Does Mayfair waterproof roofs?",

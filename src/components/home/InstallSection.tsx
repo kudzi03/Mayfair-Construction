@@ -24,14 +24,20 @@ export function InstallSection() {
         pillar={pillar}
         titleId="install-title"
         count={`${items.length} services`}
-        intro="Specialist work, fitted on site. ATM installation, EV charging, entrance doors and built-in joinery sit alongside Mayfair’s building and electrical services — so the wall, the power and the finish can be one enquiry."
+        intro="Specialist work, fitted on site. ATM installation, EV charging, air conditioning, entrance doors and built-in joinery sit alongside Mayfair’s building and electrical services — so the wall, the power and the finish can be one enquiry."
       />
 
       <div className="mt-14 grid gap-px bg-white/10 md:mt-20 lg:grid-cols-2">
         {items.map((s, idx) => {
           const m = media[s.media];
+          // An odd panel out spans the full row, wide rather than square.
+          const wide = items.length % 2 === 1 && idx === items.length - 1;
           return (
-            <article key={s.slug} className="install-panel flex flex-col bg-ink" aria-labelledby={`install-${s.slug}`}>
+            <article
+              key={s.slug}
+              className={`install-panel flex flex-col bg-ink ${wide ? "lg:col-span-2 lg:grid lg:grid-cols-2" : ""}`}
+              aria-labelledby={`install-${s.slug}`}
+            >
               <div className="install-figure relative aspect-[4/3] overflow-hidden lg:aspect-square" data-reveal="fade">
                 <Image
                   src={m.src}
@@ -52,7 +58,7 @@ export function InstallSection() {
                 </div>
               </div>
 
-              <div className="flex flex-1 flex-col px-(--gutter) pt-8 pb-12 lg:px-10 lg:pb-14">
+              <div className={`flex flex-1 flex-col px-(--gutter) pt-8 pb-12 lg:px-10 lg:pb-14 ${wide ? "lg:justify-center lg:py-14" : ""}`}>
                 <p className="mono text-muted-dark">
                   For {s.clients.slice(0, 3).map((c) => clientById(c).name.toLowerCase()).join(" · ")}
                 </p>

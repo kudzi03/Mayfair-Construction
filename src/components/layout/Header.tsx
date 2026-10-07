@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { ContactLink } from "@/components/contact/ContactLink";
+import { MotionToggle } from "@/components/motion/MotionToggle";
 import { ArrowRight, CloseIcon, MenuIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/Icon";
 import { primaryNav } from "@/content/navigation";
 import { pillars, servicesInPillar, servicePath } from "@/content/services";
@@ -91,7 +92,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ContactLink channel="call" source="header" className="btn btn-sm btn-light hidden xl:inline-flex">
+            <ContactLink channel="call" source="header" className="btn btn-sm btn-outline hidden xl:inline-flex">
               <PhoneIcon size={16} />
               Call
             </ContactLink>
@@ -99,6 +100,7 @@ export function Header() {
               <span className="hidden sm:inline">Request a quote</span>
               <span className="sm:hidden">Quote</span>
             </Link>
+            <MotionToggle className="hidden lg:inline-flex" />
             <button
               ref={toggleRef}
               type="button"
@@ -118,7 +120,7 @@ export function Header() {
         <div
           id="mobile-menu"
           ref={menuRef}
-          className="mobile-menu"
+          className="mobile-menu on-dark"
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
@@ -182,6 +184,7 @@ export function Header() {
             <Link href={quoteHref} onClick={() => setOpen(false)} className="btn btn-primary col-span-2">
               Request a quote <ArrowRight />
             </Link>
+            <MotionToggle className="col-span-2 justify-center" />
           </div>
         </div>
       )}

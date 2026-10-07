@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { RepNote } from "@/components/ui/RepNote";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { media, type MediaKey } from "@/content/media";
+import type { Media } from "@/content/media-types";
 import { prefersReducedMotion } from "@/lib/scroll-loop";
 import { useMediaQuery } from "@/lib/use-media-query";
 
@@ -11,11 +11,11 @@ import { useMediaQuery } from "@/lib/use-media-query";
  * Wraps the service index. On fine pointers, a small image follows the cursor
  * and shows the row being hovered (`data-preview` on each row).
  */
-export function IndexPreview({ keys, children }: { keys: MediaKey[]; children: ReactNode }) {
+export function IndexPreview({ images, children }: { images: Record<string, Media>; children: ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const enabled = useMediaQuery("(hover: hover) and (pointer: fine) and (min-width: 64rem)");
-  const [active, setActive] = useState<MediaKey | null>(null);
+  const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -41,7 +41,7 @@ export function IndexPreview({ keys, children }: { keys: MediaKey[]; children: R
         primed = true;
       }
       const row = (e.target as HTMLElement).closest<HTMLElement>("[data-preview]");
-      setActive((row?.dataset.preview as MediaKey) ?? null);
+      setActive(row?.dataset.preview ?? null);
       if (!frame) frame = requestAnimationFrame(loop);
     };
     const leave = () => {
@@ -63,10 +63,10 @@ export function IndexPreview({ keys, children }: { keys: MediaKey[]; children: R
       {children}
       {enabled && (
         <div ref={boxRef} className="index-preview" data-active={active !== null} aria-hidden="true">
-          {keys.map((k) => (
+          {Object.entries(images).map(([k, m]) => (
             <div key={k} className="pv" data-on={active === k}>
-              <Image src={media[k].src} alt="" fill sizes="272px" quality={60} className="object-cover" />
-              <RepNote media={media[k]} className="absolute right-2 bottom-2 z-10" />
+              <Image src={m.src} alt="" fill sizes="272px" quality={60} className="object-cover" />
+              <RepNote media={m} className="absolute right-2 bottom-2 z-10" />
             </div>
           ))}
         </div>

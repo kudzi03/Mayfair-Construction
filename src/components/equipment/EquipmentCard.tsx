@@ -27,7 +27,7 @@ export function EquipmentCard({
   return (
     <article
       id={item.id}
-      className="eq-card group flex h-full scroll-mt-28 flex-col bg-paper ring-1 ring-ink/10"
+      className="eq-card group flex h-full scroll-mt-28 flex-col overflow-hidden rounded-[var(--radius)] bg-paper ring-1 ring-ink/10"
       aria-labelledby={`eq-${item.id}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-[#9c9184]">

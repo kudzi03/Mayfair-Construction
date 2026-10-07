@@ -33,12 +33,12 @@ The profile drives Maps and the local pack; the website backs it up. Both must s
 
 1. Sign in at business.google.com with a Google account **Mayfair owns** (not a staff member's personal account). Add a second owner.
 2. Business name: **Mayfair Construction** — exactly that, no keywords added (keyword-stuffed names get suspended).
-3. Primary category: **General contractor**. Additional categories — pick only ones Mayfair truly offers, e.g. *Painter*, *Electrician*, *Roofing contractor* (waterproofing), *Equipment rental agency*, *Paving contractor*, *Carpet installer*. Check that each exists in GBP's list; don't add more than are justified.
+3. Primary category: **General contractor**. Additional categories — pick only ones Mayfair truly offers, e.g. *Painter*, *Electrician*, *Air conditioning contractor*, *Roofing contractor* (waterproofing), *Equipment rental agency*, *Paving contractor*, *Carpet installer*. Check that each exists in GBP's list; don't add more than are justified.
 4. Location: if customers do not visit an office or yard, choose **no** for "a location customers can visit" and set a **service area**: Gaborone plus the districts/towns Mayfair actually serves. If there is a visitable yard, enter the exact street address — and put the same address in `site.contact.streetAddress`.
 5. Phone: the same number as `site.contact.phone`. Website: `https://<domain>/?utm_source=google&utm_medium=organic&utm_campaign=gbp` (the tag lets the CRM and analytics show GBP enquiries separately).
 6. Hours: real hours only.
 7. Description: paste `site.business.profileDescription` from `src/config/site.ts` (750-character limit; already written to match the site).
-8. Services: add each service with the same names as the site (Restoration, Waterproofing, Painting, Electrical, Carpeting, Office Partitioning, Paving, ATM Installation, EV Charging Systems, Doors & Floor Springs, Joinery, Equipment Hire).
+8. Services: add each service with the same names as the site (Restoration, Waterproofing, Painting, Electrical, Carpeting, Office Partitioning, Paving, ATM Installation, EV Charging Systems, Air Conditioning, Doors & Floor Springs, Joinery, Equipment Hire).
 9. Photos: logo, a cover photo, and Mayfair's own job photos (the roof, paving, door and locker photos already on the site qualify). Never upload the AI illustrations.
 10. Verify (video, phone or postcard — Google chooses). Do not change name/address/category while verification is pending.
 11. After verification: put the public profile URL in `site.business.googleBusinessProfileUrl` (adds it to `sameAs`).
@@ -75,7 +75,17 @@ Directories that already rank for Gaborone searches (worth a consistent free lis
 - **Week 4:** in Search Console, check Pages (anything not indexed, and why) and Performance (which queries show impressions). Adjust page copy towards the wording people actually use; don't add pages without new, useful information.
 - Ongoing: reply to every enquiry fast (speed decides most local jobs); post a GBP update with photos after each finished job.
 
-## 6. Content worth adding later (only with real material)
+## 6. Hero video
+
+The home page opens on a reel of Mayfair's photos. A real walk-through video of a finished job is the single biggest upgrade to it — the reference site the design is based on opens exactly that way.
+
+- **What:** a slow, steady walk through one finished job — into a refitted office, along a new shopfront, around a finished house or a newly waterproofed roof. 20–40 seconds, no cuts needed.
+- **How:** phone held **landscape**, 4K or 1080p at 30 fps, daylight, walking slowly with the phone at chest height (a gimbal helps but is not required). Optionally a second, shorter clip filmed **upright** for phones.
+- **Keep out of frame:** faces of members of the public, number plates, client logos and signage, screens, anything security-related at bank sites.
+- **Send it as a file**, not through WhatsApp's video compression: Google Drive, WeTransfer or WhatsApp's "Document" option.
+- It is then trimmed to a seamless loop, encoded small (around 1–2 MB for phones), shown after the page has loaded, and stopped by the Motion switch like the reel.
+
+## 7. Content worth adding later (only with real material)
 
 Each service page already answers "what should I send for a quote". The next useful additions, once Mayfair can supply the facts:
 
@@ -86,6 +96,6 @@ Each service page already answers "what should I send for a quote". The next use
 
 No blog until there is something real to say each month.
 
-## 7. Claims deliberately not made
+## 8. Claims deliberately not made
 
 No years in business, project counts, ratings, reviews, prices, guarantees, response times, licences or named clients appear anywhere on the site or in structured data. Add them only when Mayfair confirms them.

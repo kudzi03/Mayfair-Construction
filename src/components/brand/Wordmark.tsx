@@ -21,13 +21,13 @@ export function Wordmark({ className = "" }: { className?: string }) {
 
   return (
     <span className={`inline-flex items-center gap-2.5 leading-none ${className}`}>
-      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" className="flex-none">
-        <rect x="0.5" y="0.5" width="29" height="29" fill="none" stroke="currentColor" strokeOpacity="0.5" />
-        <path d="M6 23V8l9 9 9-9v15" fill="none" stroke="var(--color-ochre)" strokeWidth="2.4" strokeLinejoin="miter" />
+      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" className="flex-none">
+        <rect width="32" height="32" rx="8" fill="var(--color-ochre)" />
+        <path d="M8.5 22.5v-13l7.5 7.5 7.5-7.5v13" fill="none" stroke="var(--color-ink)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      <span className="flex flex-col">
-        <span className="display text-[1.45rem] tracking-[0.02em]">Mayfair</span>{" "}
-        <span className="font-mono text-[0.55rem] tracking-[0.32em] uppercase opacity-80">Construction</span>
+      <span className="flex flex-col gap-0.5">
+        <span className="display text-[1.5rem] leading-[0.85]">Mayfair</span>{" "}
+        <span className="text-[0.55rem] font-semibold tracking-[0.3em] uppercase opacity-70">Construction</span>
       </span>
     </span>
   );

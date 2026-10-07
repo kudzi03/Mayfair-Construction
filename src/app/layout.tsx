@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import { site } from "@/config/site";
 import { homeDescription, homeTitle } from "@/lib/metadata";
+import { motionBootScript } from "@/lib/motion-boot";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -11,11 +12,13 @@ const archivo = Archivo({
   display: "swap",
 });
 
+// Only the CRM and the coverage map's figures use it, so it is not preloaded on every page.
 const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-plex-mono",
   display: "swap",
+  preload: false,
 });
 
 const { google, bing } = site.verification;
@@ -51,7 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-BW" className={`${archivo.variable} ${plexMono.variable}`} suppressHydrationWarning>
       <head>
         {/* Opt into motion styles only when JS runs, so content never hides without it. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add('js');${motionBootScript}` }} />
       </head>
       <body>{children}</body>
     </html>

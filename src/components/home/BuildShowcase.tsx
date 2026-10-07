@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { QuoteLink } from "@/components/contact/QuoteLink";
 import { ArrowRight } from "@/components/ui/Icon";
-import { media } from "@/content/media";
+import type { Media } from "@/content/media-types";
 import { inSentence, servicePath, type Service } from "@/content/services";
 import { subscribeScroll } from "@/lib/scroll-loop";
 
@@ -14,7 +14,7 @@ import { subscribeScroll } from "@/lib/scroll-loop";
  * Desktop: a sticky image frame on the left wipes between services as their
  * text blocks scroll past on the right. Mobile: each block carries its own image.
  */
-export function BuildShowcase({ services }: { services: Service[] }) {
+export function BuildShowcase({ services, images }: { services: Service[]; images: Record<string, Media> }) {
   const [active, setActive] = useState(0);
   const [near, setNear] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -49,9 +49,9 @@ export function BuildShowcase({ services }: { services: Service[] }) {
     <div ref={rootRef} className="container-x mt-14 grid grid-cols-1 gap-x-16 lg:mt-20 lg:grid-cols-12">
       <div className="hidden lg:col-span-6 lg:block">
         <div className="sticky top-[calc(var(--header-h)+2rem)]">
-          <div className="build-frame relative h-[calc(100svh-var(--header-h)-6rem)] max-h-[54rem] overflow-hidden bg-concrete text-ink">
+          <div className="build-frame relative h-[calc(100svh-var(--header-h)-6rem)] max-h-[54rem] overflow-hidden rounded-[var(--radius-lg)] bg-concrete text-ink">
             {services.map((s, i) => {
-              const m = media[s.media];
+              const m = images[s.media];
               return (
                 <div key={s.slug} className="bf-img" data-on={i === active} data-was={i < active}>
                   <Image
@@ -72,7 +72,7 @@ export function BuildShowcase({ services }: { services: Service[] }) {
               <p className="mono" aria-live="off">
                 01.{active + 1} — {current.name}
               </p>
-              <RepNote media={media[current.media]} />
+              <RepNote media={images[current.media]} />
             </div>
           </div>
           <ol className="mt-4 flex gap-1.5" aria-hidden="true">
@@ -85,7 +85,7 @@ export function BuildShowcase({ services }: { services: Service[] }) {
 
       <div className="lg:col-span-6">
         {services.map((s, i) => {
-          const m = media[s.media];
+          const m = images[s.media];
           return (
             <article
               key={s.slug}
@@ -97,7 +97,7 @@ export function BuildShowcase({ services }: { services: Service[] }) {
               className="build-block flex flex-col justify-center border-t border-ink/15 py-12 lg:min-h-[80svh] lg:py-16"
               aria-labelledby={`build-${s.slug}`}
             >
-              <div className="relative mb-8 aspect-[4/3] overflow-hidden bg-concrete lg:hidden">
+              <div className="relative mb-8 aspect-[4/3] overflow-hidden rounded-[var(--radius)] bg-concrete lg:hidden">
                 <Image
                   src={m.src}
                   alt={m.alt}

@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { prefersReducedMotion } from "@/lib/scroll-loop";
+import { useMotion } from "@/lib/motion";
 
 /**
- * Short muted site clip. Plays only while on screen; never autoplays for
- * reduced-motion users. The toggle satisfies "pause moving content".
+ * Short muted site clip. Plays only while on screen, and never while motion
+ * is off (system setting or the header switch). The toggle satisfies "pause moving content".
  */
 export function WorkVideo({ mp4, webm, poster, label }: { mp4: string; webm: string; poster: string; label: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
+  const motion = useMotion();
   // The poster attribute downloads eagerly, so attach it only as the clip nears the screen.
   const [near, setNear] = useState(false);
 
@@ -31,7 +32,11 @@ export function WorkVideo({ mp4, webm, poster, label }: { mp4: string; webm: str
 
   useEffect(() => {
     const v = ref.current;
-    if (!v || prefersReducedMotion()) return;
+    if (!v) return;
+    if (!motion) {
+      v.pause();
+      return;
+    }
     v.muted = true;
     const io = new IntersectionObserver(
       ([e]) => {
@@ -42,7 +47,7 @@ export function WorkVideo({ mp4, webm, poster, label }: { mp4: string; webm: str
     );
     io.observe(v);
     return () => io.disconnect();
-  }, [userPaused]);
+  }, [userPaused, motion]);
 
   const toggle = () => {
     const v = ref.current;

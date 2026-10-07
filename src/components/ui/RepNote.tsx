@@ -1,4 +1,4 @@
-import { mediaLabel, type Media } from "@/content/media";
+import { mediaLabel, type Media } from "@/content/media-types";
 
 /**
  * Small label on any image that is not Mayfair's own work. Driven by the

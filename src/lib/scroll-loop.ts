@@ -37,7 +37,8 @@ export function subscribeScroll(fn: Subscriber) {
   };
 }
 
+/** True when motion is off: the visitor's system setting, or the header switch (see lib/motion). */
 export const prefersReducedMotion = () =>
-  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  typeof document !== "undefined" && document.documentElement.getAttribute("data-motion") === "off";
 
 export const clamp01 = (n: number) => Math.min(1, Math.max(0, n));

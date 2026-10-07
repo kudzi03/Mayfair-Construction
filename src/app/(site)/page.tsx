@@ -5,12 +5,15 @@ import { ClientsSection } from "@/components/home/ClientsSection";
 import { CoverageSection } from "@/components/home/CoverageSection";
 import { EquipSection } from "@/components/home/EquipSection";
 import { FaqSection } from "@/components/home/FaqSection";
-import { HeroSequence } from "@/components/home/HeroSequence";
+import { FromSite } from "@/components/home/FromSite";
+import { HomeHero } from "@/components/home/HomeHero";
 import { InstallSection } from "@/components/home/InstallSection";
 import { PillarHeader } from "@/components/home/PillarHeader";
 import { ServiceIndex } from "@/components/home/ServiceIndex";
+import { SiteMarquee } from "@/components/home/SiteMarquee";
 import { TrustSection } from "@/components/trust/TrustSection";
 import { WorkSection } from "@/components/home/WorkSection";
+import { media } from "@/content/media";
 import { pillarById, servicesInPillar } from "@/content/services";
 import { homeDescription, homeTitle, pageMetadata } from "@/lib/metadata";
 
@@ -21,7 +24,8 @@ export default function HomePage() {
 
   return (
     <>
-      <HeroSequence />
+      <HomeHero />
+      <FromSite />
       <ServiceIndex />
 
       <section
@@ -37,11 +41,12 @@ export default function HomePage() {
           count={`${build.length} services`}
           intro="The work that keeps homes, offices and commercial property in use — repaired, waterproofed, repainted, rewired, re-carpeted, re-planned and re-paved."
         />
-        <BuildShowcase services={build} />
+        <BuildShowcase services={build} images={Object.fromEntries(build.map((s) => [s.media, media[s.media]]))} />
       </section>
 
       <InstallSection />
       <EquipSection />
+      <SiteMarquee />
       <WorkSection />
       <TrustSection />
       <ClientsSection />
